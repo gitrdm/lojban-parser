@@ -6,7 +6,7 @@
 
 # First, comments are stripped and includes made to happen.
 # Then "names1.awk" generates code for the rules proper.
-cpp -P -Iinclude grammar.y | awk -f names1.awk >names1.tmp
+cpp -P -Iinclude grammar/grammar.y | awk -f names1.awk >names1.tmp
 
 # Next, include/grammar.h (built by yacc/bison) is processed into code for the lexer tokens.
 # The two are merged.

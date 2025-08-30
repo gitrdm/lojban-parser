@@ -81,5 +81,6 @@ echo >version.h "#define VERSION \"$1\""
 
 # Finally, merge gprefix.y and gbody.y, including gmiddle.y, which is
 # some fixed rules for topmost object, and clean up.
-cat gprefix.y gmiddle.y gbody.y >grammar.y
+mkdir -p grammar
+cat gprefix.y gmiddle.y gbody.y >grammar/grammar.y
 #rm gprefix.y gbody.y gbody.tmp
