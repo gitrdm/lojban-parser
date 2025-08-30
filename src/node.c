@@ -260,6 +260,7 @@ static void print_help(void) {
 			"  -p           Prolog-style output\n"
 			"  -y           YAML-like output\n"
 			"  -c           Generate cmavo table and exit\n"
+			"  --verbose[=N] Enable verbose debug output (maps to -d flags); N=1 (default), 2 (more)\n"
 			"  -h, --help   Show this help and exit\n"
 			"  --version    Show version and exit\n\n"
 			"If [file] is provided, input is read from that file; otherwise stdin is used.\n");
@@ -312,6 +313,17 @@ void setflags(char **argv) {
 				case '*': D_valsi = D_cpd_lex = D_cpd_reduce =
 						D_lex = D_reduce = D_elidable = 1; break;
 				}
+		else if (strncmp(*argv, "--verbose", 9) == 0) {
+			int level = 1;
+			char *eq = strchr(*argv, '=');
+			if (eq) {
+				int v = atoi(eq + 1);
+				if (v >= 1) level = v;
+			}
+			/* level 1: show lex and reduce in both compounder and parser */
+			D_lex = 1; D_reduce = 1; D_cpd_lex = 1; D_cpd_reduce = 1;
+			if (level >= 2) { D_valsi = 1; D_elidable = 1; }
+		}
 		else if (strcmp(*argv, "-h") == 0 || strcmp(*argv, "--help") == 0 || strcmp(*argv, "-help") == 0) {
 			copyright();
 			print_help();

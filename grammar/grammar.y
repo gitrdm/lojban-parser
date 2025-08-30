@@ -366,8 +366,7 @@ the 900 series rules are found in the lexer.  */
 %start toplevel
 
 %{
-# include "token.h"
-# include "node.h"
+# include "lojban.h"
 %}
 
 %%

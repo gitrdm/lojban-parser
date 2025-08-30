@@ -116,17 +116,19 @@ tail_recursion:
 		}
 	else if (tok->text) {
 		char *ptext = NULL;
-		int tlen = strlen(tok->text);
-		need(strlen(prule) + tlen + 2, stream);
-		ptext = newstring(tlen + 1);
+		size_t tlen = strlen(tok->text);
+		size_t rlen = prule ? strlen(prule) : 0;
+		need((int)(rlen + tlen + 2), stream);
+		ptext = newstring((int)tlen + 1);
 		memcheck(ptext, "text");
-		strcpy(ptext, tok->text);
+		memcpy(ptext, tok->text, tlen + 1);
 		prologize(ptext);
 		downcase(ptext);
 		fprintf(stream, "%s(%s)", prule, ptext);
 		}
 	else if (!tok->downleft) {
-		need(strlen(prule) + 2, stream);
+		size_t rlen = prule ? strlen(prule) : 0;
+		need((int)(rlen + 2), stream);
 		fprintf(stream, "%s()", prule);
 		}
 	else if (!singlemode && !tok->downleft->right) {
@@ -134,7 +136,8 @@ tail_recursion:
 		goto tail_recursion;
 		}
 	else {
-		need(strlen(prule), stream);
+		size_t rlen = prule ? strlen(prule) : 0;
+		need((int)rlen, stream);
 		fprintf(stream, "%s", prule);
 		for (p = tok->downleft; p; p = p->right) {
 			need(1, stream);

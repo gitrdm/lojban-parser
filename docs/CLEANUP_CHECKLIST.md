@@ -1,108 +1,102 @@
 # Lojban Parser: Pre-GLR/Earley Cleanup Checklist
 
-Purpose: stabilize and modernize the codebase with low-risk changes before experimenting with GLR or Earley. Perform all work on a branch to preserve the current working implementation.
+Purpose: stabilize and modernize the codebase with low-risk changes before experimenting with GLR or Earley. Do this work on a branch to preserve the current working implementation.
+
+## Snapshot (current status)
+
+- [x] Working branch created: `glr-prep`
+- [x] Headers moved to `include/`; sources moved to `src/`
+- [x] Build green; smoke tests pass (`make test`)
+- [x] `--help` and `--version` implemented
+- [x] Prolog/YAML output segfault fixed by copying into writable buffers
+- [x] Added `make regen` (mkgramy + bison/yacc + mknames)
+- [x] Generators read/write: `src/grammar.c`, `include/grammar.h`, `rulename.i`
+- [x] `mknames` consumes `include/grammar.h` (no root overwrite)
+- [x] Added `make ci` (clean → regen → build → test)
+- [x] Grammar assets moved to `grammar/`; obsolete root grammar files removed
 
 ## Branch strategy
 
-- [ ] Create a prep branch from master
-  - Suggested: `git checkout -b glr-prep` (or `earley-prep`)
-- [ ] Keep changes small and incremental; merge via PRs
-- [ ] Tag/baseline master before starting (e.g., `v3-prep-baseline`)
+- [x] Create prep branch from main
+- [x] Keep changes small and incremental; commit frequently
+- [ ] Tag/baseline main before merging (e.g., `v3-prep-baseline`)
 
 ## Safety: baseline behavior and tests
 
-- [ ] Establish a baseline corpus (e.g., `openwm.txt`, plus any other texts)
-- [ ] Add/extend smoke tests that exercise all output modes
-  - `make test` already runs default, `-p`, `-t`, `-y` on `openwm.txt`
-- [ ] Commit expected snippets for sanity checks (grep-based or golden files)
-- [ ] Add an AddressSanitizer run to catch memory issues
-  - `make asan` then run the same smoke test
-- [ ] Define acceptance criteria: “no crashes; key substrings present; identical output for baseline inputs”
+- [x] Establish baseline corpus (e.g., `openwm.txt`)
+- [x] Smoke tests exercise default, `-p`, `-t`, `-y` (`make test`)
+- [ ] Commit golden snippets or substrings to detect regressions
+- [x] AddressSanitizer target available (`make asan`)
+- [ ] Define acceptance criteria for each mode (no crash; key substrings; stable tree shape)
 
 ## Build system hardening
 
-- [ ] Ensure Makefile recompiles when any source changes (already uses SOURCES)
-- [ ] Add/confirm common flags: `-std=c99 -g -O0 -Wall -Wextra`
-- [ ] Optional stricter flags (gate behind `STRICT=1`): `-Wshadow -Wconversion -Wpointer-arith -Wformat=2 -Werror`
-- [ ] Keep dedicated sanitizer targets:
-  - AddressSanitizer: `-fsanitize=address -fno-omit-frame-pointer`
-  - UBSan (optional): `-fsanitize=undefined`
+- [x] Ensure Makefile rebuilds when sources change
+- [x] Default flags: `-g -O0 -Wall -Wextra` (plus include paths)
+- [x] Optional strict flags (opt-in via `STRICT=1`): `-Wpedantic -Wshadow -Wconversion -Wpointer-arith -Wformat=2`
+- [x] C standard selection via `STD` (default `c11`; can use `c17`)
+- [x] Sanitizers: AddressSanitizer (`make asan`) and UBSan (`make ubsan`)
+- [x] GCC analyzer target (`make analyze`) runs `-fanalyzer` when GCC 10+ is present
 
 ## Generated vs source separation
 
-- [ ] Treat `grammar.y` as the source of truth
-- [ ] Add a `make regen` target to regenerate `grammar.c/h` via modern bison
-- [ ] Avoid direct edits to generated files; if committed, clearly mark and keep in sync
-- [ ] Document bison/flex versions required
+- [x] Treat `grammar.y` as source of truth
+- [x] `make regen` regenerates `src/grammar.c` and `include/grammar.h`
+- [x] `mknames` rebuilds `rulename.i` from `grammar.y` + `include/grammar.h`
+- [x] Avoid direct edits to generated files; process documented in README
+- [x] Move grammar assets to `grammar/`
+- [ ] Consider moving generated outputs to `build/` (e.g., `build/src/grammar.c`, `build/include/grammar.h`) or `src/generated/`
 
 ## Headers and interfaces
 
-- [ ] Ensure every header has include guards (token.h, grammar.h done)
-- [ ] Centralize prototypes in headers (e.g., `int yylex(void);`) and remove ad‑hoc duplicates
-- [ ] Align function signatures between headers and implementations (e.g., `yyerror(const char*)`)
-- [ ] Prefer prototype-style definitions over K&R as files are touched
+- [x] Include guards present (token.h, grammar.h)
+- [x] Central prototypes in `include/lojban.h` (e.g., `yylex`, `yyerror`)
+- [x] Align signatures (e.g., `yyerror(const char*)`)
+- [x] Prefer prototype-style definitions over K&R where touched
 
 ## Undefined behavior and memory safety
 
-- [ ] Never mutate string literals or library‑owned memory
-  - rprint/prologize now copy to writable buffers (keep pattern project‑wide)
-- [ ] When using `<ctype.h>`, cast to `unsigned char` before `isalnum/tolower/...`
-- [ ] Ensure all non‑void functions return a value (fixed in `filter.c`)
-- [ ] Audit static buffer allocators (`newstring`) for bounds and lifetime
-  - [ ] Consider adding assertions/logs for unusually large strings
-- [ ] Prefer explicit sizes (`snprintf`, `strnlen`) where applicable
-- [ ] Run `make asan` + smoke tests; fix any reported issues
+- [x] Don’t mutate string literals or shared buffers (fixed in rprint/prologize)
+- [x] Cast to `unsigned char` before `ctype` calls
+- [x] Ensure non-void functions return a value (e.g., `filter.c`)
+- [x] Audit `newstring`/stringspace growth and add bounds/asserts (overflow guards, quantum-rounded allocations, counter clamp)
+- [x] Prefer size-aware APIs where applicable (`snprintf`, `strnlen`)
+	- Replaced unsafe copies/appends with bounded ops:
+		- `getword.c`: `strcpy` -> `snprintf` with remaining buffer calc
+		- `lex.c`/`print.c`/`termin.c`: `strcpy`/`strncpy` -> length-checked `memcpy`
+	- Left `grammar.c` as-is (generated); changes would be clobbered by regen
+- [x] Run ASan + smoke tests during changes
 
 ## Logging and diagnostics
 
-- [ ] Keep `-d` flags but document them in `README`
-- [ ] Add a `--help` (done) and `--version` (done)
-- [ ] Optionally add a `--verbose` level that maps to existing debug flags
+- [x] Document debug flags in README
+- [x] `--help` and `--version`
+- [x] `--verbose[=N]` flag maps to `-d*` presets (N=1 default; N>=2 more)
+	- Usage: `./parser --verbose openwm.txt` or `./parser --verbose=2 -p file`
 
 ## Documentation
-## Branch strategy
-- [ ] Update `README` with:
-## Safety: baseline behavior and tests
-  - build/asan/test instructions
-## Build system hardening (best‑practice defaults)
 
-- [ ] Ensure Makefile recompiles when any source changes (already uses SOURCES)
-- [ ] Use a modern C standard for portability
-  - Best default: `-std=c17` (aka c11 with defect fixes); fallback: `-std=c11`
-- [ ] Recommended debug/dev flags by default
-  - `-g -O0 -Wall -Wextra -Wpedantic -Wstrict-prototypes -Wold-style-definition`
-  - Add gradually (optional but good): `-Wshadow -Wconversion -Wdouble-promotion -Wformat=2 -Wnull-dereference`
-  - Tip: keep `-Werror` only in CI to avoid blocking local work
-- [ ] Dedicated sanitizer targets (enable one at a time during debugging)
-  - AddressSanitizer: `-fsanitize=address -fno-omit-frame-pointer`
-  - UndefinedBehaviorSanitizer: `-fsanitize=undefined`
-  - LeakSanitizer (Clang): `-fsanitize=leak` (often included in ASan)
-  - ThreadSanitizer (for threaded code, not needed here): `-fsanitize=thread`
-- [ ] Optional GCC analyzer target: add a `make analyze` with `-fanalyzer` (GCC 10+)
-- [ ] Keep build reproducible: avoid wildcard linking order issues; use `$(SOURCES)` and explicit `$@ $^`
+- [x] README updated with src/include layout and regen workflow
+- [x] Add contributor notes (flow: regen → build → test; where to put files)
+- [x] Document toolchain expectations (bison/yacc, awk, cpp) in README (Troubleshooting)
+- [x] Document Makefile knobs in README (STD, STRICT, ubsan, analyze, ci)
 
-Beginner tip: start with the first line of warnings, fix only what you touch, and enable stricter flags behind an opt‑in (e.g., `STRICT=1`).
-## Pre‑GLR/Earley acceptance tests
-## Generated vs source separation (best practice)
-## Headers and interfaces (best practice)
-- [ ] Document performance baseline (runtime, memory on your machine)
-## Undefined behavior and memory safety (best practice)
-## GLR/Earley migration plan (next branch after prep)
-## Logging and diagnostics (best practice)
-- [ ] Branch from `glr-prep` to `glr-migration`
-## Documentation (best practice)
-  - [ ] Add `%glr-parser` to `grammar.y`, regenerate
-## CI (optional but recommended, best practice)
-  - [ ] Compare outputs against baselines; keep differences reviewed and intentional
-## Pre‑GLR/Earley acceptance tests
-  - [ ] Port grammar; reuse tokenizer
-## GLR/Earley migration plan (next branch after prep)
-  - [ ] Validate parity on corpus; measure performance
+## CI (recommended)
+
+- [ ] Add CI workflow invoking `make ci`
+- [ ] Store and compare golden outputs (or substrings) for baseline corpus
+
+## GLR/Earley migration (next branch after prep)
+
+- [ ] Branch from `glr-prep` (e.g., `glr-migration`)
+- [ ] Try `%glr-parser` with current grammar; fix conflicts/reduce actions
+- [ ] Validate parity on corpus; measure performance
+- [ ] If switching to Earley/Marpa/PEG, keep tokenizer; port grammar; measure
+
 ## Rollback and safety
-## Rollback and safety
-## Quick commands (reference)
-- [ ] Keep each change atomic; re-run tests between steps
-- [ ] If a change breaks baselines, revert or gate it behind a flag
+
+- [x] Keep each change atomic; re-run tests between steps
+- [ ] If a change breaks baselines, revert or gate behind a flag
 
 ## Quick commands (reference)
 
@@ -110,71 +104,45 @@ Beginner tip: start with the first line of warnings, fix only what you touch, an
 # create prep branch
 git checkout -b glr-prep
 
-# build, run tests
+# build and test
 make && make test
 
 # address sanitizer run
 make clean && make asan && ./tests/smoke.sh
 
-# (optional) strict warnings
-make clean && STRICT=1 make CFLAGS="-std=c99 -g -O0 -Wall -Wextra -Wshadow -Wconversion -Wpointer-arith -Wformat=2 -Werror"
+# ubsan run
+make clean && make ubsan && ./tests/smoke.sh
+
+# full local CI flow
+make ci
+
+# (optional) strict warnings (example)
+make clean && make STRICT=1 STD=c11
+
+# (optional) static analyzer (GCC 10+)
+make analyze
 ```
 
-## Project structure (best practice)
+## Project structure (target)
 
-Recommended layout for clarity, tooling, and safe builds:
+Current:
 
 ```
-root/
-  Makefile  README  COPYING  license
-  docs/            # documentation
-  include/         # public headers (lojban.h, token.h, node.h, version.h)
-  grammar/         # grammar sources (grammar.y)
-  src/             # C sources (absorb.c, lex.c, print.c, ...)
-    generated/     # generated sources (grammar.c) if kept
-    lexer/         # optional: group lexrule*.c
-  tests/           # test scripts (smoke.sh)
-  samples/         # sample inputs (openwm.txt, ...)
-  tools/           # helper scripts (doyacc, mkgramy, mknames, *.awk)
-  build/
-    obj/           # object files
-    bin/           # built binaries (parser)
+include/     # public headers (lojban.h, token.h, node.h, version.h, grammar.h)
+src/         # all C sources (moved from root)
+docs/        # documentation and checklists
+tests/       # smoke tests
+grammar/     # grammar assets (grammar/grammar.y generated by mkgramy)
+rulename.i   # generated from grammar/grammar.y + include/grammar.h by mknames (root for now)
+selmao.i     # generated include consumed by src/selmao.c (root for now)
 ```
 
-Migration tasks (do incrementally):
-- [ ] Create directories: `include/`, `src/`, `grammar/`, `src/generated/`, `tests/`, `docs/`, `samples/`, `tools/`, `build/obj`, `build/bin`
-- [ ] Move headers to `include/` and add `-Iinclude` to compile flags
-- [ ] Move `.c` sources to `src/` (optionally `src/lexer/` for `lexrule*.c`)
-- [ ] Move `grammar.y` to `grammar/`; configure bison outputs to `src/generated/` and `include/`
-- [ ] Move input samples (e.g., `openwm.txt`) to `samples/`
-- [ ] Move helper scripts (`doyacc`, `mkgramy`, `mknames`, `*.awk`) to `tools/`
-- [ ] Update `Makefile` variables and rules; verify `make`, `make test`, and `make asan`
-- [ ] Decide on generated files policy: exclude from VCS or commit regen’d outputs with pinned tool versions
+Future (optional):
 
-Makefile hints (sketch):
-
-```make
-SRCDIR := src
-INCDIR := include
-OBJDIR := build/obj
-BINDIR := build/bin
-GENDIR := $(SRCDIR)/generated
-
-CC ?= cc
-CFLAGS ?= -std=c17 -g -O0 -Wall -Wextra -Wpedantic -I$(INCDIR)
-
-SOURCES := $(wildcard $(SRCDIR)/**/*.c) $(wildcard $(SRCDIR)/*.c)
-OBJECTS := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
-
-$(BINDIR)/parser: $(OBJECTS)
-	@mkdir -p $(BINDIR)
-	$(CC) $(CFLAGS) -o $@ $^
-
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) -c $< -o $@
-
-.PHONY: clean
-clean:
-	rm -rf $(OBJDIR) $(BINDIR)
+```
+grammar/     # grammar sources (publication + mkgramy outputs)
+src/generated/  # generated sources (grammar.c)
+samples/        # sample inputs (openwm.txt, ...)
+tools/          # mkgramy, mknames, names*.awk, doyacc
+build/{obj,bin} # out-of-tree objects and binaries
 ```

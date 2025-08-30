@@ -1,8 +1,7 @@
 %start toplevel
 
 %{
-# include "token.h"
-# include "node.h"
+# include "lojban.h"
 %}
 
 %%

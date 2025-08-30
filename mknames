@@ -6,11 +6,11 @@
 
 # First, comments are stripped and includes made to happen.
 # Then "names1.awk" generates code for the rules proper.
-cc -E grammar.y | awk -f names1.awk >names1.tmp
+cpp -P -Iinclude grammar/grammar.y | awk -f names1.awk >names1.tmp
 
-# Next, grammar.h (built by yacc) is processed into code for the lexer tokens.
+# Next, include/grammar.h (built by yacc/bison) is processed into code for the lexer tokens.
 # The two are merged.
-awk -f names2.awk grammar.h | cat names1.tmp - >names2.tmp
+awk -f names2.awk include/grammar.h | cat names1.tmp - >names2.tmp
 
 # Finally, we figure out the size (ignoring C syntactic sugar)
 # and use sed to stick it in.  Then we clean up.
