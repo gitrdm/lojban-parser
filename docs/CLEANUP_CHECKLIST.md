@@ -60,7 +60,11 @@ Purpose: stabilize and modernize the codebase with low-risk changes before exper
 - [x] Cast to `unsigned char` before `ctype` calls
 - [x] Ensure non-void functions return a value (e.g., `filter.c`)
 - [x] Audit `newstring`/stringspace growth and add bounds/asserts (overflow guards, quantum-rounded allocations, counter clamp)
-- [ ] Prefer size-aware APIs where applicable (`snprintf`, `strnlen`)
+- [x] Prefer size-aware APIs where applicable (`snprintf`, `strnlen`)
+	- Replaced unsafe copies/appends with bounded ops:
+		- `getword.c`: `strcpy` -> `snprintf` with remaining buffer calc
+		- `lex.c`/`print.c`/`termin.c`: `strcpy`/`strncpy` -> length-checked `memcpy`
+	- Left `grammar.c` as-is (generated); changes would be clobbered by regen
 - [x] Run ASan + smoke tests during changes
 
 ## Logging and diagnostics
@@ -73,9 +77,9 @@ Purpose: stabilize and modernize the codebase with low-risk changes before exper
 ## Documentation
 
 - [x] README updated with src/include layout and regen workflow
-- [ ] Add contributor notes (flow: regen → build → test; where to put files)
+- [x] Add contributor notes (flow: regen → build → test; where to put files)
 - [x] Document toolchain expectations (bison/yacc, awk, cpp) in README (Troubleshooting)
-- [ ] Document Makefile knobs in README (STD, STRICT, ubsan, analyze, ci)
+- [x] Document Makefile knobs in README (STD, STRICT, ubsan, analyze, ci)
 
 ## CI (recommended)
 

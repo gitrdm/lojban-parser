@@ -73,8 +73,19 @@ getword()
 				}
 			}
 		else if (isdigit(ch)) {
-			strcpy(p, digits[ch - '0']);
-			p += 2;
-			}
+				/* Safely append the digit cmavo using remaining buffer space */
+				int remaining = (int)(sizeof(buffer) - (size_t)(p - buffer));
+				if (remaining > 0) {
+					int wrote = snprintf(p, (size_t)remaining, "%s", digits[ch - '0']);
+					if (wrote < 0) {
+						/* leave buffer as-is on error */
+					} else if (wrote >= remaining) {
+						/* truncated; move to end leaving terminator in place */
+						p = buffer + sizeof(buffer) - 1;
+					} else {
+						p += wrote;
+					}
+				}
+				}
 		}
 	}

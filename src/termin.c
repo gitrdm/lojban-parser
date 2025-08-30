@@ -26,8 +26,8 @@ termin()
 	if (tok->type == 0) {
 		tok = newtoken();
 		tok->type = FAhO_529;
-		tok->text = newstring(7);
-		strcpy(tok->text, "(fa'o)");
+	tok->text = newstring(7);
+	memcpy(tok->text, "(fa'o)", 7);
 		}
 	lasttype = tok->type;
 	return tok;

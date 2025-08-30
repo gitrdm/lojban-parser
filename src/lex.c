@@ -38,24 +38,26 @@ lex()
 
 	if (iscmene(word)) {
 		result->type = CMENE_518;
-		result->text = newstring(strlen(word) + 1);
+		size_t wlen = strlen(word);
+		result->text = newstring((int)wlen + 1);
 		memcheck(result->text, "text");
-		strcpy(result->text, word);
+		memcpy(result->text, word, wlen + 1);
 		word = NULL;
 		}
 	else if (isbrivla(word)) {
 		result->type = BRIVLA_509;
-		result->text = newstring(strlen(word) + 1);
+		size_t wlen = strlen(word);
+		result->text = newstring((int)wlen + 1);
 		memcheck(result->text, "text");
-		strcpy(result->text, word);
+		memcpy(result->text, word, wlen + 1);
 		word = NULL;
 		}
 	else {
 		for (p = word + 1; *p; p++)
 			if (isC(*p)) break;
-		result->text = newstring(p - word + 1);
+		result->text = newstring((int)(p - word) + 1);
 		memcheck(result->text, "text");
-		strncpy(result->text, word, p - word);
+		memcpy(result->text, word, (size_t)(p - word));
 		result->text[p-word] = 0;
 		word = p;
 		}
