@@ -16,12 +16,18 @@ parser: $(SOURCES)
 asan:
 	$(CC) $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan
+.PHONY: test clean asan ci
 test: parser
 	chmod +x tests/smoke.sh
 	./tests/smoke.sh
 clean:
 	rm -f *.o src/*.o parser
+
+ci:
+	$(MAKE) clean
+	$(MAKE) regen
+	$(MAKE)
+	$(MAKE) test
 
 .PHONY: regen
 regen:
