@@ -32,10 +32,10 @@ Purpose: stabilize and modernize the codebase with low-risk changes before exper
 
 - [x] Ensure Makefile rebuilds when sources change
 - [x] Default flags: `-g -O0 -Wall -Wextra` (plus include paths)
-- [ ] Optional strict flags (opt-in): `-Wshadow -Wconversion -Wpointer-arith -Wformat=2`
-- [ ] Consider adopting `-std=c11` or `-std=c17` (documented; not enforced)
-- [x] Sanitizers: AddressSanitizer target; optionally add UBSan
-- [ ] Optional GCC analyzer target with `-fanalyzer` (GCC 10+)
+- [x] Optional strict flags (opt-in via `STRICT=1`): `-Wpedantic -Wshadow -Wconversion -Wpointer-arith -Wformat=2`
+- [x] C standard selection via `STD` (default `c11`; can use `c17`)
+- [x] Sanitizers: AddressSanitizer (`make asan`) and UBSan (`make ubsan`)
+- [x] GCC analyzer target (`make analyze`) runs `-fanalyzer` when GCC 10+ is present
 
 ## Generated vs source separation
 
@@ -71,7 +71,8 @@ Purpose: stabilize and modernize the codebase with low-risk changes before exper
 
 - [x] README updated with src/include layout and regen workflow
 - [ ] Add contributor notes (flow: regen → build → test; where to put files)
-- [ ] Document toolchain expectations (bison/yacc, awk, cpp versions)
+- [x] Document toolchain expectations (bison/yacc, awk, cpp) in README (Troubleshooting)
+- [ ] Document Makefile knobs in README (STD, STRICT, ubsan, analyze, ci)
 
 ## CI (recommended)
 
@@ -102,11 +103,17 @@ make && make test
 # address sanitizer run
 make clean && make asan && ./tests/smoke.sh
 
+# ubsan run
+make clean && make ubsan && ./tests/smoke.sh
+
 # full local CI flow
 make ci
 
 # (optional) strict warnings (example)
-make clean && STRICT=1 make CFLAGS="-std=c11 -g -O0 -Wall -Wextra -Wshadow -Wconversion -Wpointer-arith -Wformat=2"
+make clean && make STRICT=1 STD=c11
+
+# (optional) static analyzer (GCC 10+)
+make analyze
 ```
 
 ## Project structure (target)
