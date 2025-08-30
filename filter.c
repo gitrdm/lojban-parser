@@ -87,5 +87,10 @@ filter()
 		mode = NORMAL_MODE;
 		return tok;
 		}
-	/*NOTREACHED*/
+	/* Should not reach here; recover by returning an end token */
+	{
+		token *t = newtoken();
+		t->type = 0; /* EOT */
+		return t;
+	}
 	}

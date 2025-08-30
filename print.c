@@ -84,13 +84,27 @@ token *tok;
 	{
 	token *p;
 	char *rule;
+	char *prule = NULL;
 
 tail_recursion:
-	if (tok && tok->type)
+	if (tok && tok->type) {
 		rule = rulename(tok->type);
-	else
+		/* prologize into a writable buffer to avoid modifying string literals */
+		if (rule) {
+			int len = strlen(rule);
+			prule = newstring(len + 1);
+			memcheck(prule, "rule");
+			for (int i = 0; i < len; i++) {
+				char c = rule[i];
+				if (c == '\'') c = 'h';
+				if (!isalnum((unsigned char)c)) c = '_';
+				prule[i] = c;
+			}
+			prule[len] = '\0';
+		}
+	} else {
 		rule = NULL;
-	prologize(rule);
+	}
 
 	if (!tok) {
 		need(4, stream);
@@ -101,22 +115,27 @@ tail_recursion:
 		fprintf(stream, "EOT");
 		}
 	else if (tok->text) {
-		need(strlen(rule) + strlen(tok->text) + 2, stream);
-		prologize(tok->text);
-		downcase(tok->text);
-		fprintf(stream, "%s(%s)", rule, tok->text);
+		char *ptext = NULL;
+		int tlen = strlen(tok->text);
+		need(strlen(prule) + tlen + 2, stream);
+		ptext = newstring(tlen + 1);
+		memcheck(ptext, "text");
+		strcpy(ptext, tok->text);
+		prologize(ptext);
+		downcase(ptext);
+		fprintf(stream, "%s(%s)", prule, ptext);
 		}
 	else if (!tok->downleft) {
-		need(strlen(rule) + 2, stream);
-		fprintf(stream, "%s()", rule);
+		need(strlen(prule) + 2, stream);
+		fprintf(stream, "%s()", prule);
 		}
 	else if (!singlemode && !tok->downleft->right) {
 		tok = tok->downleft;
 		goto tail_recursion;
 		}
 	else {
-		need(strlen(rule), stream);
-		fprintf(stream, "%s", rule);
+		need(strlen(prule), stream);
+		fprintf(stream, "%s", prule);
 		for (p = tok->downleft; p; p = p->right) {
 			need(1, stream);
 			fprintf(stream, "%c",
@@ -205,8 +224,10 @@ char *p;
 	{
 	if (!p) return;
 	while (*p) {
-		if (*p == '\'') *p = 'h';
-		if (!isalnum(*p)) *p = '_';
+		unsigned char ch = (unsigned char)*p;
+		if (ch == '\'') ch = 'h';
+		if (!isalnum(ch)) ch = '_';
+		*p = (char)ch;
 		p++;
 		}
 	}
@@ -216,6 +237,8 @@ downcase(p)
 char *p;
 	{
 	if (!p) return;
-	while (*p)
-		*p++ = tolower(*p);
+	while (*p) {
+		unsigned char ch = (unsigned char)*p;
+		*p++ = (char)tolower(ch);
+	}
 	}
