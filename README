@@ -89,6 +89,26 @@ Notes:
 - `mknames` reads `include/grammar.h`; the regen step no longer writes a header into the repo root, so your hand-edited root `grammar.h` (if any) will not be clobbered.
 - The generated files `src/grammar.c`, `include/grammar.h`, `rulename.i`, and `grammar/grammar.y` are reproducible from the inputs in this repo. Avoid editing them by hand; changes will be overwritten by regen.
 
+GLR mode (optional):
+
+- To build a GLR-capable parser with Bison, use:
+
+	make glr
+
+  This regenerates the grammar including `gmiddle.glr.y` (which enables `%glr-parser`) and builds.
+  You can also run `make regen GLR=1` to only regenerate with GLR enabled.
+
+Grammar exports and diagrams (optional)
+--------------------------------------
+
+- Export an EBNF-like view of the generated grammar for documentation:
+
+	make ebnf    # writes grammar/grammar.ebnf
+
+- Generate simple railroad diagrams (requires `ebnf2railroad` on PATH):
+
+	make diagrams  # writes docs/grammar_railroad.html (if tool is available)
+
 Contributor notes
 -----------------
 
@@ -117,6 +137,14 @@ It runs the following forms and prints the first few lines:
 	./parser -p openwm.txt      # Prolog-style output
 	./parser -t openwm.txt      # tree output
 	./parser -y openwm.txt      # YAML-like output
+
+Regression tests
+----------------
+
+Golden tests compare current outputs against committed baselines for a small input set.
+
+	make regress          # run comparisons
+	make regress-update   # refresh goldens from current parser
 
 Usage examples
 --------------
@@ -167,11 +195,17 @@ Makefile knobs and targets (summary)
 	- `STD`         Choose C standard (default c11), e.g., `make STD=c17`.
 	- `STRICT=1`    Enable extra warnings (`-Wpedantic -Wshadow -Wconversion -Wpointer-arith -Wformat=2`).
 	- `BASELINE`    Grammar baseline for regen (default 300), e.g., `make regen BASELINE=233`.
+    - `GLR=1`      Regenerate grammar using GLR middle rules (used by `make regen GLR=1`; `make glr` wraps this).
 - Targets
 	- `make`        Build the parser
 	- `make regen`  Rebuild grammar-generated sources and names
+	- `make glr`    Regenerate with GLR enabled and build
 	- `make test`   Run smoke tests
+	- `make regress`         Run golden regression tests
+	- `make regress-update`  Refresh goldens for regression tests
 	- `make asan`   Build with AddressSanitizer
 	- `make ubsan`  Build with UndefinedBehaviorSanitizer
 	- `make analyze` Run GCC static analyzer (when available)
 	- `make ci`     End-to-end: clean → regen → build → test
+    - `make ebnf`     Export EBNF-like grammar (grammar/grammar.ebnf)
+    - `make diagrams` Generate simple railroad diagrams (optional tool)
