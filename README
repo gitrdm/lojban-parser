@@ -117,3 +117,30 @@ Troubleshooting
 - For crashes or unexpected behavior, try 'make asan' and re-run to get sanitizer diagnostics.
 - If `make regen` fails on header generation, ensure you have one of: `bison` or `yacc`, plus `awk` and `cpp` in your PATH.
 - If `mknames` complains about `include/grammar.h`, run `make regen` first (it is produced there).
+
+Build options
+-------------
+
+- Choose C standard: default is c11; override with STD
+
+	make STD=c17
+
+- Opt-in stricter warnings: enable additional warnings via STRICT=1
+
+	make clean && make STRICT=1
+
+- Sanitizers:
+  - AddressSanitizer: make asan
+  - UndefinedBehaviorSanitizer: make ubsan
+
+- Static analyzer (GCC 10+):
+
+	make analyze
+
+- End-to-end local CI flow (clean → regen → build → test):
+
+	make ci
+
+- Verbose output mapping to debug flags:
+  - Default verbose: ./parser --verbose file
+  - Higher verbosity: ./parser --verbose=2 -p file
