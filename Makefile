@@ -1,5 +1,5 @@
 CC ?= cc
-CFLAGS ?= -g -O0 -Wall -Wextra -Wno-unused-parameter
+CFLAGS ?= -g -O0 -Wall -Wextra -Wno-unused-parameter -Iinclude
 SOURCES := $(wildcard *.c)
 
 parser: $(SOURCES)
