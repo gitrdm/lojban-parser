@@ -14,7 +14,7 @@ char *vc[46] = {
 	"ua", "ue", "ui", "uo", "uu", "y'y"
 	};
 
-mkcmavo() {
+void mkcmavo(void) {
 	int i, j, type;
 	char *rule;
 	char *apos;
@@ -28,5 +28,5 @@ mkcmavo() {
 			apos = strchr(rule, '\'');
 			if (apos) *apos = 'h';
 			printf("%1.1s%-8.8s %-8.8s\n", cc[i], vc[j], rule);
-			}
-	}
+		}
+}

@@ -1,5 +1,7 @@
 /* Copyright 1992-2003 Logical Language Group Inc.
-   Licensed under the Academic Free License version 2.0 */
+	Licensed under the Academic Free License version 2.0 */
+
+#include <unistd.h> // for isatty(), execv()
 
 # include "lojban.h"
 # include "version.h"

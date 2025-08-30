@@ -60,10 +60,10 @@ void release();
 token *cpd_reduce();
 token *is();
 token *compound();
-int yylex();
-int yyerror();
-int main();
-void setflags();
+int yylex(void);
+void yyerror(const char *msg);
+int main(int argc, char **argv);
+void setflags(char **argv);
 void copyright();
 
 # include "node.h"

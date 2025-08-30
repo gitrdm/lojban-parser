@@ -1,3 +1,6 @@
+// ...existing code...
+int yyparse(void);
+void mkcmavo(void);
 /* Copyright 1992-2003 Logical Language Group Inc.
    Licensed under the Academic Free License version 2.0 */
 
@@ -233,26 +236,24 @@ YYSTYPE n1;
 	return n1;
 	}
 
-yyerror(msg)
-char *msg;
-	{
+
+#include <stdlib.h>  // for exit(), free()
+#include <unistd.h>  // for isatty(), execv()
+
+void yyerror(const char *msg) {
 	errline = line;
 	errcol = column;
 	errlastreduce = lastreduce;
-	}
+}
 
 
-int
-main(argc, argv)
-int argc;
-char **argv;
-	{
+int main(int argc, char **argv) {
 	stream = stdout;
 	setflags(argv);
 	interactive = isatty(0);
 	if (interactive)
 		fprintf(stderr, ">>> ");
-	if (!yyparse())
+	if (!yyparse()) {
 		if (treemode)
 			tree(results);
 		else if (rulemode)
@@ -261,30 +262,26 @@ char **argv;
 			yprint(results);
 		else
 			print(results);
-	else {
+	} else {
 		fprintf(stderr,
-"Problem with selma'o %s at or before line %d column %d\n",
-			rulename(errtype), errline, errcol);
+				"Problem with selma'o %s at or before line %d column %d\n",
+				rulename(errtype), errline, errcol);
 		fprintf(stderr, "Last good construct was: %s\n",
-			rulename(errlastreduce));
-		}
+				rulename(errlastreduce));
+	}
 	if (interactive) {
 		fprintf(stderr, "\n");
 		execv(argv[0], argv);
 		execv(getenv("PARSER"), argv);
 		fprintf(stderr, "can't reload parser: set PARSER variable\n");
 		return 1;
-		}
-	return 0;
 	}
+	return 0;
+}
 
-void
-setflags(argv)
-char **argv;
-	{
+void setflags(char **argv) {
 	char *arg;
-
-	for (argv++; *argv; argv++)
+	for (argv++; *argv; argv++) {
 		if (strncmp(*argv, "-d", 2) == 0)
 			for (arg = *argv; *arg; arg++)
 				switch (*arg) {
@@ -295,8 +292,8 @@ char **argv;
 				case 'r': D_reduce = 1; break;
 				case 'e': D_elidable = 1; break;
 				case '*': D_valsi = D_cpd_lex = D_cpd_reduce =
-					D_lex = D_reduce = D_elidable = 1; break;
-					}
+						D_lex = D_reduce = D_elidable = 1; break;
+				}
 		else if (strcmp(*argv, "-t") == 0)
 			treemode = 1;
 		else if (strcmp(*argv, "-s") == 0)
@@ -312,7 +309,8 @@ char **argv;
 		else if (strcmp(*argv, "-c") == 0) {
 			mkcmavo();
 			exit(0);
-			}
+		}
 		else if ((*argv)[0] != '-')
 			freopen(*argv, "r", stdin);
 	}
+}

@@ -169,6 +169,10 @@
 #endif
 #include <stdio.h>
 
+#include <stdlib.h> // for free()
+void yyerror(const char *msg);
+#include "lojban.h"
+
 #ifndef __cplusplus
 #ifndef __STDC__
 #define const

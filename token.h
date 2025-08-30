@@ -1,5 +1,10 @@
 /* Copyright 1992-2003 Logical Language Group Inc.
-   Licensed under the Academic Free License version 2.0 */
+	Licensed under the Academic Free License version 2.0 */
+
+#ifndef LOJBAN_TOKEN_H
+#define LOJBAN_TOKEN_H
+
+#include <stdlib.h> // for free()
 
 /* This is the fundamental datatype used by the parser, representing each
 level in the parse tree. newtoken() is a macro which returns a token.
@@ -31,3 +36,5 @@ extern token * freelist;
 	newtoken_result->up = newtoken_result->right = newtoken_result->next = \
 		newtoken_result->downleft = newtoken_result->downright = NULL, \
 	newtoken_result )
+
+#endif /* LOJBAN_TOKEN_H */
