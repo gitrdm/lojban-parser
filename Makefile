@@ -46,9 +46,8 @@ regen:
 		echo "Error: neither bison nor yacc found" >&2; exit 1; \
 	fi; \
 	if [ -f "$$HDR_PATH" ]; then \
-		echo "Copying $$HDR_PATH -> include/grammar.h and ./grammar.h"; \
+		echo "Copying $$HDR_PATH -> include/grammar.h"; \
 		cp -f "$$HDR_PATH" include/grammar.h; \
-		cp -f "$$HDR_PATH" grammar.h; \
 	else \
 		echo "Warning: could not find generated header $$HDR_PATH"; \
 	fi

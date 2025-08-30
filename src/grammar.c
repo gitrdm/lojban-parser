@@ -69,10 +69,9 @@
 /* First part of user prologue.  */
 #line 368 "grammar.y"
 
-# include "token.h"
-# include "node.h"
+# include "lojban.h"
 
-#line 76 "src/grammar.c"
+#line 75 "src/grammar.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -903,54 +902,54 @@ static const yytype_uint8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   375,   375,   378,   380,   382,   384,   386,   388,   391,
-     393,   396,   398,   400,   402,   404,   407,   410,   412,   414,
-     417,   419,   421,   423,   425,   428,   430,   433,   435,   437,
-     440,   442,   444,   447,   449,   451,   454,   456,   458,   460,
-     462,   464,   466,   468,   470,   473,   476,   478,   481,   483,
-     485,   487,   489,   492,   494,   496,   498,   500,   503,   505,
-     507,   509,   511,   513,   515,   517,   519,   521,   524,   527,
-     529,   531,   534,   536,   539,   541,   544,   546,   549,   551,
-     554,   556,   559,   561,   563,   566,   568,   571,   573,   576,
-     578,   581,   583,   586,   588,   590,   592,   595,   597,   600,
-     602,   605,   607,   610,   612,   614,   617,   619,   622,   624,
-     626,   629,   631,   634,   636,   638,   640,   643,   645,   648,
-     650,   652,   654,   656,   658,   660,   662,   665,   667,   670,
-     672,   674,   676,   679,   681,   683,   685,   687,   690,   692,
-     695,   697,   700,   702,   705,   707,   710,   712,   715,   717,
-     720,   722,   724,   727,   729,   731,   734,   736,   738,   740,
-     743,   746,   748,   751,   753,   756,   758,   760,   762,   764,
-     766,   768,   770,   772,   774,   777,   779,   782,   784,   787,
-     789,   792,   794,   796,   799,   801,   804,   806,   808,   811,
-     813,   816,   819,   821,   824,   826,   828,   831,   833,   835,
-     837,   840,   842,   845,   847,   849,   851,   853,   855,   858,
-     860,   862,   865,   867,   870,   872,   874,   877,   879,   881,
-     883,   885,   887,   889,   892,   894,   896,   899,   901,   904,
-     906,   909,   911,   914,   916,   918,   920,   923,   925,   927,
-     930,   932,   935,   937,   940,   942,   944,   946,   948,   950,
-     952,   955,   957,   959,   962,   964,   967,   969,   972,   974,
-     976,   979,   981,   983,   985,   988,   990,   993,   995,   998,
-    1000,  1002,  1004,  1007,  1009,  1012,  1014,  1017,  1019,  1022,
-    1024,  1027,  1029,  1032,  1034,  1037,  1039,  1041,  1043,  1046,
-    1049,  1052,  1055,  1057,  1060,  1062,  1065,  1067,  1070,  1072,
-    1075,  1077,  1080,  1082,  1085,  1087,  1090,  1092,  1095,  1097,
-    1100,  1102,  1105,  1107,  1110,  1112,  1115,  1117,  1119,  1122,
-    1124,  1127,  1129,  1131,  1134,  1136,  1138,  1141,  1143,  1145,
-    1148,  1150,  1152,  1155,  1157,  1160,  1162,  1164,  1167,  1169,
-    1172,  1174,  1176,  1179,  1181,  1183,  1186,  1188,  1191,  1193,
-    1195,  1198,  1200,  1202,  1205,  1207,  1209,  1212,  1214,  1216,
-    1219,  1221,  1223,  1226,  1228,  1231,  1233,  1235,  1238,  1240,
-    1243,  1245,  1247,  1250,  1252,  1254,  1257,  1259,  1261,  1264,
-    1266,  1269,  1271,  1274,  1276,  1279,  1281,  1284,  1286,  1289,
-    1291,  1294,  1296,  1299,  1301,  1304,  1306,  1309,  1311,  1313,
-    1316,  1318,  1321,  1323,  1326,  1328,  1330,  1333,  1335,  1338,
-    1340,  1343,  1345,  1348,  1350,  1353,  1355,  1358,  1360,  1363,
-    1365,  1368,  1370,  1373,  1375,  1378,  1380,  1383,  1385,  1388,
-    1390,  1393,  1395,  1398,  1401,  1403,  1406,  1408,  1411,  1413,
-    1416,  1419,  1422,  1424,  1427,  1429,  1432,  1434,  1437,  1439,
-    1442,  1444,  1447,  1450,  1452,  1455,  1457,  1460,  1462,  1464,
-    1467,  1469,  1472,  1475,  1477,  1480,  1482,  1485,  1487,  1490,
-    1492,  1495,  1497,  1500,  1502,  1505
+       0,   374,   374,   377,   379,   381,   383,   385,   387,   390,
+     392,   395,   397,   399,   401,   403,   406,   409,   411,   413,
+     416,   418,   420,   422,   424,   427,   429,   432,   434,   436,
+     439,   441,   443,   446,   448,   450,   453,   455,   457,   459,
+     461,   463,   465,   467,   469,   472,   475,   477,   480,   482,
+     484,   486,   488,   491,   493,   495,   497,   499,   502,   504,
+     506,   508,   510,   512,   514,   516,   518,   520,   523,   526,
+     528,   530,   533,   535,   538,   540,   543,   545,   548,   550,
+     553,   555,   558,   560,   562,   565,   567,   570,   572,   575,
+     577,   580,   582,   585,   587,   589,   591,   594,   596,   599,
+     601,   604,   606,   609,   611,   613,   616,   618,   621,   623,
+     625,   628,   630,   633,   635,   637,   639,   642,   644,   647,
+     649,   651,   653,   655,   657,   659,   661,   664,   666,   669,
+     671,   673,   675,   678,   680,   682,   684,   686,   689,   691,
+     694,   696,   699,   701,   704,   706,   709,   711,   714,   716,
+     719,   721,   723,   726,   728,   730,   733,   735,   737,   739,
+     742,   745,   747,   750,   752,   755,   757,   759,   761,   763,
+     765,   767,   769,   771,   773,   776,   778,   781,   783,   786,
+     788,   791,   793,   795,   798,   800,   803,   805,   807,   810,
+     812,   815,   818,   820,   823,   825,   827,   830,   832,   834,
+     836,   839,   841,   844,   846,   848,   850,   852,   854,   857,
+     859,   861,   864,   866,   869,   871,   873,   876,   878,   880,
+     882,   884,   886,   888,   891,   893,   895,   898,   900,   903,
+     905,   908,   910,   913,   915,   917,   919,   922,   924,   926,
+     929,   931,   934,   936,   939,   941,   943,   945,   947,   949,
+     951,   954,   956,   958,   961,   963,   966,   968,   971,   973,
+     975,   978,   980,   982,   984,   987,   989,   992,   994,   997,
+     999,  1001,  1003,  1006,  1008,  1011,  1013,  1016,  1018,  1021,
+    1023,  1026,  1028,  1031,  1033,  1036,  1038,  1040,  1042,  1045,
+    1048,  1051,  1054,  1056,  1059,  1061,  1064,  1066,  1069,  1071,
+    1074,  1076,  1079,  1081,  1084,  1086,  1089,  1091,  1094,  1096,
+    1099,  1101,  1104,  1106,  1109,  1111,  1114,  1116,  1118,  1121,
+    1123,  1126,  1128,  1130,  1133,  1135,  1137,  1140,  1142,  1144,
+    1147,  1149,  1151,  1154,  1156,  1159,  1161,  1163,  1166,  1168,
+    1171,  1173,  1175,  1178,  1180,  1182,  1185,  1187,  1190,  1192,
+    1194,  1197,  1199,  1201,  1204,  1206,  1208,  1211,  1213,  1215,
+    1218,  1220,  1222,  1225,  1227,  1230,  1232,  1234,  1237,  1239,
+    1242,  1244,  1246,  1249,  1251,  1253,  1256,  1258,  1260,  1263,
+    1265,  1268,  1270,  1273,  1275,  1278,  1280,  1283,  1285,  1288,
+    1290,  1293,  1295,  1298,  1300,  1303,  1305,  1308,  1310,  1312,
+    1315,  1317,  1320,  1322,  1325,  1327,  1329,  1332,  1334,  1337,
+    1339,  1342,  1344,  1347,  1349,  1352,  1354,  1357,  1359,  1362,
+    1364,  1367,  1369,  1372,  1374,  1377,  1379,  1382,  1384,  1387,
+    1389,  1392,  1394,  1397,  1400,  1402,  1405,  1407,  1410,  1412,
+    1415,  1418,  1421,  1423,  1426,  1428,  1431,  1433,  1436,  1438,
+    1441,  1443,  1446,  1449,  1451,  1454,  1456,  1459,  1461,  1463,
+    1466,  1468,  1471,  1474,  1476,  1479,  1481,  1484,  1486,  1489,
+    1491,  1494,  1496,  1499,  1501,  1504
 };
 #endif
 
@@ -2677,2851 +2676,2851 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* toplevel: text_0 FAhO_529  */
-#line 376 "grammar.y"
+#line 375 "grammar.y"
                            { yyval = toplevel(yyvsp[-1]); }
-#line 2683 "src/grammar.c"
+#line 2682 "src/grammar.c"
     break;
 
   case 3: /* text_0: text_A_1  */
-#line 379 "grammar.y"
+#line 378 "grammar.y"
                            { yyval = node1(10000, yyvsp[0]); }
-#line 2689 "src/grammar.c"
+#line 2688 "src/grammar.c"
     break;
 
   case 4: /* text_0: indicators_411 text_A_1  */
-#line 381 "grammar.y"
+#line 380 "grammar.y"
                            { yyval = node2(10000, yyvsp[-1], yyvsp[0]); }
-#line 2695 "src/grammar.c"
+#line 2694 "src/grammar.c"
     break;
 
   case 5: /* text_0: free_modifier_32 text_A_1  */
-#line 383 "grammar.y"
+#line 382 "grammar.y"
                            { yyval = node2(10000, yyvsp[-1], yyvsp[0]); }
-#line 2701 "src/grammar.c"
+#line 2700 "src/grammar.c"
     break;
 
   case 6: /* text_0: cmene_404 text_A_1  */
-#line 385 "grammar.y"
+#line 384 "grammar.y"
                            { yyval = node2(10000, yyvsp[-1], yyvsp[0]); }
-#line 2707 "src/grammar.c"
+#line 2706 "src/grammar.c"
     break;
 
   case 7: /* text_0: indicators_411 free_modifier_32 text_A_1  */
-#line 387 "grammar.y"
+#line 386 "grammar.y"
                            { yyval = node3(10000, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2713 "src/grammar.c"
+#line 2712 "src/grammar.c"
     break;
 
   case 8: /* text_0: NAI_581 text_0  */
-#line 389 "grammar.y"
+#line 388 "grammar.y"
                            { yyval = node2(10000, yyvsp[-1], yyvsp[0]); }
-#line 2719 "src/grammar.c"
+#line 2718 "src/grammar.c"
     break;
 
   case 9: /* text_A_1: JOIK_JEK_422 text_B_2  */
-#line 392 "grammar.y"
+#line 391 "grammar.y"
                            { yyval = node2(1, yyvsp[-1], yyvsp[0]); }
-#line 2725 "src/grammar.c"
+#line 2724 "src/grammar.c"
     break;
 
   case 10: /* text_A_1: text_B_2  */
-#line 394 "grammar.y"
+#line 393 "grammar.y"
                            { yyval = node1(1, yyvsp[0]); }
-#line 2731 "src/grammar.c"
+#line 2730 "src/grammar.c"
     break;
 
   case 11: /* text_B_2: I_819 text_B_2  */
-#line 397 "grammar.y"
+#line 396 "grammar.y"
                            { yyval = node2(2, yyvsp[-1], yyvsp[0]); }
-#line 2737 "src/grammar.c"
+#line 2736 "src/grammar.c"
     break;
 
   case 12: /* text_B_2: I_JEK_820 text_B_2  */
-#line 399 "grammar.y"
+#line 398 "grammar.y"
                            { yyval = node2(2, yyvsp[-1], yyvsp[0]); }
-#line 2743 "src/grammar.c"
+#line 2742 "src/grammar.c"
     break;
 
   case 13: /* text_B_2: I_BO_811 text_B_2  */
-#line 401 "grammar.y"
+#line 400 "grammar.y"
                            { yyval = node2(2, yyvsp[-1], yyvsp[0]); }
-#line 2749 "src/grammar.c"
+#line 2748 "src/grammar.c"
     break;
 
   case 14: /* text_B_2: para_mark_410 text_C_3  */
-#line 403 "grammar.y"
+#line 402 "grammar.y"
                            { yyval = node2(2, yyvsp[-1], yyvsp[0]); }
-#line 2755 "src/grammar.c"
+#line 2754 "src/grammar.c"
     break;
 
   case 15: /* text_B_2: text_C_3  */
-#line 405 "grammar.y"
+#line 404 "grammar.y"
                            { yyval = node1(2, yyvsp[0]); }
-#line 2761 "src/grammar.c"
+#line 2760 "src/grammar.c"
     break;
 
   case 16: /* text_C_3: paragraphs_4  */
-#line 408 "grammar.y"
+#line 407 "grammar.y"
                            { yyval = node1(3, yyvsp[0]); }
-#line 2767 "src/grammar.c"
+#line 2766 "src/grammar.c"
     break;
 
   case 17: /* text_C_3: %empty  */
-#line 410 "grammar.y"
+#line 409 "grammar.y"
                            { yyval = elidable(FAhO_529); }
-#line 2773 "src/grammar.c"
+#line 2772 "src/grammar.c"
     break;
 
   case 18: /* paragraphs_4: paragraph_10  */
-#line 413 "grammar.y"
+#line 412 "grammar.y"
                            { yyval = node1(4, yyvsp[0]); }
-#line 2779 "src/grammar.c"
+#line 2778 "src/grammar.c"
     break;
 
   case 19: /* paragraphs_4: paragraph_10 para_mark_410 paragraphs_4  */
-#line 415 "grammar.y"
+#line 414 "grammar.y"
                            { yyval = node3(4, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2785 "src/grammar.c"
+#line 2784 "src/grammar.c"
     break;
 
   case 20: /* paragraph_10: statement_11  */
-#line 418 "grammar.y"
+#line 417 "grammar.y"
                            { yyval = node1(10, yyvsp[0]); }
-#line 2791 "src/grammar.c"
+#line 2790 "src/grammar.c"
     break;
 
   case 21: /* paragraph_10: fragment_20  */
-#line 420 "grammar.y"
+#line 419 "grammar.y"
                            { yyval = node1(10, yyvsp[0]); }
-#line 2797 "src/grammar.c"
+#line 2796 "src/grammar.c"
     break;
 
   case 22: /* paragraph_10: paragraph_10 I_819 statement_11  */
-#line 422 "grammar.y"
+#line 421 "grammar.y"
                            { yyval = node3(10, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2803 "src/grammar.c"
+#line 2802 "src/grammar.c"
     break;
 
   case 23: /* paragraph_10: paragraph_10 I_819 fragment_20  */
-#line 424 "grammar.y"
+#line 423 "grammar.y"
                            { yyval = node3(10, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2809 "src/grammar.c"
+#line 2808 "src/grammar.c"
     break;
 
   case 24: /* paragraph_10: paragraph_10 I_819  */
-#line 426 "grammar.y"
+#line 425 "grammar.y"
                            { yyval = node2(10, yyvsp[-1], yyvsp[0]); }
-#line 2815 "src/grammar.c"
+#line 2814 "src/grammar.c"
     break;
 
   case 25: /* statement_11: statement_A_12  */
-#line 429 "grammar.y"
+#line 428 "grammar.y"
                            { yyval = node1(11, yyvsp[0]); }
-#line 2821 "src/grammar.c"
+#line 2820 "src/grammar.c"
     break;
 
   case 26: /* statement_11: prenex_30 statement_11  */
-#line 431 "grammar.y"
+#line 430 "grammar.y"
                            { yyval = node2(11, yyvsp[-1], yyvsp[0]); }
-#line 2827 "src/grammar.c"
+#line 2826 "src/grammar.c"
     break;
 
   case 27: /* statement_A_12: statement_B_13  */
-#line 434 "grammar.y"
+#line 433 "grammar.y"
                            { yyval = node1(12, yyvsp[0]); }
-#line 2833 "src/grammar.c"
+#line 2832 "src/grammar.c"
     break;
 
   case 28: /* statement_A_12: statement_A_12 I_JEK_820 statement_B_13  */
-#line 436 "grammar.y"
+#line 435 "grammar.y"
                            { yyval = node3(12, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2839 "src/grammar.c"
+#line 2838 "src/grammar.c"
     break;
 
   case 29: /* statement_A_12: statement_A_12 I_JEK_820  */
-#line 438 "grammar.y"
+#line 437 "grammar.y"
                            { yyval = node2(12, yyvsp[-1], yyvsp[0]); }
-#line 2845 "src/grammar.c"
+#line 2844 "src/grammar.c"
     break;
 
   case 30: /* statement_B_13: statement_C_14  */
-#line 441 "grammar.y"
+#line 440 "grammar.y"
                            { yyval = node1(13, yyvsp[0]); }
-#line 2851 "src/grammar.c"
+#line 2850 "src/grammar.c"
     break;
 
   case 31: /* statement_B_13: statement_C_14 I_BO_811 statement_B_13  */
-#line 443 "grammar.y"
+#line 442 "grammar.y"
                            { yyval = node3(13, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2857 "src/grammar.c"
+#line 2856 "src/grammar.c"
     break;
 
   case 32: /* statement_B_13: statement_C_14 I_BO_811  */
-#line 445 "grammar.y"
+#line 444 "grammar.y"
                            { yyval = node2(13, yyvsp[-1], yyvsp[0]); }
-#line 2863 "src/grammar.c"
+#line 2862 "src/grammar.c"
     break;
 
   case 33: /* statement_C_14: sentence_40  */
-#line 448 "grammar.y"
+#line 447 "grammar.y"
                            { yyval = node1(14, yyvsp[0]); }
-#line 2869 "src/grammar.c"
+#line 2868 "src/grammar.c"
     break;
 
   case 34: /* statement_C_14: TUhE_447 text_B_2 TUhU_gap_454  */
-#line 450 "grammar.y"
+#line 449 "grammar.y"
                            { yyval = node3(14, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2875 "src/grammar.c"
+#line 2874 "src/grammar.c"
     break;
 
   case 35: /* statement_C_14: tag_491 TUhE_447 text_B_2 TUhU_gap_454  */
-#line 452 "grammar.y"
+#line 451 "grammar.y"
                            { yyval = node4(14, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2881 "src/grammar.c"
+#line 2880 "src/grammar.c"
     break;
 
   case 36: /* fragment_20: EK_802  */
-#line 455 "grammar.y"
+#line 454 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2887 "src/grammar.c"
+#line 2886 "src/grammar.c"
     break;
 
   case 37: /* fragment_20: NA_445  */
-#line 457 "grammar.y"
+#line 456 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2893 "src/grammar.c"
+#line 2892 "src/grammar.c"
     break;
 
   case 38: /* fragment_20: GIhEK_818  */
-#line 459 "grammar.y"
+#line 458 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2899 "src/grammar.c"
+#line 2898 "src/grammar.c"
     break;
 
   case 39: /* fragment_20: quantifier_300  */
-#line 461 "grammar.y"
+#line 460 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2905 "src/grammar.c"
+#line 2904 "src/grammar.c"
     break;
 
   case 40: /* fragment_20: terms_80 VAU_gap_456  */
-#line 463 "grammar.y"
+#line 462 "grammar.y"
                            { yyval = node2(20, yyvsp[-1], yyvsp[0]); }
-#line 2911 "src/grammar.c"
+#line 2910 "src/grammar.c"
     break;
 
   case 41: /* fragment_20: relative_clauses_121  */
-#line 465 "grammar.y"
+#line 464 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2917 "src/grammar.c"
+#line 2916 "src/grammar.c"
     break;
 
   case 42: /* fragment_20: links_161  */
-#line 467 "grammar.y"
+#line 466 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2923 "src/grammar.c"
+#line 2922 "src/grammar.c"
     break;
 
   case 43: /* fragment_20: linkargs_160  */
-#line 469 "grammar.y"
+#line 468 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2929 "src/grammar.c"
+#line 2928 "src/grammar.c"
     break;
 
   case 44: /* fragment_20: prenex_30  */
-#line 471 "grammar.y"
+#line 470 "grammar.y"
                            { yyval = node1(20, yyvsp[0]); }
-#line 2935 "src/grammar.c"
+#line 2934 "src/grammar.c"
     break;
 
   case 45: /* prenex_30: terms_80 ZOhU_492  */
-#line 474 "grammar.y"
+#line 473 "grammar.y"
                            { yyval = node2(30, yyvsp[-1], yyvsp[0]); }
-#line 2941 "src/grammar.c"
+#line 2940 "src/grammar.c"
     break;
 
   case 46: /* free_modifier_32: free_modifier_A_33  */
-#line 477 "grammar.y"
+#line 476 "grammar.y"
                            { yyval = node1(32, yyvsp[0]); }
-#line 2947 "src/grammar.c"
+#line 2946 "src/grammar.c"
     break;
 
   case 47: /* free_modifier_32: free_modifier_A_33 free_modifier_32  */
-#line 479 "grammar.y"
+#line 478 "grammar.y"
                            { yyval = node2(32, yyvsp[-1], yyvsp[0]); }
-#line 2953 "src/grammar.c"
+#line 2952 "src/grammar.c"
     break;
 
   case 48: /* free_modifier_A_33: vocative_35  */
-#line 482 "grammar.y"
+#line 481 "grammar.y"
                            { yyval = node1(33, yyvsp[0]); }
-#line 2959 "src/grammar.c"
+#line 2958 "src/grammar.c"
     break;
 
   case 49: /* free_modifier_A_33: parenthetical_36  */
-#line 484 "grammar.y"
+#line 483 "grammar.y"
                            { yyval = node1(33, yyvsp[0]); }
-#line 2965 "src/grammar.c"
+#line 2964 "src/grammar.c"
     break;
 
   case 50: /* free_modifier_A_33: discursive_bridi_34  */
-#line 486 "grammar.y"
+#line 485 "grammar.y"
                            { yyval = node1(33, yyvsp[0]); }
-#line 2971 "src/grammar.c"
+#line 2970 "src/grammar.c"
     break;
 
   case 51: /* free_modifier_A_33: subscript_486  */
-#line 488 "grammar.y"
+#line 487 "grammar.y"
                            { yyval = node1(33, yyvsp[0]); }
-#line 2977 "src/grammar.c"
+#line 2976 "src/grammar.c"
     break;
 
   case 52: /* free_modifier_A_33: utterance_ordinal_801  */
-#line 490 "grammar.y"
+#line 489 "grammar.y"
                            { yyval = node1(33, yyvsp[0]); }
-#line 2983 "src/grammar.c"
+#line 2982 "src/grammar.c"
     break;
 
   case 53: /* discursive_bridi_34: SEI_440 selbri_130 SEhU_gap_459  */
-#line 493 "grammar.y"
+#line 492 "grammar.y"
                            { yyval = node3(34, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2989 "src/grammar.c"
+#line 2988 "src/grammar.c"
     break;
 
   case 54: /* discursive_bridi_34: SOI_498 sumti_90 SEhU_gap_459  */
-#line 495 "grammar.y"
+#line 494 "grammar.y"
                            { yyval = node3(34, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 2995 "src/grammar.c"
+#line 2994 "src/grammar.c"
     break;
 
   case 55: /* discursive_bridi_34: SOI_498 sumti_90 sumti_90 SEhU_gap_459  */
-#line 497 "grammar.y"
+#line 496 "grammar.y"
                            { yyval = node4(34, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3001 "src/grammar.c"
+#line 3000 "src/grammar.c"
     break;
 
   case 56: /* discursive_bridi_34: SEI_440 terms_80 front_gap_451 selbri_130 SEhU_gap_459  */
-#line 499 "grammar.y"
+#line 498 "grammar.y"
                            { yyval = node5(34, yyvsp[-4], yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3007 "src/grammar.c"
+#line 3006 "src/grammar.c"
     break;
 
   case 57: /* discursive_bridi_34: SEI_440 terms_80 selbri_130 SEhU_gap_459  */
-#line 501 "grammar.y"
+#line 500 "grammar.y"
                            { yyval = node4(34, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3013 "src/grammar.c"
+#line 3012 "src/grammar.c"
     break;
 
   case 58: /* vocative_35: DOI_415 selbri_130 DOhU_gap_457  */
-#line 504 "grammar.y"
+#line 503 "grammar.y"
                            { yyval = node3(35, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3019 "src/grammar.c"
+#line 3018 "src/grammar.c"
     break;
 
   case 59: /* vocative_35: DOI_415 selbri_130 relative_clauses_121 DOhU_gap_457  */
-#line 506 "grammar.y"
+#line 505 "grammar.y"
                            { yyval = node4(35, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3025 "src/grammar.c"
+#line 3024 "src/grammar.c"
     break;
 
   case 60: /* vocative_35: DOI_415 relative_clauses_121 selbri_130 DOhU_gap_457  */
-#line 508 "grammar.y"
+#line 507 "grammar.y"
                            { yyval = node4(35, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3031 "src/grammar.c"
+#line 3030 "src/grammar.c"
     break;
 
   case 61: /* vocative_35: DOI_415 relative_clauses_121 selbri_130 relative_clauses_121 DOhU_gap_457  */
-#line 510 "grammar.y"
+#line 509 "grammar.y"
                            { yyval = node5(35, yyvsp[-4], yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3037 "src/grammar.c"
+#line 3036 "src/grammar.c"
     break;
 
   case 62: /* vocative_35: DOI_415 cmene_404 DOhU_gap_457  */
-#line 512 "grammar.y"
+#line 511 "grammar.y"
                            { yyval = node3(35, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3043 "src/grammar.c"
+#line 3042 "src/grammar.c"
     break;
 
   case 63: /* vocative_35: DOI_415 cmene_404 relative_clauses_121 DOhU_gap_457  */
-#line 514 "grammar.y"
+#line 513 "grammar.y"
                            { yyval = node4(35, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3049 "src/grammar.c"
+#line 3048 "src/grammar.c"
     break;
 
   case 64: /* vocative_35: DOI_415 relative_clauses_121 cmene_404 DOhU_gap_457  */
-#line 516 "grammar.y"
+#line 515 "grammar.y"
                            { yyval = node4(35, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3055 "src/grammar.c"
+#line 3054 "src/grammar.c"
     break;
 
   case 65: /* vocative_35: DOI_415 relative_clauses_121 cmene_404 relative_clauses_121 DOhU_gap_457  */
-#line 518 "grammar.y"
+#line 517 "grammar.y"
                            { yyval = node5(35, yyvsp[-4], yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3061 "src/grammar.c"
+#line 3060 "src/grammar.c"
     break;
 
   case 66: /* vocative_35: DOI_415 sumti_90 DOhU_gap_457  */
-#line 520 "grammar.y"
+#line 519 "grammar.y"
                            { yyval = node3(35, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3067 "src/grammar.c"
+#line 3066 "src/grammar.c"
     break;
 
   case 67: /* vocative_35: DOI_415 DOhU_gap_457  */
-#line 522 "grammar.y"
+#line 521 "grammar.y"
                            { yyval = node2(35, yyvsp[-1], yyvsp[0]); }
-#line 3073 "src/grammar.c"
+#line 3072 "src/grammar.c"
     break;
 
   case 68: /* parenthetical_36: TO_606 text_0 TOI_gap_468  */
-#line 525 "grammar.y"
+#line 524 "grammar.y"
                            { yyval = node3(36, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3079 "src/grammar.c"
+#line 3078 "src/grammar.c"
     break;
 
   case 69: /* sentence_40: bridi_tail_50  */
-#line 528 "grammar.y"
+#line 527 "grammar.y"
                            { yyval = node1(40, yyvsp[0]); }
-#line 3085 "src/grammar.c"
+#line 3084 "src/grammar.c"
     break;
 
   case 70: /* sentence_40: terms_80 front_gap_451 bridi_tail_50  */
-#line 530 "grammar.y"
+#line 529 "grammar.y"
                            { yyval = node3(40, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3091 "src/grammar.c"
+#line 3090 "src/grammar.c"
     break;
 
   case 71: /* sentence_40: terms_80 bridi_tail_50  */
-#line 532 "grammar.y"
+#line 531 "grammar.y"
                            { yyval = node2(40, yyvsp[-1], yyvsp[0]); }
-#line 3097 "src/grammar.c"
+#line 3096 "src/grammar.c"
     break;
 
   case 72: /* subsentence_41: sentence_40  */
-#line 535 "grammar.y"
+#line 534 "grammar.y"
                            { yyval = node1(41, yyvsp[0]); }
-#line 3103 "src/grammar.c"
+#line 3102 "src/grammar.c"
     break;
 
   case 73: /* subsentence_41: prenex_30 subsentence_41  */
-#line 537 "grammar.y"
+#line 536 "grammar.y"
                            { yyval = node2(41, yyvsp[-1], yyvsp[0]); }
-#line 3109 "src/grammar.c"
+#line 3108 "src/grammar.c"
     break;
 
   case 74: /* bridi_tail_50: bridi_tail_A_51  */
-#line 540 "grammar.y"
+#line 539 "grammar.y"
                            { yyval = node1(50, yyvsp[0]); }
-#line 3115 "src/grammar.c"
+#line 3114 "src/grammar.c"
     break;
 
   case 75: /* bridi_tail_50: bridi_tail_A_51 GIhEK_KE_814 bridi_tail_50 KEhE_gap_466 tail_terms_71  */
-#line 542 "grammar.y"
+#line 541 "grammar.y"
                            { yyval = node5(50, yyvsp[-4], yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3121 "src/grammar.c"
+#line 3120 "src/grammar.c"
     break;
 
   case 76: /* bridi_tail_A_51: bridi_tail_B_52  */
-#line 545 "grammar.y"
+#line 544 "grammar.y"
                            { yyval = node1(51, yyvsp[0]); }
-#line 3127 "src/grammar.c"
+#line 3126 "src/grammar.c"
     break;
 
   case 77: /* bridi_tail_A_51: bridi_tail_A_51 GIhEK_818 bridi_tail_B_52 tail_terms_71  */
-#line 547 "grammar.y"
+#line 546 "grammar.y"
                            { yyval = node4(51, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3133 "src/grammar.c"
+#line 3132 "src/grammar.c"
     break;
 
   case 78: /* bridi_tail_B_52: bridi_tail_C_53  */
-#line 550 "grammar.y"
+#line 549 "grammar.y"
                            { yyval = node1(52, yyvsp[0]); }
-#line 3139 "src/grammar.c"
+#line 3138 "src/grammar.c"
     break;
 
   case 79: /* bridi_tail_B_52: bridi_tail_C_53 GIhEK_BO_813 bridi_tail_B_52 tail_terms_71  */
-#line 552 "grammar.y"
+#line 551 "grammar.y"
                            { yyval = node4(52, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3145 "src/grammar.c"
+#line 3144 "src/grammar.c"
     break;
 
   case 80: /* bridi_tail_C_53: gek_sentence_54  */
-#line 555 "grammar.y"
+#line 554 "grammar.y"
                            { yyval = node1(53, yyvsp[0]); }
-#line 3151 "src/grammar.c"
+#line 3150 "src/grammar.c"
     break;
 
   case 81: /* bridi_tail_C_53: selbri_130 tail_terms_71  */
-#line 557 "grammar.y"
+#line 556 "grammar.y"
                            { yyval = node2(53, yyvsp[-1], yyvsp[0]); }
-#line 3157 "src/grammar.c"
+#line 3156 "src/grammar.c"
     break;
 
   case 82: /* gek_sentence_54: GEK_807 subsentence_41 GIK_816 subsentence_41 tail_terms_71  */
-#line 560 "grammar.y"
+#line 559 "grammar.y"
                            { yyval = node5(54, yyvsp[-4], yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3163 "src/grammar.c"
+#line 3162 "src/grammar.c"
     break;
 
   case 83: /* gek_sentence_54: tag_491 KE_493 gek_sentence_54 KEhE_gap_466  */
-#line 562 "grammar.y"
+#line 561 "grammar.y"
                            { yyval = node4(54, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3169 "src/grammar.c"
+#line 3168 "src/grammar.c"
     break;
 
   case 84: /* gek_sentence_54: NA_445 gek_sentence_54  */
-#line 564 "grammar.y"
+#line 563 "grammar.y"
                            { yyval = node2(54, yyvsp[-1], yyvsp[0]); }
-#line 3175 "src/grammar.c"
+#line 3174 "src/grammar.c"
     break;
 
   case 85: /* tail_terms_71: terms_80 VAU_gap_456  */
-#line 567 "grammar.y"
+#line 566 "grammar.y"
                            { yyval = node2(71, yyvsp[-1], yyvsp[0]); }
-#line 3181 "src/grammar.c"
+#line 3180 "src/grammar.c"
     break;
 
   case 86: /* tail_terms_71: VAU_gap_456  */
-#line 569 "grammar.y"
+#line 568 "grammar.y"
                            { yyval = node1(71, yyvsp[0]); }
-#line 3187 "src/grammar.c"
+#line 3186 "src/grammar.c"
     break;
 
   case 87: /* terms_80: terms_A_81  */
-#line 572 "grammar.y"
+#line 571 "grammar.y"
                            { yyval = node1(80, yyvsp[0]); }
-#line 3193 "src/grammar.c"
+#line 3192 "src/grammar.c"
     break;
 
   case 88: /* terms_80: terms_80 terms_A_81  */
-#line 574 "grammar.y"
+#line 573 "grammar.y"
                            { yyval = node2(80, yyvsp[-1], yyvsp[0]); }
-#line 3199 "src/grammar.c"
+#line 3198 "src/grammar.c"
     break;
 
   case 89: /* terms_A_81: terms_B_82  */
-#line 577 "grammar.y"
+#line 576 "grammar.y"
                            { yyval = node1(81, yyvsp[0]); }
-#line 3205 "src/grammar.c"
+#line 3204 "src/grammar.c"
     break;
 
   case 90: /* terms_A_81: terms_A_81 PEhE_494 JOIK_JEK_422 terms_B_82  */
-#line 579 "grammar.y"
+#line 578 "grammar.y"
                            { yyval = node4(81, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3211 "src/grammar.c"
+#line 3210 "src/grammar.c"
     break;
 
   case 91: /* terms_B_82: term_83  */
-#line 582 "grammar.y"
+#line 581 "grammar.y"
                            { yyval = node1(82, yyvsp[0]); }
-#line 3217 "src/grammar.c"
+#line 3216 "src/grammar.c"
     break;
 
   case 92: /* terms_B_82: terms_B_82 CEhE_495 term_83  */
-#line 584 "grammar.y"
+#line 583 "grammar.y"
                            { yyval = node3(82, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3223 "src/grammar.c"
+#line 3222 "src/grammar.c"
     break;
 
   case 93: /* term_83: sumti_90  */
-#line 587 "grammar.y"
+#line 586 "grammar.y"
                            { yyval = node1(83, yyvsp[0]); }
-#line 3229 "src/grammar.c"
+#line 3228 "src/grammar.c"
     break;
 
   case 94: /* term_83: modifier_84  */
-#line 589 "grammar.y"
+#line 588 "grammar.y"
                            { yyval = node1(83, yyvsp[0]); }
-#line 3235 "src/grammar.c"
+#line 3234 "src/grammar.c"
     break;
 
   case 95: /* term_83: term_set_85  */
-#line 591 "grammar.y"
+#line 590 "grammar.y"
                            { yyval = node1(83, yyvsp[0]); }
-#line 3241 "src/grammar.c"
+#line 3240 "src/grammar.c"
     break;
 
   case 96: /* term_83: NA_KU_810  */
-#line 593 "grammar.y"
+#line 592 "grammar.y"
                            { yyval = node1(83, yyvsp[0]); }
-#line 3247 "src/grammar.c"
+#line 3246 "src/grammar.c"
     break;
 
   case 97: /* modifier_84: mod_head_490 gap_450  */
-#line 596 "grammar.y"
+#line 595 "grammar.y"
                            { yyval = node2(84, yyvsp[-1], yyvsp[0]); }
-#line 3253 "src/grammar.c"
+#line 3252 "src/grammar.c"
     break;
 
   case 98: /* modifier_84: mod_head_490 sumti_90  */
-#line 598 "grammar.y"
+#line 597 "grammar.y"
                            { yyval = node2(84, yyvsp[-1], yyvsp[0]); }
-#line 3259 "src/grammar.c"
+#line 3258 "src/grammar.c"
     break;
 
   case 99: /* term_set_85: NUhI_496 terms_80 NUhU_gap_460  */
-#line 601 "grammar.y"
+#line 600 "grammar.y"
                            { yyval = node3(85, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3265 "src/grammar.c"
+#line 3264 "src/grammar.c"
     break;
 
   case 100: /* term_set_85: NUhI_496 GEK_807 terms_80 NUhU_gap_460 GIK_816 terms_80 NUhU_gap_460  */
-#line 603 "grammar.y"
+#line 602 "grammar.y"
                            { yyval = node7(85, yyvsp[-6], yyvsp[-5], yyvsp[-4], yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3271 "src/grammar.c"
+#line 3270 "src/grammar.c"
     break;
 
   case 101: /* sumti_90: sumti_A_91  */
-#line 606 "grammar.y"
+#line 605 "grammar.y"
                            { yyval = node1(90, yyvsp[0]); }
-#line 3277 "src/grammar.c"
+#line 3276 "src/grammar.c"
     break;
 
   case 102: /* sumti_90: sumti_A_91 VUhO_497 relative_clauses_121  */
-#line 608 "grammar.y"
+#line 607 "grammar.y"
                            { yyval = node3(90, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3283 "src/grammar.c"
+#line 3282 "src/grammar.c"
     break;
 
   case 103: /* sumti_A_91: sumti_B_92  */
-#line 611 "grammar.y"
+#line 610 "grammar.y"
                            { yyval = node1(91, yyvsp[0]); }
-#line 3289 "src/grammar.c"
+#line 3288 "src/grammar.c"
     break;
 
   case 104: /* sumti_A_91: sumti_B_92 EK_KE_804 sumti_90 KEhE_gap_466  */
-#line 613 "grammar.y"
+#line 612 "grammar.y"
                            { yyval = node4(91, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3295 "src/grammar.c"
+#line 3294 "src/grammar.c"
     break;
 
   case 105: /* sumti_A_91: sumti_B_92 JOIK_KE_823 sumti_90 KEhE_gap_466  */
-#line 615 "grammar.y"
+#line 614 "grammar.y"
                            { yyval = node4(91, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3301 "src/grammar.c"
+#line 3300 "src/grammar.c"
     break;
 
   case 106: /* sumti_B_92: sumti_C_93  */
-#line 618 "grammar.y"
+#line 617 "grammar.y"
                            { yyval = node1(92, yyvsp[0]); }
-#line 3307 "src/grammar.c"
+#line 3306 "src/grammar.c"
     break;
 
   case 107: /* sumti_B_92: sumti_B_92 JOIK_EK_421 sumti_C_93  */
-#line 620 "grammar.y"
+#line 619 "grammar.y"
                            { yyval = node3(92, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3313 "src/grammar.c"
+#line 3312 "src/grammar.c"
     break;
 
   case 108: /* sumti_C_93: sumti_D_94  */
-#line 623 "grammar.y"
+#line 622 "grammar.y"
                            { yyval = node1(93, yyvsp[0]); }
-#line 3319 "src/grammar.c"
+#line 3318 "src/grammar.c"
     break;
 
   case 109: /* sumti_C_93: sumti_D_94 EK_BO_803 sumti_C_93  */
-#line 625 "grammar.y"
+#line 624 "grammar.y"
                            { yyval = node3(93, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3325 "src/grammar.c"
+#line 3324 "src/grammar.c"
     break;
 
   case 110: /* sumti_C_93: sumti_D_94 JOIK_BO_822 sumti_C_93  */
-#line 627 "grammar.y"
+#line 626 "grammar.y"
                            { yyval = node3(93, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3331 "src/grammar.c"
+#line 3330 "src/grammar.c"
     break;
 
   case 111: /* sumti_D_94: sumti_E_95  */
-#line 630 "grammar.y"
+#line 629 "grammar.y"
                            { yyval = node1(94, yyvsp[0]); }
-#line 3337 "src/grammar.c"
+#line 3336 "src/grammar.c"
     break;
 
   case 112: /* sumti_D_94: GEK_807 sumti_90 GIK_816 sumti_D_94  */
-#line 632 "grammar.y"
+#line 631 "grammar.y"
                            { yyval = node4(94, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3343 "src/grammar.c"
+#line 3342 "src/grammar.c"
     break;
 
   case 113: /* sumti_E_95: sumti_F_96  */
-#line 635 "grammar.y"
+#line 634 "grammar.y"
                            { yyval = node1(95, yyvsp[0]); }
-#line 3349 "src/grammar.c"
+#line 3348 "src/grammar.c"
     break;
 
   case 114: /* sumti_E_95: sumti_F_96 relative_clauses_121  */
-#line 637 "grammar.y"
+#line 636 "grammar.y"
                            { yyval = node2(95, yyvsp[-1], yyvsp[0]); }
-#line 3355 "src/grammar.c"
+#line 3354 "src/grammar.c"
     break;
 
   case 115: /* sumti_E_95: quantifier_300 selbri_130 gap_450  */
-#line 639 "grammar.y"
+#line 638 "grammar.y"
                            { yyval = node3(95, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3361 "src/grammar.c"
+#line 3360 "src/grammar.c"
     break;
 
   case 116: /* sumti_E_95: quantifier_300 selbri_130 gap_450 relative_clauses_121  */
-#line 641 "grammar.y"
+#line 640 "grammar.y"
                            { yyval = node4(95, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3367 "src/grammar.c"
+#line 3366 "src/grammar.c"
     break;
 
   case 117: /* sumti_F_96: sumti_G_97  */
-#line 644 "grammar.y"
+#line 643 "grammar.y"
                            { yyval = node1(96, yyvsp[0]); }
-#line 3373 "src/grammar.c"
+#line 3372 "src/grammar.c"
     break;
 
   case 118: /* sumti_F_96: quantifier_300 sumti_G_97  */
-#line 646 "grammar.y"
+#line 645 "grammar.y"
                            { yyval = node2(96, yyvsp[-1], yyvsp[0]); }
-#line 3379 "src/grammar.c"
+#line 3378 "src/grammar.c"
     break;
 
   case 119: /* sumti_G_97: qualifier_483 sumti_90 LUhU_gap_463  */
-#line 649 "grammar.y"
+#line 648 "grammar.y"
                            { yyval = node3(97, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3385 "src/grammar.c"
+#line 3384 "src/grammar.c"
     break;
 
   case 120: /* sumti_G_97: qualifier_483 relative_clauses_121 sumti_90 LUhU_gap_463  */
-#line 651 "grammar.y"
+#line 650 "grammar.y"
                            { yyval = node4(97, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3391 "src/grammar.c"
+#line 3390 "src/grammar.c"
     break;
 
   case 121: /* sumti_G_97: anaphora_400  */
-#line 653 "grammar.y"
+#line 652 "grammar.y"
                            { yyval = node1(97, yyvsp[0]); }
-#line 3397 "src/grammar.c"
+#line 3396 "src/grammar.c"
     break;
 
   case 122: /* sumti_G_97: LA_499 cmene_404  */
-#line 655 "grammar.y"
+#line 654 "grammar.y"
                            { yyval = node2(97, yyvsp[-1], yyvsp[0]); }
-#line 3403 "src/grammar.c"
+#line 3402 "src/grammar.c"
     break;
 
   case 123: /* sumti_G_97: LA_499 relative_clauses_121 cmene_404  */
-#line 657 "grammar.y"
+#line 656 "grammar.y"
                            { yyval = node3(97, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3409 "src/grammar.c"
+#line 3408 "src/grammar.c"
     break;
 
   case 124: /* sumti_G_97: LI_489 MEX_310 LOhO_gap_472  */
-#line 659 "grammar.y"
+#line 658 "grammar.y"
                            { yyval = node3(97, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3415 "src/grammar.c"
+#line 3414 "src/grammar.c"
     break;
 
   case 125: /* sumti_G_97: description_110  */
-#line 661 "grammar.y"
+#line 660 "grammar.y"
                            { yyval = node1(97, yyvsp[0]); }
-#line 3421 "src/grammar.c"
+#line 3420 "src/grammar.c"
     break;
 
   case 126: /* sumti_G_97: quote_arg_432  */
-#line 663 "grammar.y"
+#line 662 "grammar.y"
                            { yyval = node1(97, yyvsp[0]); }
-#line 3427 "src/grammar.c"
+#line 3426 "src/grammar.c"
     break;
 
   case 127: /* description_110: LA_499 sumti_tail_111 gap_450  */
-#line 666 "grammar.y"
+#line 665 "grammar.y"
                            { yyval = node3(110, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3433 "src/grammar.c"
+#line 3432 "src/grammar.c"
     break;
 
   case 128: /* description_110: LE_488 sumti_tail_111 gap_450  */
-#line 668 "grammar.y"
+#line 667 "grammar.y"
                            { yyval = node3(110, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3439 "src/grammar.c"
+#line 3438 "src/grammar.c"
     break;
 
   case 129: /* sumti_tail_111: sumti_tail_A_112  */
-#line 671 "grammar.y"
+#line 670 "grammar.y"
                            { yyval = node1(111, yyvsp[0]); }
-#line 3445 "src/grammar.c"
+#line 3444 "src/grammar.c"
     break;
 
   case 130: /* sumti_tail_111: relative_clauses_121 sumti_tail_A_112  */
-#line 673 "grammar.y"
+#line 672 "grammar.y"
                            { yyval = node2(111, yyvsp[-1], yyvsp[0]); }
-#line 3451 "src/grammar.c"
+#line 3450 "src/grammar.c"
     break;
 
   case 131: /* sumti_tail_111: sumti_G_97 sumti_tail_A_112  */
-#line 675 "grammar.y"
+#line 674 "grammar.y"
                            { yyval = node2(111, yyvsp[-1], yyvsp[0]); }
-#line 3457 "src/grammar.c"
+#line 3456 "src/grammar.c"
     break;
 
   case 132: /* sumti_tail_111: sumti_G_97 relative_clauses_121 sumti_tail_A_112  */
-#line 677 "grammar.y"
+#line 676 "grammar.y"
                            { yyval = node3(111, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3463 "src/grammar.c"
+#line 3462 "src/grammar.c"
     break;
 
   case 133: /* sumti_tail_A_112: selbri_130  */
-#line 680 "grammar.y"
+#line 679 "grammar.y"
                            { yyval = node1(112, yyvsp[0]); }
-#line 3469 "src/grammar.c"
+#line 3468 "src/grammar.c"
     break;
 
   case 134: /* sumti_tail_A_112: selbri_130 relative_clauses_121  */
-#line 682 "grammar.y"
+#line 681 "grammar.y"
                            { yyval = node2(112, yyvsp[-1], yyvsp[0]); }
-#line 3475 "src/grammar.c"
+#line 3474 "src/grammar.c"
     break;
 
   case 135: /* sumti_tail_A_112: quantifier_300 selbri_130  */
-#line 684 "grammar.y"
+#line 683 "grammar.y"
                            { yyval = node2(112, yyvsp[-1], yyvsp[0]); }
-#line 3481 "src/grammar.c"
+#line 3480 "src/grammar.c"
     break;
 
   case 136: /* sumti_tail_A_112: quantifier_300 selbri_130 relative_clauses_121  */
-#line 686 "grammar.y"
+#line 685 "grammar.y"
                            { yyval = node3(112, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3487 "src/grammar.c"
+#line 3486 "src/grammar.c"
     break;
 
   case 137: /* sumti_tail_A_112: quantifier_300 sumti_90  */
-#line 688 "grammar.y"
+#line 687 "grammar.y"
                            { yyval = node2(112, yyvsp[-1], yyvsp[0]); }
-#line 3493 "src/grammar.c"
+#line 3492 "src/grammar.c"
     break;
 
   case 138: /* relative_clauses_121: relative_clause_122  */
-#line 691 "grammar.y"
+#line 690 "grammar.y"
                            { yyval = node1(121, yyvsp[0]); }
-#line 3499 "src/grammar.c"
+#line 3498 "src/grammar.c"
     break;
 
   case 139: /* relative_clauses_121: relative_clauses_121 ZIhE_487 relative_clause_122  */
-#line 693 "grammar.y"
+#line 692 "grammar.y"
                            { yyval = node3(121, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3505 "src/grammar.c"
+#line 3504 "src/grammar.c"
     break;
 
   case 140: /* relative_clause_122: GOI_485 term_83 GEhU_gap_464  */
-#line 696 "grammar.y"
+#line 695 "grammar.y"
                            { yyval = node3(122, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3511 "src/grammar.c"
+#line 3510 "src/grammar.c"
     break;
 
   case 141: /* relative_clause_122: NOI_484 subsentence_41 KUhO_gap_469  */
-#line 698 "grammar.y"
+#line 697 "grammar.y"
                            { yyval = node3(122, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3517 "src/grammar.c"
+#line 3516 "src/grammar.c"
     break;
 
   case 142: /* selbri_130: tag_491 selbri_A_131  */
-#line 701 "grammar.y"
+#line 700 "grammar.y"
                            { yyval = node2(130, yyvsp[-1], yyvsp[0]); }
-#line 3523 "src/grammar.c"
+#line 3522 "src/grammar.c"
     break;
 
   case 143: /* selbri_130: selbri_A_131  */
-#line 703 "grammar.y"
+#line 702 "grammar.y"
                            { yyval = node1(130, yyvsp[0]); }
-#line 3529 "src/grammar.c"
+#line 3528 "src/grammar.c"
     break;
 
   case 144: /* selbri_A_131: selbri_B_132  */
-#line 706 "grammar.y"
+#line 705 "grammar.y"
                            { yyval = node1(131, yyvsp[0]); }
-#line 3535 "src/grammar.c"
+#line 3534 "src/grammar.c"
     break;
 
   case 145: /* selbri_A_131: NA_445 selbri_130  */
-#line 708 "grammar.y"
+#line 707 "grammar.y"
                            { yyval = node2(131, yyvsp[-1], yyvsp[0]); }
-#line 3541 "src/grammar.c"
+#line 3540 "src/grammar.c"
     break;
 
   case 146: /* selbri_B_132: selbri_C_133  */
-#line 711 "grammar.y"
+#line 710 "grammar.y"
                            { yyval = node1(132, yyvsp[0]); }
-#line 3547 "src/grammar.c"
+#line 3546 "src/grammar.c"
     break;
 
   case 147: /* selbri_B_132: selbri_C_133 CO_443 selbri_B_132  */
-#line 713 "grammar.y"
+#line 712 "grammar.y"
                            { yyval = node3(132, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3553 "src/grammar.c"
+#line 3552 "src/grammar.c"
     break;
 
   case 148: /* selbri_C_133: selbri_D_134  */
-#line 716 "grammar.y"
+#line 715 "grammar.y"
                            { yyval = node1(133, yyvsp[0]); }
-#line 3559 "src/grammar.c"
+#line 3558 "src/grammar.c"
     break;
 
   case 149: /* selbri_C_133: selbri_C_133 selbri_D_134  */
-#line 718 "grammar.y"
+#line 717 "grammar.y"
                            { yyval = node2(133, yyvsp[-1], yyvsp[0]); }
-#line 3565 "src/grammar.c"
+#line 3564 "src/grammar.c"
     break;
 
   case 150: /* selbri_D_134: selbri_E_135  */
-#line 721 "grammar.y"
+#line 720 "grammar.y"
                            { yyval = node1(134, yyvsp[0]); }
-#line 3571 "src/grammar.c"
+#line 3570 "src/grammar.c"
     break;
 
   case 151: /* selbri_D_134: selbri_D_134 JOIK_JEK_422 selbri_E_135  */
-#line 723 "grammar.y"
+#line 722 "grammar.y"
                            { yyval = node3(134, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3577 "src/grammar.c"
+#line 3576 "src/grammar.c"
     break;
 
   case 152: /* selbri_D_134: selbri_D_134 JOIK_KE_823 selbri_C_133 KEhE_gap_466  */
-#line 725 "grammar.y"
+#line 724 "grammar.y"
                            { yyval = node4(134, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3583 "src/grammar.c"
+#line 3582 "src/grammar.c"
     break;
 
   case 153: /* selbri_E_135: selbri_F_136  */
-#line 728 "grammar.y"
+#line 727 "grammar.y"
                            { yyval = node1(135, yyvsp[0]); }
-#line 3589 "src/grammar.c"
+#line 3588 "src/grammar.c"
     break;
 
   case 154: /* selbri_E_135: selbri_F_136 JEK_BO_821 selbri_E_135  */
-#line 730 "grammar.y"
+#line 729 "grammar.y"
                            { yyval = node3(135, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3595 "src/grammar.c"
+#line 3594 "src/grammar.c"
     break;
 
   case 155: /* selbri_E_135: selbri_F_136 JOIK_BO_822 selbri_E_135  */
-#line 732 "grammar.y"
+#line 731 "grammar.y"
                            { yyval = node3(135, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3601 "src/grammar.c"
+#line 3600 "src/grammar.c"
     break;
 
   case 156: /* selbri_F_136: tanru_unit_150  */
-#line 735 "grammar.y"
+#line 734 "grammar.y"
                            { yyval = node1(136, yyvsp[0]); }
-#line 3607 "src/grammar.c"
+#line 3606 "src/grammar.c"
     break;
 
   case 157: /* selbri_F_136: tanru_unit_150 BO_479 selbri_F_136  */
-#line 737 "grammar.y"
+#line 736 "grammar.y"
                            { yyval = node3(136, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3613 "src/grammar.c"
+#line 3612 "src/grammar.c"
     break;
 
   case 158: /* selbri_F_136: GUhEK_selbri_137  */
-#line 739 "grammar.y"
+#line 738 "grammar.y"
                            { yyval = node1(136, yyvsp[0]); }
-#line 3619 "src/grammar.c"
+#line 3618 "src/grammar.c"
     break;
 
   case 159: /* selbri_F_136: NAhE_482 GUhEK_selbri_137  */
-#line 741 "grammar.y"
+#line 740 "grammar.y"
                            { yyval = node2(136, yyvsp[-1], yyvsp[0]); }
-#line 3625 "src/grammar.c"
+#line 3624 "src/grammar.c"
     break;
 
   case 160: /* GUhEK_selbri_137: GUhEK_808 selbri_130 GIK_816 selbri_F_136  */
-#line 744 "grammar.y"
+#line 743 "grammar.y"
                            { yyval = node4(137, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3631 "src/grammar.c"
+#line 3630 "src/grammar.c"
     break;
 
   case 161: /* tanru_unit_150: tanru_unit_A_151  */
-#line 747 "grammar.y"
+#line 746 "grammar.y"
                            { yyval = node1(150, yyvsp[0]); }
-#line 3637 "src/grammar.c"
+#line 3636 "src/grammar.c"
     break;
 
   case 162: /* tanru_unit_150: tanru_unit_150 CEI_444 tanru_unit_A_151  */
-#line 749 "grammar.y"
+#line 748 "grammar.y"
                            { yyval = node3(150, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3643 "src/grammar.c"
+#line 3642 "src/grammar.c"
     break;
 
   case 163: /* tanru_unit_A_151: tanru_unit_B_152  */
-#line 752 "grammar.y"
+#line 751 "grammar.y"
                            { yyval = node1(151, yyvsp[0]); }
-#line 3649 "src/grammar.c"
+#line 3648 "src/grammar.c"
     break;
 
   case 164: /* tanru_unit_A_151: tanru_unit_B_152 linkargs_160  */
-#line 754 "grammar.y"
+#line 753 "grammar.y"
                            { yyval = node2(151, yyvsp[-1], yyvsp[0]); }
-#line 3655 "src/grammar.c"
+#line 3654 "src/grammar.c"
     break;
 
   case 165: /* tanru_unit_B_152: bridi_valsi_407  */
-#line 757 "grammar.y"
+#line 756 "grammar.y"
                            { yyval = node1(152, yyvsp[0]); }
-#line 3661 "src/grammar.c"
+#line 3660 "src/grammar.c"
     break;
 
   case 166: /* tanru_unit_B_152: KE_493 selbri_C_133 KEhE_gap_466  */
-#line 759 "grammar.y"
+#line 758 "grammar.y"
                            { yyval = node3(152, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3667 "src/grammar.c"
+#line 3666 "src/grammar.c"
     break;
 
   case 167: /* tanru_unit_B_152: SE_480 tanru_unit_B_152  */
-#line 761 "grammar.y"
+#line 760 "grammar.y"
                            { yyval = node2(152, yyvsp[-1], yyvsp[0]); }
-#line 3673 "src/grammar.c"
+#line 3672 "src/grammar.c"
     break;
 
   case 168: /* tanru_unit_B_152: JAI_478 tag_491 tanru_unit_B_152  */
-#line 763 "grammar.y"
+#line 762 "grammar.y"
                            { yyval = node3(152, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3679 "src/grammar.c"
+#line 3678 "src/grammar.c"
     break;
 
   case 169: /* tanru_unit_B_152: JAI_478 tanru_unit_B_152  */
-#line 765 "grammar.y"
+#line 764 "grammar.y"
                            { yyval = node2(152, yyvsp[-1], yyvsp[0]); }
-#line 3685 "src/grammar.c"
+#line 3684 "src/grammar.c"
     break;
 
   case 170: /* tanru_unit_B_152: ME_477 sumti_90 MEhU_gap_465  */
-#line 767 "grammar.y"
+#line 766 "grammar.y"
                            { yyval = node3(152, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3691 "src/grammar.c"
+#line 3690 "src/grammar.c"
     break;
 
   case 171: /* tanru_unit_B_152: ME_477 sumti_90 MEhU_gap_465 MOI_476  */
-#line 769 "grammar.y"
+#line 768 "grammar.y"
                            { yyval = node4(152, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3697 "src/grammar.c"
+#line 3696 "src/grammar.c"
     break;
 
   case 172: /* tanru_unit_B_152: NUhA_475 MEX_operator_374  */
-#line 771 "grammar.y"
+#line 770 "grammar.y"
                            { yyval = node2(152, yyvsp[-1], yyvsp[0]); }
-#line 3703 "src/grammar.c"
+#line 3702 "src/grammar.c"
     break;
 
   case 173: /* tanru_unit_B_152: NAhE_482 tanru_unit_B_152  */
-#line 773 "grammar.y"
+#line 772 "grammar.y"
                            { yyval = node2(152, yyvsp[-1], yyvsp[0]); }
-#line 3709 "src/grammar.c"
+#line 3708 "src/grammar.c"
     break;
 
   case 174: /* tanru_unit_B_152: NU_425 subsentence_41 KEI_gap_453  */
-#line 775 "grammar.y"
+#line 774 "grammar.y"
                            { yyval = node3(152, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3715 "src/grammar.c"
+#line 3714 "src/grammar.c"
     break;
 
   case 175: /* linkargs_160: BE_446 term_83 BEhO_gap_467  */
-#line 778 "grammar.y"
+#line 777 "grammar.y"
                            { yyval = node3(160, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3721 "src/grammar.c"
+#line 3720 "src/grammar.c"
     break;
 
   case 176: /* linkargs_160: BE_446 term_83 links_161 BEhO_gap_467  */
-#line 780 "grammar.y"
+#line 779 "grammar.y"
                            { yyval = node4(160, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3727 "src/grammar.c"
+#line 3726 "src/grammar.c"
     break;
 
   case 177: /* links_161: BEI_442 term_83  */
-#line 783 "grammar.y"
+#line 782 "grammar.y"
                            { yyval = node2(161, yyvsp[-1], yyvsp[0]); }
-#line 3733 "src/grammar.c"
+#line 3732 "src/grammar.c"
     break;
 
   case 178: /* links_161: BEI_442 term_83 links_161  */
-#line 785 "grammar.y"
+#line 784 "grammar.y"
                            { yyval = node3(161, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3739 "src/grammar.c"
+#line 3738 "src/grammar.c"
     break;
 
   case 179: /* quantifier_300: number_812 BOI_gap_461  */
-#line 788 "grammar.y"
+#line 787 "grammar.y"
                            { yyval = node2(300, yyvsp[-1], yyvsp[0]); }
-#line 3745 "src/grammar.c"
+#line 3744 "src/grammar.c"
     break;
 
   case 180: /* quantifier_300: left_bracket_470 MEX_310 right_bracket_gap_471  */
-#line 790 "grammar.y"
+#line 789 "grammar.y"
                            { yyval = node3(300, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3751 "src/grammar.c"
+#line 3750 "src/grammar.c"
     break;
 
   case 181: /* MEX_310: MEX_A_311  */
-#line 793 "grammar.y"
+#line 792 "grammar.y"
                            { yyval = node1(310, yyvsp[0]); }
-#line 3757 "src/grammar.c"
+#line 3756 "src/grammar.c"
     break;
 
   case 182: /* MEX_310: MEX_310 operator_370 MEX_A_311  */
-#line 795 "grammar.y"
+#line 794 "grammar.y"
                            { yyval = node3(310, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3763 "src/grammar.c"
+#line 3762 "src/grammar.c"
     break;
 
   case 183: /* MEX_310: FUhA_441 rp_expression_330  */
-#line 797 "grammar.y"
+#line 796 "grammar.y"
                            { yyval = node2(310, yyvsp[-1], yyvsp[0]); }
-#line 3769 "src/grammar.c"
+#line 3768 "src/grammar.c"
     break;
 
   case 184: /* MEX_A_311: MEX_B_312  */
-#line 800 "grammar.y"
+#line 799 "grammar.y"
                            { yyval = node1(311, yyvsp[0]); }
-#line 3775 "src/grammar.c"
+#line 3774 "src/grammar.c"
     break;
 
   case 185: /* MEX_A_311: MEX_B_312 BIhE_439 operator_370 MEX_A_311  */
-#line 802 "grammar.y"
+#line 801 "grammar.y"
                            { yyval = node4(311, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3781 "src/grammar.c"
+#line 3780 "src/grammar.c"
     break;
 
   case 186: /* MEX_B_312: operand_381  */
-#line 805 "grammar.y"
+#line 804 "grammar.y"
                            { yyval = node1(312, yyvsp[0]); }
-#line 3787 "src/grammar.c"
+#line 3786 "src/grammar.c"
     break;
 
   case 187: /* MEX_B_312: operator_370 MEX_C_313 MEX_gap_452  */
-#line 807 "grammar.y"
+#line 806 "grammar.y"
                            { yyval = node3(312, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3793 "src/grammar.c"
+#line 3792 "src/grammar.c"
     break;
 
   case 188: /* MEX_B_312: PEhO_438 operator_370 MEX_C_313 MEX_gap_452  */
-#line 809 "grammar.y"
+#line 808 "grammar.y"
                            { yyval = node4(312, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3799 "src/grammar.c"
+#line 3798 "src/grammar.c"
     break;
 
   case 189: /* MEX_C_313: MEX_B_312  */
-#line 812 "grammar.y"
+#line 811 "grammar.y"
                            { yyval = node1(313, yyvsp[0]); }
-#line 3805 "src/grammar.c"
+#line 3804 "src/grammar.c"
     break;
 
   case 190: /* MEX_C_313: MEX_C_313 MEX_B_312  */
-#line 814 "grammar.y"
+#line 813 "grammar.y"
                            { yyval = node2(313, yyvsp[-1], yyvsp[0]); }
-#line 3811 "src/grammar.c"
+#line 3810 "src/grammar.c"
     break;
 
   case 191: /* rp_expression_330: rp_operand_332 rp_operand_332 operator_370  */
-#line 817 "grammar.y"
+#line 816 "grammar.y"
                            { yyval = node3(330, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3817 "src/grammar.c"
+#line 3816 "src/grammar.c"
     break;
 
   case 192: /* rp_operand_332: operand_381  */
-#line 820 "grammar.y"
+#line 819 "grammar.y"
                            { yyval = node1(332, yyvsp[0]); }
-#line 3823 "src/grammar.c"
+#line 3822 "src/grammar.c"
     break;
 
   case 193: /* rp_operand_332: rp_expression_330  */
-#line 822 "grammar.y"
+#line 821 "grammar.y"
                            { yyval = node1(332, yyvsp[0]); }
-#line 3829 "src/grammar.c"
+#line 3828 "src/grammar.c"
     break;
 
   case 194: /* operator_370: operator_A_371  */
-#line 825 "grammar.y"
+#line 824 "grammar.y"
                            { yyval = node1(370, yyvsp[0]); }
-#line 3835 "src/grammar.c"
+#line 3834 "src/grammar.c"
     break;
 
   case 195: /* operator_370: operator_370 JOIK_JEK_422 operator_A_371  */
-#line 827 "grammar.y"
+#line 826 "grammar.y"
                            { yyval = node3(370, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3841 "src/grammar.c"
+#line 3840 "src/grammar.c"
     break;
 
   case 196: /* operator_370: operator_370 JOIK_KE_823 operator_370 KEhE_gap_466  */
-#line 829 "grammar.y"
+#line 828 "grammar.y"
                            { yyval = node4(370, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3847 "src/grammar.c"
+#line 3846 "src/grammar.c"
     break;
 
   case 197: /* operator_A_371: operator_B_372  */
-#line 832 "grammar.y"
+#line 831 "grammar.y"
                            { yyval = node1(371, yyvsp[0]); }
-#line 3853 "src/grammar.c"
+#line 3852 "src/grammar.c"
     break;
 
   case 198: /* operator_A_371: GUhEK_808 operator_A_371 GIK_816 operator_B_372  */
-#line 834 "grammar.y"
+#line 833 "grammar.y"
                            { yyval = node4(371, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3859 "src/grammar.c"
+#line 3858 "src/grammar.c"
     break;
 
   case 199: /* operator_A_371: operator_B_372 JOIK_BO_822 operator_A_371  */
-#line 836 "grammar.y"
+#line 835 "grammar.y"
                            { yyval = node3(371, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3865 "src/grammar.c"
+#line 3864 "src/grammar.c"
     break;
 
   case 200: /* operator_A_371: operator_B_372 JEK_BO_821 operator_A_371  */
-#line 838 "grammar.y"
+#line 837 "grammar.y"
                            { yyval = node3(371, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3871 "src/grammar.c"
+#line 3870 "src/grammar.c"
     break;
 
   case 201: /* operator_B_372: MEX_operator_374  */
-#line 841 "grammar.y"
+#line 840 "grammar.y"
                            { yyval = node1(372, yyvsp[0]); }
-#line 3877 "src/grammar.c"
+#line 3876 "src/grammar.c"
     break;
 
   case 202: /* operator_B_372: KE_493 operator_370 KEhE_gap_466  */
-#line 843 "grammar.y"
+#line 842 "grammar.y"
                            { yyval = node3(372, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3883 "src/grammar.c"
+#line 3882 "src/grammar.c"
     break;
 
   case 203: /* MEX_operator_374: VUhU_679  */
-#line 846 "grammar.y"
+#line 845 "grammar.y"
                            { yyval = node1(374, yyvsp[0]); }
-#line 3889 "src/grammar.c"
+#line 3888 "src/grammar.c"
     break;
 
   case 204: /* MEX_operator_374: VUhU_679 free_modifier_32  */
-#line 848 "grammar.y"
+#line 847 "grammar.y"
                            { yyval = node2(374, yyvsp[-1], yyvsp[0]); }
-#line 3895 "src/grammar.c"
+#line 3894 "src/grammar.c"
     break;
 
   case 205: /* MEX_operator_374: SE_480 MEX_operator_374  */
-#line 850 "grammar.y"
+#line 849 "grammar.y"
                            { yyval = node2(374, yyvsp[-1], yyvsp[0]); }
-#line 3901 "src/grammar.c"
+#line 3900 "src/grammar.c"
     break;
 
   case 206: /* MEX_operator_374: NAhE_482 MEX_operator_374  */
-#line 852 "grammar.y"
+#line 851 "grammar.y"
                            { yyval = node2(374, yyvsp[-1], yyvsp[0]); }
-#line 3907 "src/grammar.c"
+#line 3906 "src/grammar.c"
     break;
 
   case 207: /* MEX_operator_374: MAhO_430 MEX_310 TEhU_gap_473  */
-#line 854 "grammar.y"
+#line 853 "grammar.y"
                            { yyval = node3(374, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3913 "src/grammar.c"
+#line 3912 "src/grammar.c"
     break;
 
   case 208: /* MEX_operator_374: NAhU_429 selbri_130 TEhU_gap_473  */
-#line 856 "grammar.y"
+#line 855 "grammar.y"
                            { yyval = node3(374, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3919 "src/grammar.c"
+#line 3918 "src/grammar.c"
     break;
 
   case 209: /* operand_381: operand_A_382  */
-#line 859 "grammar.y"
+#line 858 "grammar.y"
                            { yyval = node1(381, yyvsp[0]); }
-#line 3925 "src/grammar.c"
+#line 3924 "src/grammar.c"
     break;
 
   case 210: /* operand_381: operand_A_382 EK_KE_804 operand_381 KEhE_gap_466  */
-#line 861 "grammar.y"
+#line 860 "grammar.y"
                            { yyval = node4(381, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3931 "src/grammar.c"
+#line 3930 "src/grammar.c"
     break;
 
   case 211: /* operand_381: operand_A_382 JOIK_KE_823 operand_381 KEhE_gap_466  */
-#line 863 "grammar.y"
+#line 862 "grammar.y"
                            { yyval = node4(381, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3937 "src/grammar.c"
+#line 3936 "src/grammar.c"
     break;
 
   case 212: /* operand_A_382: operand_B_383  */
-#line 866 "grammar.y"
+#line 865 "grammar.y"
                            { yyval = node1(382, yyvsp[0]); }
-#line 3943 "src/grammar.c"
+#line 3942 "src/grammar.c"
     break;
 
   case 213: /* operand_A_382: operand_A_382 JOIK_EK_421 operand_B_383  */
-#line 868 "grammar.y"
+#line 867 "grammar.y"
                            { yyval = node3(382, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3949 "src/grammar.c"
+#line 3948 "src/grammar.c"
     break;
 
   case 214: /* operand_B_383: operand_C_385  */
-#line 871 "grammar.y"
+#line 870 "grammar.y"
                            { yyval = node1(383, yyvsp[0]); }
-#line 3955 "src/grammar.c"
+#line 3954 "src/grammar.c"
     break;
 
   case 215: /* operand_B_383: operand_C_385 EK_BO_803 operand_B_383  */
-#line 873 "grammar.y"
+#line 872 "grammar.y"
                            { yyval = node3(383, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3961 "src/grammar.c"
+#line 3960 "src/grammar.c"
     break;
 
   case 216: /* operand_B_383: operand_C_385 JOIK_BO_822 operand_B_383  */
-#line 875 "grammar.y"
+#line 874 "grammar.y"
                            { yyval = node3(383, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3967 "src/grammar.c"
+#line 3966 "src/grammar.c"
     break;
 
   case 217: /* operand_C_385: quantifier_300  */
-#line 878 "grammar.y"
+#line 877 "grammar.y"
                            { yyval = node1(385, yyvsp[0]); }
-#line 3973 "src/grammar.c"
+#line 3972 "src/grammar.c"
     break;
 
   case 218: /* operand_C_385: lerfu_string_817 BOI_gap_461  */
-#line 880 "grammar.y"
+#line 879 "grammar.y"
                            { yyval = node2(385, yyvsp[-1], yyvsp[0]); }
-#line 3979 "src/grammar.c"
+#line 3978 "src/grammar.c"
     break;
 
   case 219: /* operand_C_385: NIhE_428 selbri_130 TEhU_gap_473  */
-#line 882 "grammar.y"
+#line 881 "grammar.y"
                            { yyval = node3(385, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3985 "src/grammar.c"
+#line 3984 "src/grammar.c"
     break;
 
   case 220: /* operand_C_385: MOhE_427 sumti_90 TEhU_gap_473  */
-#line 884 "grammar.y"
+#line 883 "grammar.y"
                            { yyval = node3(385, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3991 "src/grammar.c"
+#line 3990 "src/grammar.c"
     break;
 
   case 221: /* operand_C_385: JOhI_431 MEX_C_313 TEhU_gap_473  */
-#line 886 "grammar.y"
+#line 885 "grammar.y"
                            { yyval = node3(385, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 3997 "src/grammar.c"
+#line 3996 "src/grammar.c"
     break;
 
   case 222: /* operand_C_385: GEK_807 operand_381 GIK_816 operand_C_385  */
-#line 888 "grammar.y"
+#line 887 "grammar.y"
                            { yyval = node4(385, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 4003 "src/grammar.c"
+#line 4002 "src/grammar.c"
     break;
 
   case 223: /* operand_C_385: qualifier_483 operand_381 LUhU_gap_463  */
-#line 890 "grammar.y"
+#line 889 "grammar.y"
                            { yyval = node3(385, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 4009 "src/grammar.c"
+#line 4008 "src/grammar.c"
     break;
 
   case 224: /* anaphora_400: KOhA_555  */
-#line 893 "grammar.y"
+#line 892 "grammar.y"
                            { yyval = node1(400, yyvsp[0]); }
-#line 4015 "src/grammar.c"
+#line 4014 "src/grammar.c"
     break;
 
   case 225: /* anaphora_400: KOhA_555 free_modifier_32  */
-#line 895 "grammar.y"
+#line 894 "grammar.y"
                            { yyval = node2(400, yyvsp[-1], yyvsp[0]); }
-#line 4021 "src/grammar.c"
+#line 4020 "src/grammar.c"
     break;
 
   case 226: /* anaphora_400: lerfu_string_817 BOI_gap_461  */
-#line 897 "grammar.y"
+#line 896 "grammar.y"
                            { yyval = node2(400, yyvsp[-1], yyvsp[0]); }
-#line 4027 "src/grammar.c"
+#line 4026 "src/grammar.c"
     break;
 
   case 227: /* cmene_404: cmene_A_405  */
-#line 900 "grammar.y"
+#line 899 "grammar.y"
                            { yyval = node1(404, yyvsp[0]); }
-#line 4033 "src/grammar.c"
+#line 4032 "src/grammar.c"
     break;
 
   case 228: /* cmene_404: cmene_A_405 free_modifier_32  */
-#line 902 "grammar.y"
+#line 901 "grammar.y"
                            { yyval = node2(404, yyvsp[-1], yyvsp[0]); }
-#line 4039 "src/grammar.c"
+#line 4038 "src/grammar.c"
     break;
 
   case 229: /* cmene_A_405: CMENE_518  */
-#line 905 "grammar.y"
+#line 904 "grammar.y"
                            { yyval = node1(405, yyvsp[0]); }
-#line 4045 "src/grammar.c"
+#line 4044 "src/grammar.c"
     break;
 
   case 230: /* cmene_A_405: cmene_A_405 CMENE_518  */
-#line 907 "grammar.y"
+#line 906 "grammar.y"
                            { yyval = node2(405, yyvsp[-1], yyvsp[0]); }
-#line 4051 "src/grammar.c"
+#line 4050 "src/grammar.c"
     break;
 
   case 231: /* bridi_valsi_407: bridi_valsi_A_408  */
-#line 910 "grammar.y"
+#line 909 "grammar.y"
                            { yyval = node1(407, yyvsp[0]); }
-#line 4057 "src/grammar.c"
+#line 4056 "src/grammar.c"
     break;
 
   case 232: /* bridi_valsi_407: bridi_valsi_A_408 free_modifier_32  */
-#line 912 "grammar.y"
+#line 911 "grammar.y"
                            { yyval = node2(407, yyvsp[-1], yyvsp[0]); }
-#line 4063 "src/grammar.c"
+#line 4062 "src/grammar.c"
     break;
 
   case 233: /* bridi_valsi_A_408: BRIVLA_509  */
-#line 915 "grammar.y"
+#line 914 "grammar.y"
                            { yyval = node1(408, yyvsp[0]); }
-#line 4069 "src/grammar.c"
+#line 4068 "src/grammar.c"
     break;
 
   case 234: /* bridi_valsi_A_408: PA_MOI_824  */
-#line 917 "grammar.y"
+#line 916 "grammar.y"
                            { yyval = node1(408, yyvsp[0]); }
-#line 4075 "src/grammar.c"
+#line 4074 "src/grammar.c"
     break;
 
   case 235: /* bridi_valsi_A_408: GOhA_543  */
-#line 919 "grammar.y"
+#line 918 "grammar.y"
                            { yyval = node1(408, yyvsp[0]); }
-#line 4081 "src/grammar.c"
+#line 4080 "src/grammar.c"
     break;
 
   case 236: /* bridi_valsi_A_408: GOhA_543 RAhO_593  */
-#line 921 "grammar.y"
+#line 920 "grammar.y"
                            { yyval = node2(408, yyvsp[-1], yyvsp[0]); }
-#line 4087 "src/grammar.c"
+#line 4086 "src/grammar.c"
     break;
 
   case 237: /* para_mark_410: NIhO_584  */
-#line 924 "grammar.y"
+#line 923 "grammar.y"
                            { yyval = node1(410, yyvsp[0]); }
-#line 4093 "src/grammar.c"
+#line 4092 "src/grammar.c"
     break;
 
   case 238: /* para_mark_410: NIhO_584 free_modifier_32  */
-#line 926 "grammar.y"
+#line 925 "grammar.y"
                            { yyval = node2(410, yyvsp[-1], yyvsp[0]); }
-#line 4099 "src/grammar.c"
+#line 4098 "src/grammar.c"
     break;
 
   case 239: /* para_mark_410: NIhO_584 para_mark_410  */
-#line 928 "grammar.y"
+#line 927 "grammar.y"
                            { yyval = node2(410, yyvsp[-1], yyvsp[0]); }
-#line 4105 "src/grammar.c"
+#line 4104 "src/grammar.c"
     break;
 
   case 240: /* indicators_411: indicators_A_412  */
-#line 931 "grammar.y"
+#line 930 "grammar.y"
                            { yyval = node1(411, yyvsp[0]); }
-#line 4111 "src/grammar.c"
+#line 4110 "src/grammar.c"
     break;
 
   case 241: /* indicators_411: FUhE_535 indicators_A_412  */
-#line 933 "grammar.y"
+#line 932 "grammar.y"
                            { yyval = node2(411, yyvsp[-1], yyvsp[0]); }
-#line 4117 "src/grammar.c"
+#line 4116 "src/grammar.c"
     break;
 
   case 242: /* indicators_A_412: indicator_413  */
-#line 936 "grammar.y"
+#line 935 "grammar.y"
                            { yyval = node1(412, yyvsp[0]); }
-#line 4123 "src/grammar.c"
+#line 4122 "src/grammar.c"
     break;
 
   case 243: /* indicators_A_412: indicators_A_412 indicator_413  */
-#line 938 "grammar.y"
+#line 937 "grammar.y"
                            { yyval = node2(412, yyvsp[-1], yyvsp[0]); }
-#line 4129 "src/grammar.c"
+#line 4128 "src/grammar.c"
     break;
 
   case 244: /* indicator_413: UI_612  */
-#line 941 "grammar.y"
+#line 940 "grammar.y"
                            { yyval = node1(413, yyvsp[0]); }
-#line 4135 "src/grammar.c"
+#line 4134 "src/grammar.c"
     break;
 
   case 245: /* indicator_413: CAI_515  */
-#line 943 "grammar.y"
+#line 942 "grammar.y"
                            { yyval = node1(413, yyvsp[0]); }
-#line 4141 "src/grammar.c"
+#line 4140 "src/grammar.c"
     break;
 
   case 246: /* indicator_413: UI_612 NAI_581  */
-#line 945 "grammar.y"
+#line 944 "grammar.y"
                            { yyval = node2(413, yyvsp[-1], yyvsp[0]); }
-#line 4147 "src/grammar.c"
+#line 4146 "src/grammar.c"
     break;
 
   case 247: /* indicator_413: CAI_515 NAI_581  */
-#line 947 "grammar.y"
+#line 946 "grammar.y"
                            { yyval = node2(413, yyvsp[-1], yyvsp[0]); }
-#line 4153 "src/grammar.c"
+#line 4152 "src/grammar.c"
     break;
 
   case 248: /* indicator_413: Y_619  */
-#line 949 "grammar.y"
+#line 948 "grammar.y"
                            { yyval = node1(413, yyvsp[0]); }
-#line 4159 "src/grammar.c"
+#line 4158 "src/grammar.c"
     break;
 
   case 249: /* indicator_413: DAhO_524  */
-#line 951 "grammar.y"
+#line 950 "grammar.y"
                            { yyval = node1(413, yyvsp[0]); }
-#line 4165 "src/grammar.c"
+#line 4164 "src/grammar.c"
     break;
 
   case 250: /* indicator_413: FUhO_536  */
-#line 953 "grammar.y"
+#line 952 "grammar.y"
                            { yyval = node1(413, yyvsp[0]); }
-#line 4171 "src/grammar.c"
+#line 4170 "src/grammar.c"
     break;
 
   case 251: /* DOI_415: DOI_525  */
-#line 956 "grammar.y"
+#line 955 "grammar.y"
                            { yyval = node1(415, yyvsp[0]); }
-#line 4177 "src/grammar.c"
+#line 4176 "src/grammar.c"
     break;
 
   case 252: /* DOI_415: COI_416  */
-#line 958 "grammar.y"
+#line 957 "grammar.y"
                            { yyval = node1(415, yyvsp[0]); }
-#line 4183 "src/grammar.c"
+#line 4182 "src/grammar.c"
     break;
 
   case 253: /* DOI_415: COI_416 DOI_525  */
-#line 960 "grammar.y"
+#line 959 "grammar.y"
                            { yyval = node2(415, yyvsp[-1], yyvsp[0]); }
-#line 4189 "src/grammar.c"
+#line 4188 "src/grammar.c"
     break;
 
   case 254: /* COI_416: COI_A_417  */
-#line 963 "grammar.y"
+#line 962 "grammar.y"
                            { yyval = node1(416, yyvsp[0]); }
-#line 4195 "src/grammar.c"
+#line 4194 "src/grammar.c"
     break;
 
   case 255: /* COI_416: COI_416 COI_A_417  */
-#line 965 "grammar.y"
+#line 964 "grammar.y"
                            { yyval = node2(416, yyvsp[-1], yyvsp[0]); }
-#line 4201 "src/grammar.c"
+#line 4200 "src/grammar.c"
     break;
 
   case 256: /* COI_A_417: COI_520  */
-#line 968 "grammar.y"
+#line 967 "grammar.y"
                            { yyval = node1(417, yyvsp[0]); }
-#line 4207 "src/grammar.c"
+#line 4206 "src/grammar.c"
     break;
 
   case 257: /* COI_A_417: COI_520 NAI_581  */
-#line 970 "grammar.y"
+#line 969 "grammar.y"
                            { yyval = node2(417, yyvsp[-1], yyvsp[0]); }
-#line 4213 "src/grammar.c"
+#line 4212 "src/grammar.c"
     break;
 
   case 258: /* JOIK_EK_421: EK_802  */
-#line 973 "grammar.y"
+#line 972 "grammar.y"
                            { yyval = node1(421, yyvsp[0]); }
-#line 4219 "src/grammar.c"
+#line 4218 "src/grammar.c"
     break;
 
   case 259: /* JOIK_EK_421: JOIK_806  */
-#line 975 "grammar.y"
+#line 974 "grammar.y"
                            { yyval = node1(421, yyvsp[0]); }
-#line 4225 "src/grammar.c"
+#line 4224 "src/grammar.c"
     break;
 
   case 260: /* JOIK_EK_421: JOIK_806 free_modifier_32  */
-#line 977 "grammar.y"
+#line 976 "grammar.y"
                            { yyval = node2(421, yyvsp[-1], yyvsp[0]); }
-#line 4231 "src/grammar.c"
+#line 4230 "src/grammar.c"
     break;
 
   case 261: /* JOIK_JEK_422: JOIK_806  */
-#line 980 "grammar.y"
+#line 979 "grammar.y"
                            { yyval = node1(422, yyvsp[0]); }
-#line 4237 "src/grammar.c"
+#line 4236 "src/grammar.c"
     break;
 
   case 262: /* JOIK_JEK_422: JOIK_806 free_modifier_32  */
-#line 982 "grammar.y"
+#line 981 "grammar.y"
                            { yyval = node2(422, yyvsp[-1], yyvsp[0]); }
-#line 4243 "src/grammar.c"
+#line 4242 "src/grammar.c"
     break;
 
   case 263: /* JOIK_JEK_422: JEK_805  */
-#line 984 "grammar.y"
+#line 983 "grammar.y"
                            { yyval = node1(422, yyvsp[0]); }
-#line 4249 "src/grammar.c"
+#line 4248 "src/grammar.c"
     break;
 
   case 264: /* JOIK_JEK_422: JEK_805 free_modifier_32  */
-#line 986 "grammar.y"
+#line 985 "grammar.y"
                            { yyval = node2(422, yyvsp[-1], yyvsp[0]); }
-#line 4255 "src/grammar.c"
+#line 4254 "src/grammar.c"
     break;
 
   case 265: /* XI_424: XI_618  */
-#line 989 "grammar.y"
+#line 988 "grammar.y"
                            { yyval = node1(424, yyvsp[0]); }
-#line 4261 "src/grammar.c"
+#line 4260 "src/grammar.c"
     break;
 
   case 266: /* XI_424: XI_618 free_modifier_32  */
-#line 991 "grammar.y"
+#line 990 "grammar.y"
                            { yyval = node2(424, yyvsp[-1], yyvsp[0]); }
-#line 4267 "src/grammar.c"
+#line 4266 "src/grammar.c"
     break;
 
   case 267: /* NU_425: NU_A_426  */
-#line 994 "grammar.y"
+#line 993 "grammar.y"
                            { yyval = node1(425, yyvsp[0]); }
-#line 4273 "src/grammar.c"
+#line 4272 "src/grammar.c"
     break;
 
   case 268: /* NU_425: NU_425 JOIK_JEK_422 NU_A_426  */
-#line 996 "grammar.y"
+#line 995 "grammar.y"
                            { yyval = node3(425, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 4279 "src/grammar.c"
+#line 4278 "src/grammar.c"
     break;
 
   case 269: /* NU_A_426: NU_586  */
-#line 999 "grammar.y"
+#line 998 "grammar.y"
                            { yyval = node1(426, yyvsp[0]); }
-#line 4285 "src/grammar.c"
+#line 4284 "src/grammar.c"
     break;
 
   case 270: /* NU_A_426: NU_586 NAI_581  */
-#line 1001 "grammar.y"
+#line 1000 "grammar.y"
                            { yyval = node2(426, yyvsp[-1], yyvsp[0]); }
-#line 4291 "src/grammar.c"
+#line 4290 "src/grammar.c"
     break;
 
   case 271: /* NU_A_426: NU_586 free_modifier_32  */
-#line 1003 "grammar.y"
+#line 1002 "grammar.y"
                            { yyval = node2(426, yyvsp[-1], yyvsp[0]); }
-#line 4297 "src/grammar.c"
+#line 4296 "src/grammar.c"
     break;
 
   case 272: /* NU_A_426: NU_586 NAI_581 free_modifier_32  */
-#line 1005 "grammar.y"
+#line 1004 "grammar.y"
                            { yyval = node3(426, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 4303 "src/grammar.c"
+#line 4302 "src/grammar.c"
     break;
 
   case 273: /* MOhE_427: MOhE_664  */
-#line 1008 "grammar.y"
+#line 1007 "grammar.y"
                            { yyval = node1(427, yyvsp[0]); }
-#line 4309 "src/grammar.c"
+#line 4308 "src/grammar.c"
     break;
 
   case 274: /* MOhE_427: MOhE_664 free_modifier_32  */
-#line 1010 "grammar.y"
+#line 1009 "grammar.y"
                            { yyval = node2(427, yyvsp[-1], yyvsp[0]); }
-#line 4315 "src/grammar.c"
+#line 4314 "src/grammar.c"
     break;
 
   case 275: /* NIhE_428: NIhE_666  */
-#line 1013 "grammar.y"
+#line 1012 "grammar.y"
                            { yyval = node1(428, yyvsp[0]); }
-#line 4321 "src/grammar.c"
+#line 4320 "src/grammar.c"
     break;
 
   case 276: /* NIhE_428: NIhE_666 free_modifier_32  */
-#line 1015 "grammar.y"
+#line 1014 "grammar.y"
                            { yyval = node2(428, yyvsp[-1], yyvsp[0]); }
-#line 4327 "src/grammar.c"
+#line 4326 "src/grammar.c"
     break;
 
   case 277: /* NAhU_429: NAhU_665  */
-#line 1018 "grammar.y"
+#line 1017 "grammar.y"
                            { yyval = node1(429, yyvsp[0]); }
-#line 4333 "src/grammar.c"
+#line 4332 "src/grammar.c"
     break;
 
   case 278: /* NAhU_429: NAhU_665 free_modifier_32  */
-#line 1020 "grammar.y"
+#line 1019 "grammar.y"
                            { yyval = node2(429, yyvsp[-1], yyvsp[0]); }
-#line 4339 "src/grammar.c"
+#line 4338 "src/grammar.c"
     break;
 
   case 279: /* MAhO_430: MAhO_662  */
-#line 1023 "grammar.y"
+#line 1022 "grammar.y"
                            { yyval = node1(430, yyvsp[0]); }
-#line 4345 "src/grammar.c"
+#line 4344 "src/grammar.c"
     break;
 
   case 280: /* MAhO_430: MAhO_662 free_modifier_32  */
-#line 1025 "grammar.y"
+#line 1024 "grammar.y"
                            { yyval = node2(430, yyvsp[-1], yyvsp[0]); }
-#line 4351 "src/grammar.c"
+#line 4350 "src/grammar.c"
     break;
 
   case 281: /* JOhI_431: JOhI_657  */
-#line 1028 "grammar.y"
+#line 1027 "grammar.y"
                            { yyval = node1(431, yyvsp[0]); }
-#line 4357 "src/grammar.c"
+#line 4356 "src/grammar.c"
     break;
 
   case 282: /* JOhI_431: JOhI_657 free_modifier_32  */
-#line 1030 "grammar.y"
+#line 1029 "grammar.y"
                            { yyval = node2(431, yyvsp[-1], yyvsp[0]); }
-#line 4363 "src/grammar.c"
+#line 4362 "src/grammar.c"
     break;
 
   case 283: /* quote_arg_432: quote_arg_A_433  */
-#line 1033 "grammar.y"
+#line 1032 "grammar.y"
                            { yyval = node1(432, yyvsp[0]); }
-#line 4369 "src/grammar.c"
+#line 4368 "src/grammar.c"
     break;
 
   case 284: /* quote_arg_432: quote_arg_A_433 free_modifier_32  */
-#line 1035 "grammar.y"
+#line 1034 "grammar.y"
                            { yyval = node2(432, yyvsp[-1], yyvsp[0]); }
-#line 4375 "src/grammar.c"
+#line 4374 "src/grammar.c"
     break;
 
   case 285: /* quote_arg_A_433: ZOI_quote_434  */
-#line 1038 "grammar.y"
+#line 1037 "grammar.y"
                            { yyval = node1(433, yyvsp[0]); }
-#line 4381 "src/grammar.c"
+#line 4380 "src/grammar.c"
     break;
 
   case 286: /* quote_arg_A_433: ZO_quote_435  */
-#line 1040 "grammar.y"
+#line 1039 "grammar.y"
                            { yyval = node1(433, yyvsp[0]); }
-#line 4387 "src/grammar.c"
+#line 4386 "src/grammar.c"
     break;
 
   case 287: /* quote_arg_A_433: LOhU_quote_436  */
-#line 1042 "grammar.y"
+#line 1041 "grammar.y"
                            { yyval = node1(433, yyvsp[0]); }
-#line 4393 "src/grammar.c"
+#line 4392 "src/grammar.c"
     break;
 
   case 288: /* quote_arg_A_433: LU_571 text_0 LIhU_gap_448  */
-#line 1044 "grammar.y"
+#line 1043 "grammar.y"
                            { yyval = node3(433, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 4399 "src/grammar.c"
+#line 4398 "src/grammar.c"
     break;
 
   case 289: /* ZOI_quote_434: ZOI_627 any_word_698 anything_699 any_word_698  */
-#line 1047 "grammar.y"
+#line 1046 "grammar.y"
                            { yyval = node4(434, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 4405 "src/grammar.c"
+#line 4404 "src/grammar.c"
     break;
 
   case 290: /* ZO_quote_435: ZO_626 any_word_698  */
-#line 1050 "grammar.y"
+#line 1049 "grammar.y"
                            { yyval = node2(435, yyvsp[-1], yyvsp[0]); }
-#line 4411 "src/grammar.c"
+#line 4410 "src/grammar.c"
     break;
 
   case 291: /* LOhU_quote_436: LOhU_569 any_words_697 LEhU_565  */
-#line 1053 "grammar.y"
+#line 1052 "grammar.y"
                            { yyval = node3(436, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 4417 "src/grammar.c"
+#line 4416 "src/grammar.c"
     break;
 
   case 292: /* FIhO_437: FIhO_532  */
-#line 1056 "grammar.y"
+#line 1055 "grammar.y"
                            { yyval = node1(437, yyvsp[0]); }
-#line 4423 "src/grammar.c"
+#line 4422 "src/grammar.c"
     break;
 
   case 293: /* FIhO_437: FIhO_532 free_modifier_32  */
-#line 1058 "grammar.y"
+#line 1057 "grammar.y"
                            { yyval = node2(437, yyvsp[-1], yyvsp[0]); }
-#line 4429 "src/grammar.c"
+#line 4428 "src/grammar.c"
     break;
 
   case 294: /* PEhO_438: PEhO_673  */
-#line 1061 "grammar.y"
+#line 1060 "grammar.y"
                            { yyval = node1(438, yyvsp[0]); }
-#line 4435 "src/grammar.c"
+#line 4434 "src/grammar.c"
     break;
 
   case 295: /* PEhO_438: PEhO_673 free_modifier_32  */
-#line 1063 "grammar.y"
+#line 1062 "grammar.y"
                            { yyval = node2(438, yyvsp[-1], yyvsp[0]); }
-#line 4441 "src/grammar.c"
+#line 4440 "src/grammar.c"
     break;
 
   case 296: /* BIhE_439: BIhE_650  */
-#line 1066 "grammar.y"
+#line 1065 "grammar.y"
                            { yyval = node1(439, yyvsp[0]); }
-#line 4447 "src/grammar.c"
+#line 4446 "src/grammar.c"
     break;
 
   case 297: /* BIhE_439: BIhE_650 free_modifier_32  */
-#line 1068 "grammar.y"
+#line 1067 "grammar.y"
                            { yyval = node2(439, yyvsp[-1], yyvsp[0]); }
-#line 4453 "src/grammar.c"
+#line 4452 "src/grammar.c"
     break;
 
   case 298: /* SEI_440: SEI_597  */
-#line 1071 "grammar.y"
+#line 1070 "grammar.y"
                            { yyval = node1(440, yyvsp[0]); }
-#line 4459 "src/grammar.c"
+#line 4458 "src/grammar.c"
     break;
 
   case 299: /* SEI_440: SEI_597 free_modifier_32  */
-#line 1073 "grammar.y"
+#line 1072 "grammar.y"
                            { yyval = node2(440, yyvsp[-1], yyvsp[0]); }
-#line 4465 "src/grammar.c"
+#line 4464 "src/grammar.c"
     break;
 
   case 300: /* FUhA_441: FUhA_655  */
-#line 1076 "grammar.y"
+#line 1075 "grammar.y"
                            { yyval = node1(441, yyvsp[0]); }
-#line 4471 "src/grammar.c"
+#line 4470 "src/grammar.c"
     break;
 
   case 301: /* FUhA_441: FUhA_655 free_modifier_32  */
-#line 1078 "grammar.y"
+#line 1077 "grammar.y"
                            { yyval = node2(441, yyvsp[-1], yyvsp[0]); }
-#line 4477 "src/grammar.c"
+#line 4476 "src/grammar.c"
     break;
 
   case 302: /* BEI_442: BEI_505  */
-#line 1081 "grammar.y"
+#line 1080 "grammar.y"
                            { yyval = node1(442, yyvsp[0]); }
-#line 4483 "src/grammar.c"
+#line 4482 "src/grammar.c"
     break;
 
   case 303: /* BEI_442: BEI_505 free_modifier_32  */
-#line 1083 "grammar.y"
+#line 1082 "grammar.y"
                            { yyval = node2(442, yyvsp[-1], yyvsp[0]); }
-#line 4489 "src/grammar.c"
+#line 4488 "src/grammar.c"
     break;
 
   case 304: /* CO_443: CO_519  */
-#line 1086 "grammar.y"
+#line 1085 "grammar.y"
                            { yyval = node1(443, yyvsp[0]); }
-#line 4495 "src/grammar.c"
+#line 4494 "src/grammar.c"
     break;
 
   case 305: /* CO_443: CO_519 free_modifier_32  */
-#line 1088 "grammar.y"
+#line 1087 "grammar.y"
                            { yyval = node2(443, yyvsp[-1], yyvsp[0]); }
-#line 4501 "src/grammar.c"
+#line 4500 "src/grammar.c"
     break;
 
   case 306: /* CEI_444: CEI_516  */
-#line 1091 "grammar.y"
+#line 1090 "grammar.y"
                            { yyval = node1(444, yyvsp[0]); }
-#line 4507 "src/grammar.c"
+#line 4506 "src/grammar.c"
     break;
 
   case 307: /* CEI_444: CEI_516 free_modifier_32  */
-#line 1093 "grammar.y"
+#line 1092 "grammar.y"
                            { yyval = node2(444, yyvsp[-1], yyvsp[0]); }
-#line 4513 "src/grammar.c"
+#line 4512 "src/grammar.c"
     break;
 
   case 308: /* NA_445: NA_578  */
-#line 1096 "grammar.y"
+#line 1095 "grammar.y"
                            { yyval = node1(445, yyvsp[0]); }
-#line 4519 "src/grammar.c"
+#line 4518 "src/grammar.c"
     break;
 
   case 309: /* NA_445: NA_578 free_modifier_32  */
-#line 1098 "grammar.y"
+#line 1097 "grammar.y"
                            { yyval = node2(445, yyvsp[-1], yyvsp[0]); }
-#line 4525 "src/grammar.c"
+#line 4524 "src/grammar.c"
     break;
 
   case 310: /* BE_446: BE_504  */
-#line 1101 "grammar.y"
+#line 1100 "grammar.y"
                            { yyval = node1(446, yyvsp[0]); }
-#line 4531 "src/grammar.c"
+#line 4530 "src/grammar.c"
     break;
 
   case 311: /* BE_446: BE_504 free_modifier_32  */
-#line 1103 "grammar.y"
+#line 1102 "grammar.y"
                            { yyval = node2(446, yyvsp[-1], yyvsp[0]); }
-#line 4537 "src/grammar.c"
+#line 4536 "src/grammar.c"
     break;
 
   case 312: /* TUhE_447: TUhE_610  */
-#line 1106 "grammar.y"
+#line 1105 "grammar.y"
                            { yyval = node1(447, yyvsp[0]); }
-#line 4543 "src/grammar.c"
+#line 4542 "src/grammar.c"
     break;
 
   case 313: /* TUhE_447: TUhE_610 free_modifier_32  */
-#line 1108 "grammar.y"
+#line 1107 "grammar.y"
                            { yyval = node2(447, yyvsp[-1], yyvsp[0]); }
-#line 4549 "src/grammar.c"
+#line 4548 "src/grammar.c"
     break;
 
   case 314: /* LIhU_gap_448: LIhU_567  */
-#line 1111 "grammar.y"
+#line 1110 "grammar.y"
                            { yyval = node1(448, yyvsp[0]); }
-#line 4555 "src/grammar.c"
+#line 4554 "src/grammar.c"
     break;
 
   case 315: /* LIhU_gap_448: error  */
-#line 1113 "grammar.y"
+#line 1112 "grammar.y"
                            { yyval = elidable(LIhU_567); yyerrok; }
-#line 4561 "src/grammar.c"
+#line 4560 "src/grammar.c"
     break;
 
   case 316: /* gap_450: KU_556  */
-#line 1116 "grammar.y"
+#line 1115 "grammar.y"
                            { yyval = node1(450, yyvsp[0]); }
-#line 4567 "src/grammar.c"
+#line 4566 "src/grammar.c"
     break;
 
   case 317: /* gap_450: KU_556 free_modifier_32  */
-#line 1118 "grammar.y"
+#line 1117 "grammar.y"
                            { yyval = node2(450, yyvsp[-1], yyvsp[0]); }
-#line 4573 "src/grammar.c"
+#line 4572 "src/grammar.c"
     break;
 
   case 318: /* gap_450: error  */
-#line 1120 "grammar.y"
+#line 1119 "grammar.y"
                            { yyval = elidable(KU_556); yyerrok; }
-#line 4579 "src/grammar.c"
+#line 4578 "src/grammar.c"
     break;
 
   case 319: /* front_gap_451: CU_521  */
-#line 1123 "grammar.y"
+#line 1122 "grammar.y"
                            { yyval = node1(451, yyvsp[0]); }
-#line 4585 "src/grammar.c"
+#line 4584 "src/grammar.c"
     break;
 
   case 320: /* front_gap_451: CU_521 free_modifier_32  */
-#line 1125 "grammar.y"
+#line 1124 "grammar.y"
                            { yyval = node2(451, yyvsp[-1], yyvsp[0]); }
-#line 4591 "src/grammar.c"
+#line 4590 "src/grammar.c"
     break;
 
   case 321: /* MEX_gap_452: KUhE_658  */
-#line 1128 "grammar.y"
+#line 1127 "grammar.y"
                            { yyval = node1(452, yyvsp[0]); }
-#line 4597 "src/grammar.c"
+#line 4596 "src/grammar.c"
     break;
 
   case 322: /* MEX_gap_452: KUhE_658 free_modifier_32  */
-#line 1130 "grammar.y"
+#line 1129 "grammar.y"
                            { yyval = node2(452, yyvsp[-1], yyvsp[0]); }
-#line 4603 "src/grammar.c"
+#line 4602 "src/grammar.c"
     break;
 
   case 323: /* MEX_gap_452: error  */
-#line 1132 "grammar.y"
+#line 1131 "grammar.y"
                            { yyval = elidable(KUhE_658); yyerrok; }
-#line 4609 "src/grammar.c"
+#line 4608 "src/grammar.c"
     break;
 
   case 324: /* KEI_gap_453: KEI_552  */
-#line 1135 "grammar.y"
+#line 1134 "grammar.y"
                            { yyval = node1(453, yyvsp[0]); }
-#line 4615 "src/grammar.c"
+#line 4614 "src/grammar.c"
     break;
 
   case 325: /* KEI_gap_453: KEI_552 free_modifier_32  */
-#line 1137 "grammar.y"
+#line 1136 "grammar.y"
                            { yyval = node2(453, yyvsp[-1], yyvsp[0]); }
-#line 4621 "src/grammar.c"
+#line 4620 "src/grammar.c"
     break;
 
   case 326: /* KEI_gap_453: error  */
-#line 1139 "grammar.y"
+#line 1138 "grammar.y"
                            { yyval = elidable(KEI_552); yyerrok; }
-#line 4627 "src/grammar.c"
+#line 4626 "src/grammar.c"
     break;
 
   case 327: /* TUhU_gap_454: TUhU_611  */
-#line 1142 "grammar.y"
+#line 1141 "grammar.y"
                            { yyval = node1(454, yyvsp[0]); }
-#line 4633 "src/grammar.c"
+#line 4632 "src/grammar.c"
     break;
 
   case 328: /* TUhU_gap_454: TUhU_611 free_modifier_32  */
-#line 1144 "grammar.y"
+#line 1143 "grammar.y"
                            { yyval = node2(454, yyvsp[-1], yyvsp[0]); }
-#line 4639 "src/grammar.c"
+#line 4638 "src/grammar.c"
     break;
 
   case 329: /* TUhU_gap_454: error  */
-#line 1146 "grammar.y"
+#line 1145 "grammar.y"
                            { yyval = elidable(TUhU_611); yyerrok; }
-#line 4645 "src/grammar.c"
+#line 4644 "src/grammar.c"
     break;
 
   case 330: /* VAU_gap_456: VAU_614  */
-#line 1149 "grammar.y"
+#line 1148 "grammar.y"
                            { yyval = node1(456, yyvsp[0]); }
-#line 4651 "src/grammar.c"
+#line 4650 "src/grammar.c"
     break;
 
   case 331: /* VAU_gap_456: VAU_614 free_modifier_32  */
-#line 1151 "grammar.y"
+#line 1150 "grammar.y"
                            { yyval = node2(456, yyvsp[-1], yyvsp[0]); }
-#line 4657 "src/grammar.c"
+#line 4656 "src/grammar.c"
     break;
 
   case 332: /* VAU_gap_456: error  */
-#line 1153 "grammar.y"
+#line 1152 "grammar.y"
                            { yyval = elidable(VAU_614); yyerrok; }
-#line 4663 "src/grammar.c"
+#line 4662 "src/grammar.c"
     break;
 
   case 333: /* DOhU_gap_457: DOhU_526  */
-#line 1156 "grammar.y"
+#line 1155 "grammar.y"
                            { yyval = node1(457, yyvsp[0]); }
-#line 4669 "src/grammar.c"
+#line 4668 "src/grammar.c"
     break;
 
   case 334: /* DOhU_gap_457: error  */
-#line 1158 "grammar.y"
+#line 1157 "grammar.y"
                            { yyval = elidable(DOhU_526); yyerrok; }
-#line 4675 "src/grammar.c"
+#line 4674 "src/grammar.c"
     break;
 
   case 335: /* FEhU_gap_458: FEhU_531  */
-#line 1161 "grammar.y"
+#line 1160 "grammar.y"
                            { yyval = node1(458, yyvsp[0]); }
-#line 4681 "src/grammar.c"
+#line 4680 "src/grammar.c"
     break;
 
   case 336: /* FEhU_gap_458: FEhU_531 free_modifier_32  */
-#line 1163 "grammar.y"
+#line 1162 "grammar.y"
                            { yyval = node2(458, yyvsp[-1], yyvsp[0]); }
-#line 4687 "src/grammar.c"
+#line 4686 "src/grammar.c"
     break;
 
   case 337: /* FEhU_gap_458: error  */
-#line 1165 "grammar.y"
+#line 1164 "grammar.y"
                            { yyval = elidable(FEhU_531); yyerrok; }
-#line 4693 "src/grammar.c"
+#line 4692 "src/grammar.c"
     break;
 
   case 338: /* SEhU_gap_459: SEhU_598  */
-#line 1168 "grammar.y"
+#line 1167 "grammar.y"
                            { yyval = node1(459, yyvsp[0]); }
-#line 4699 "src/grammar.c"
+#line 4698 "src/grammar.c"
     break;
 
   case 339: /* SEhU_gap_459: error  */
-#line 1170 "grammar.y"
+#line 1169 "grammar.y"
                            { yyval = elidable(SEhU_598); yyerrok; }
-#line 4705 "src/grammar.c"
+#line 4704 "src/grammar.c"
     break;
 
   case 340: /* NUhU_gap_460: NUhU_588  */
-#line 1173 "grammar.y"
+#line 1172 "grammar.y"
                            { yyval = node1(460, yyvsp[0]); }
-#line 4711 "src/grammar.c"
+#line 4710 "src/grammar.c"
     break;
 
   case 341: /* NUhU_gap_460: NUhU_588 free_modifier_32  */
-#line 1175 "grammar.y"
+#line 1174 "grammar.y"
                            { yyval = node2(460, yyvsp[-1], yyvsp[0]); }
-#line 4717 "src/grammar.c"
+#line 4716 "src/grammar.c"
     break;
 
   case 342: /* NUhU_gap_460: error  */
-#line 1177 "grammar.y"
+#line 1176 "grammar.y"
                            { yyval = elidable(NUhU_588); yyerrok; }
-#line 4723 "src/grammar.c"
+#line 4722 "src/grammar.c"
     break;
 
   case 343: /* BOI_gap_461: BOI_651  */
-#line 1180 "grammar.y"
+#line 1179 "grammar.y"
                            { yyval = node1(461, yyvsp[0]); }
-#line 4729 "src/grammar.c"
+#line 4728 "src/grammar.c"
     break;
 
   case 344: /* BOI_gap_461: BOI_651 free_modifier_32  */
-#line 1182 "grammar.y"
+#line 1181 "grammar.y"
                            { yyval = node2(461, yyvsp[-1], yyvsp[0]); }
-#line 4735 "src/grammar.c"
+#line 4734 "src/grammar.c"
     break;
 
   case 345: /* BOI_gap_461: error  */
-#line 1184 "grammar.y"
+#line 1183 "grammar.y"
                            { yyval = elidable(BOI_651); yyerrok; }
-#line 4741 "src/grammar.c"
+#line 4740 "src/grammar.c"
     break;
 
   case 346: /* sub_gap_462: BOI_651  */
-#line 1187 "grammar.y"
+#line 1186 "grammar.y"
                            { yyval = node1(462, yyvsp[0]); }
-#line 4747 "src/grammar.c"
+#line 4746 "src/grammar.c"
     break;
 
   case 347: /* sub_gap_462: error  */
-#line 1189 "grammar.y"
+#line 1188 "grammar.y"
                            { yyval = elidable(BOI_651); yyerrok; }
-#line 4753 "src/grammar.c"
+#line 4752 "src/grammar.c"
     break;
 
   case 348: /* LUhU_gap_463: LUhU_573  */
-#line 1192 "grammar.y"
+#line 1191 "grammar.y"
                            { yyval = node1(463, yyvsp[0]); }
-#line 4759 "src/grammar.c"
+#line 4758 "src/grammar.c"
     break;
 
   case 349: /* LUhU_gap_463: LUhU_573 free_modifier_32  */
-#line 1194 "grammar.y"
+#line 1193 "grammar.y"
                            { yyval = node2(463, yyvsp[-1], yyvsp[0]); }
-#line 4765 "src/grammar.c"
+#line 4764 "src/grammar.c"
     break;
 
   case 350: /* LUhU_gap_463: error  */
-#line 1196 "grammar.y"
+#line 1195 "grammar.y"
                            { yyval = elidable(LUhU_573); yyerrok; }
-#line 4771 "src/grammar.c"
+#line 4770 "src/grammar.c"
     break;
 
   case 351: /* GEhU_gap_464: GEhU_538  */
-#line 1199 "grammar.y"
+#line 1198 "grammar.y"
                            { yyval = node1(464, yyvsp[0]); }
-#line 4777 "src/grammar.c"
+#line 4776 "src/grammar.c"
     break;
 
   case 352: /* GEhU_gap_464: GEhU_538 free_modifier_32  */
-#line 1201 "grammar.y"
+#line 1200 "grammar.y"
                            { yyval = node2(464, yyvsp[-1], yyvsp[0]); }
-#line 4783 "src/grammar.c"
+#line 4782 "src/grammar.c"
     break;
 
   case 353: /* GEhU_gap_464: error  */
-#line 1203 "grammar.y"
+#line 1202 "grammar.y"
                            { yyval = elidable(GEhU_538); yyerrok; }
-#line 4789 "src/grammar.c"
+#line 4788 "src/grammar.c"
     break;
 
   case 354: /* MEhU_gap_465: MEhU_575  */
-#line 1206 "grammar.y"
+#line 1205 "grammar.y"
                            { yyval = node1(465, yyvsp[0]); }
-#line 4795 "src/grammar.c"
+#line 4794 "src/grammar.c"
     break;
 
   case 355: /* MEhU_gap_465: MEhU_575 free_modifier_32  */
-#line 1208 "grammar.y"
+#line 1207 "grammar.y"
                            { yyval = node2(465, yyvsp[-1], yyvsp[0]); }
-#line 4801 "src/grammar.c"
+#line 4800 "src/grammar.c"
     break;
 
   case 356: /* MEhU_gap_465: error  */
-#line 1210 "grammar.y"
+#line 1209 "grammar.y"
                            { yyval = elidable(MEhU_575); yyerrok; }
-#line 4807 "src/grammar.c"
+#line 4806 "src/grammar.c"
     break;
 
   case 357: /* KEhE_gap_466: KEhE_550  */
-#line 1213 "grammar.y"
+#line 1212 "grammar.y"
                            { yyval = node1(466, yyvsp[0]); }
-#line 4813 "src/grammar.c"
+#line 4812 "src/grammar.c"
     break;
 
   case 358: /* KEhE_gap_466: KEhE_550 free_modifier_32  */
-#line 1215 "grammar.y"
+#line 1214 "grammar.y"
                            { yyval = node2(466, yyvsp[-1], yyvsp[0]); }
-#line 4819 "src/grammar.c"
+#line 4818 "src/grammar.c"
     break;
 
   case 359: /* KEhE_gap_466: error  */
-#line 1217 "grammar.y"
+#line 1216 "grammar.y"
                            { yyval = elidable(KEhE_550); yyerrok; }
-#line 4825 "src/grammar.c"
+#line 4824 "src/grammar.c"
     break;
 
   case 360: /* BEhO_gap_467: BEhO_506  */
-#line 1220 "grammar.y"
+#line 1219 "grammar.y"
                            { yyval = node1(467, yyvsp[0]); }
-#line 4831 "src/grammar.c"
+#line 4830 "src/grammar.c"
     break;
 
   case 361: /* BEhO_gap_467: BEhO_506 free_modifier_32  */
-#line 1222 "grammar.y"
+#line 1221 "grammar.y"
                            { yyval = node2(467, yyvsp[-1], yyvsp[0]); }
-#line 4837 "src/grammar.c"
+#line 4836 "src/grammar.c"
     break;
 
   case 362: /* BEhO_gap_467: error  */
-#line 1224 "grammar.y"
+#line 1223 "grammar.y"
                            { yyval = elidable(BEhO_506); yyerrok; }
-#line 4843 "src/grammar.c"
+#line 4842 "src/grammar.c"
     break;
 
   case 363: /* TOI_gap_468: TOI_607  */
-#line 1227 "grammar.y"
+#line 1226 "grammar.y"
                            { yyval = node1(468, yyvsp[0]); }
-#line 4849 "src/grammar.c"
+#line 4848 "src/grammar.c"
     break;
 
   case 364: /* TOI_gap_468: error  */
-#line 1229 "grammar.y"
+#line 1228 "grammar.y"
                            { yyval = elidable(TOI_607); yyerrok; }
-#line 4855 "src/grammar.c"
+#line 4854 "src/grammar.c"
     break;
 
   case 365: /* KUhO_gap_469: KUhO_557  */
-#line 1232 "grammar.y"
+#line 1231 "grammar.y"
                            { yyval = node1(469, yyvsp[0]); }
-#line 4861 "src/grammar.c"
+#line 4860 "src/grammar.c"
     break;
 
   case 366: /* KUhO_gap_469: KUhO_557 free_modifier_32  */
-#line 1234 "grammar.y"
+#line 1233 "grammar.y"
                            { yyval = node2(469, yyvsp[-1], yyvsp[0]); }
-#line 4867 "src/grammar.c"
+#line 4866 "src/grammar.c"
     break;
 
   case 367: /* KUhO_gap_469: error  */
-#line 1236 "grammar.y"
+#line 1235 "grammar.y"
                            { yyval = elidable(KUhO_557); yyerrok; }
-#line 4873 "src/grammar.c"
+#line 4872 "src/grammar.c"
     break;
 
   case 368: /* left_bracket_470: VEI_677  */
-#line 1239 "grammar.y"
+#line 1238 "grammar.y"
                            { yyval = node1(470, yyvsp[0]); }
-#line 4879 "src/grammar.c"
+#line 4878 "src/grammar.c"
     break;
 
   case 369: /* left_bracket_470: VEI_677 free_modifier_32  */
-#line 1241 "grammar.y"
+#line 1240 "grammar.y"
                            { yyval = node2(470, yyvsp[-1], yyvsp[0]); }
-#line 4885 "src/grammar.c"
+#line 4884 "src/grammar.c"
     break;
 
   case 370: /* right_bracket_gap_471: VEhO_678  */
-#line 1244 "grammar.y"
+#line 1243 "grammar.y"
                            { yyval = node1(471, yyvsp[0]); }
-#line 4891 "src/grammar.c"
+#line 4890 "src/grammar.c"
     break;
 
   case 371: /* right_bracket_gap_471: VEhO_678 free_modifier_32  */
-#line 1246 "grammar.y"
+#line 1245 "grammar.y"
                            { yyval = node2(471, yyvsp[-1], yyvsp[0]); }
-#line 4897 "src/grammar.c"
+#line 4896 "src/grammar.c"
     break;
 
   case 372: /* right_bracket_gap_471: error  */
-#line 1248 "grammar.y"
+#line 1247 "grammar.y"
                            { yyval = elidable(VEhO_678); yyerrok; }
-#line 4903 "src/grammar.c"
+#line 4902 "src/grammar.c"
     break;
 
   case 373: /* LOhO_gap_472: LOhO_568  */
-#line 1251 "grammar.y"
+#line 1250 "grammar.y"
                            { yyval = node1(472, yyvsp[0]); }
-#line 4909 "src/grammar.c"
+#line 4908 "src/grammar.c"
     break;
 
   case 374: /* LOhO_gap_472: LOhO_568 free_modifier_32  */
-#line 1253 "grammar.y"
+#line 1252 "grammar.y"
                            { yyval = node2(472, yyvsp[-1], yyvsp[0]); }
-#line 4915 "src/grammar.c"
+#line 4914 "src/grammar.c"
     break;
 
   case 375: /* LOhO_gap_472: error  */
-#line 1255 "grammar.y"
+#line 1254 "grammar.y"
                            { yyval = elidable(LOhO_568); yyerrok; }
-#line 4921 "src/grammar.c"
+#line 4920 "src/grammar.c"
     break;
 
   case 376: /* TEhU_gap_473: TEhU_675  */
-#line 1258 "grammar.y"
+#line 1257 "grammar.y"
                            { yyval = node1(473, yyvsp[0]); }
-#line 4927 "src/grammar.c"
+#line 4926 "src/grammar.c"
     break;
 
   case 377: /* TEhU_gap_473: TEhU_675 free_modifier_32  */
-#line 1260 "grammar.y"
+#line 1259 "grammar.y"
                            { yyval = node2(473, yyvsp[-1], yyvsp[0]); }
-#line 4933 "src/grammar.c"
+#line 4932 "src/grammar.c"
     break;
 
   case 378: /* TEhU_gap_473: error  */
-#line 1262 "grammar.y"
+#line 1261 "grammar.y"
                            { yyval = elidable(TEhU_675); yyerrok; }
-#line 4939 "src/grammar.c"
+#line 4938 "src/grammar.c"
     break;
 
   case 379: /* right_br_no_free_474: VEhO_678  */
-#line 1265 "grammar.y"
+#line 1264 "grammar.y"
                            { yyval = node1(474, yyvsp[0]); }
-#line 4945 "src/grammar.c"
+#line 4944 "src/grammar.c"
     break;
 
   case 380: /* right_br_no_free_474: error  */
-#line 1267 "grammar.y"
+#line 1266 "grammar.y"
                            { yyval = elidable(VEhO_678); yyerrok; }
-#line 4951 "src/grammar.c"
+#line 4950 "src/grammar.c"
     break;
 
   case 381: /* NUhA_475: NUhA_667  */
-#line 1270 "grammar.y"
+#line 1269 "grammar.y"
                            { yyval = node1(475, yyvsp[0]); }
-#line 4957 "src/grammar.c"
+#line 4956 "src/grammar.c"
     break;
 
   case 382: /* NUhA_475: NUhA_667 free_modifier_32  */
-#line 1272 "grammar.y"
+#line 1271 "grammar.y"
                            { yyval = node2(475, yyvsp[-1], yyvsp[0]); }
-#line 4963 "src/grammar.c"
+#line 4962 "src/grammar.c"
     break;
 
   case 383: /* MOI_476: MOI_663  */
-#line 1275 "grammar.y"
+#line 1274 "grammar.y"
                            { yyval = node1(476, yyvsp[0]); }
-#line 4969 "src/grammar.c"
+#line 4968 "src/grammar.c"
     break;
 
   case 384: /* MOI_476: MOI_663 free_modifier_32  */
-#line 1277 "grammar.y"
+#line 1276 "grammar.y"
                            { yyval = node2(476, yyvsp[-1], yyvsp[0]); }
-#line 4975 "src/grammar.c"
+#line 4974 "src/grammar.c"
     break;
 
   case 385: /* ME_477: ME_574  */
-#line 1280 "grammar.y"
+#line 1279 "grammar.y"
                            { yyval = node1(477, yyvsp[0]); }
-#line 4981 "src/grammar.c"
+#line 4980 "src/grammar.c"
     break;
 
   case 386: /* ME_477: ME_574 free_modifier_32  */
-#line 1282 "grammar.y"
+#line 1281 "grammar.y"
                            { yyval = node2(477, yyvsp[-1], yyvsp[0]); }
-#line 4987 "src/grammar.c"
+#line 4986 "src/grammar.c"
     break;
 
   case 387: /* JAI_478: JAI_547  */
-#line 1285 "grammar.y"
+#line 1284 "grammar.y"
                            { yyval = node1(478, yyvsp[0]); }
-#line 4993 "src/grammar.c"
+#line 4992 "src/grammar.c"
     break;
 
   case 388: /* JAI_478: JAI_547 free_modifier_32  */
-#line 1287 "grammar.y"
+#line 1286 "grammar.y"
                            { yyval = node2(478, yyvsp[-1], yyvsp[0]); }
-#line 4999 "src/grammar.c"
+#line 4998 "src/grammar.c"
     break;
 
   case 389: /* BO_479: BO_508  */
-#line 1290 "grammar.y"
+#line 1289 "grammar.y"
                            { yyval = node1(479, yyvsp[0]); }
-#line 5005 "src/grammar.c"
+#line 5004 "src/grammar.c"
     break;
 
   case 390: /* BO_479: BO_508 free_modifier_32  */
-#line 1292 "grammar.y"
+#line 1291 "grammar.y"
                            { yyval = node2(479, yyvsp[-1], yyvsp[0]); }
-#line 5011 "src/grammar.c"
+#line 5010 "src/grammar.c"
     break;
 
   case 391: /* SE_480: SE_596  */
-#line 1295 "grammar.y"
+#line 1294 "grammar.y"
                            { yyval = node1(480, yyvsp[0]); }
-#line 5017 "src/grammar.c"
+#line 5016 "src/grammar.c"
     break;
 
   case 392: /* SE_480: SE_596 free_modifier_32  */
-#line 1297 "grammar.y"
+#line 1296 "grammar.y"
                            { yyval = node2(480, yyvsp[-1], yyvsp[0]); }
-#line 5023 "src/grammar.c"
+#line 5022 "src/grammar.c"
     break;
 
   case 393: /* FA_481: FA_527  */
-#line 1300 "grammar.y"
+#line 1299 "grammar.y"
                            { yyval = node1(481, yyvsp[0]); }
-#line 5029 "src/grammar.c"
+#line 5028 "src/grammar.c"
     break;
 
   case 394: /* FA_481: FA_527 free_modifier_32  */
-#line 1302 "grammar.y"
+#line 1301 "grammar.y"
                            { yyval = node2(481, yyvsp[-1], yyvsp[0]); }
-#line 5035 "src/grammar.c"
+#line 5034 "src/grammar.c"
     break;
 
   case 395: /* NAhE_482: NAhE_583  */
-#line 1305 "grammar.y"
+#line 1304 "grammar.y"
                            { yyval = node1(482, yyvsp[0]); }
-#line 5041 "src/grammar.c"
+#line 5040 "src/grammar.c"
     break;
 
   case 396: /* NAhE_482: NAhE_583 free_modifier_32  */
-#line 1307 "grammar.y"
+#line 1306 "grammar.y"
                            { yyval = node2(482, yyvsp[-1], yyvsp[0]); }
-#line 5047 "src/grammar.c"
+#line 5046 "src/grammar.c"
     break;
 
   case 397: /* qualifier_483: LAhE_561  */
-#line 1310 "grammar.y"
+#line 1309 "grammar.y"
                            { yyval = node1(483, yyvsp[0]); }
-#line 5053 "src/grammar.c"
+#line 5052 "src/grammar.c"
     break;
 
   case 398: /* qualifier_483: LAhE_561 free_modifier_32  */
-#line 1312 "grammar.y"
+#line 1311 "grammar.y"
                            { yyval = node2(483, yyvsp[-1], yyvsp[0]); }
-#line 5059 "src/grammar.c"
+#line 5058 "src/grammar.c"
     break;
 
   case 399: /* qualifier_483: NAhE_BO_809  */
-#line 1314 "grammar.y"
+#line 1313 "grammar.y"
                            { yyval = node1(483, yyvsp[0]); }
-#line 5065 "src/grammar.c"
+#line 5064 "src/grammar.c"
     break;
 
   case 400: /* NOI_484: NOI_585  */
-#line 1317 "grammar.y"
+#line 1316 "grammar.y"
                            { yyval = node1(484, yyvsp[0]); }
-#line 5071 "src/grammar.c"
+#line 5070 "src/grammar.c"
     break;
 
   case 401: /* NOI_484: NOI_585 free_modifier_32  */
-#line 1319 "grammar.y"
+#line 1318 "grammar.y"
                            { yyval = node2(484, yyvsp[-1], yyvsp[0]); }
-#line 5077 "src/grammar.c"
+#line 5076 "src/grammar.c"
     break;
 
   case 402: /* GOI_485: GOI_542  */
-#line 1322 "grammar.y"
+#line 1321 "grammar.y"
                            { yyval = node1(485, yyvsp[0]); }
-#line 5083 "src/grammar.c"
+#line 5082 "src/grammar.c"
     break;
 
   case 403: /* GOI_485: GOI_542 free_modifier_32  */
-#line 1324 "grammar.y"
+#line 1323 "grammar.y"
                            { yyval = node2(485, yyvsp[-1], yyvsp[0]); }
-#line 5089 "src/grammar.c"
+#line 5088 "src/grammar.c"
     break;
 
   case 404: /* subscript_486: XI_424 number_812 sub_gap_462  */
-#line 1327 "grammar.y"
+#line 1326 "grammar.y"
                            { yyval = node3(486, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 5095 "src/grammar.c"
+#line 5094 "src/grammar.c"
     break;
 
   case 405: /* subscript_486: XI_424 left_bracket_470 MEX_310 right_br_no_free_474  */
-#line 1329 "grammar.y"
+#line 1328 "grammar.y"
                            { yyval = node4(486, yyvsp[-3], yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 5101 "src/grammar.c"
+#line 5100 "src/grammar.c"
     break;
 
   case 406: /* subscript_486: XI_424 lerfu_string_817 sub_gap_462  */
-#line 1331 "grammar.y"
+#line 1330 "grammar.y"
                            { yyval = node3(486, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 5107 "src/grammar.c"
+#line 5106 "src/grammar.c"
     break;
 
   case 407: /* ZIhE_487: ZIhE_625  */
-#line 1334 "grammar.y"
+#line 1333 "grammar.y"
                            { yyval = node1(487, yyvsp[0]); }
-#line 5113 "src/grammar.c"
+#line 5112 "src/grammar.c"
     break;
 
   case 408: /* ZIhE_487: ZIhE_625 free_modifier_32  */
-#line 1336 "grammar.y"
+#line 1335 "grammar.y"
                            { yyval = node2(487, yyvsp[-1], yyvsp[0]); }
-#line 5119 "src/grammar.c"
+#line 5118 "src/grammar.c"
     break;
 
   case 409: /* LE_488: LE_562  */
-#line 1339 "grammar.y"
+#line 1338 "grammar.y"
                            { yyval = node1(488, yyvsp[0]); }
-#line 5125 "src/grammar.c"
+#line 5124 "src/grammar.c"
     break;
 
   case 410: /* LE_488: LE_562 free_modifier_32  */
-#line 1341 "grammar.y"
+#line 1340 "grammar.y"
                            { yyval = node2(488, yyvsp[-1], yyvsp[0]); }
-#line 5131 "src/grammar.c"
+#line 5130 "src/grammar.c"
     break;
 
   case 411: /* LI_489: LI_566  */
-#line 1344 "grammar.y"
+#line 1343 "grammar.y"
                            { yyval = node1(489, yyvsp[0]); }
-#line 5137 "src/grammar.c"
+#line 5136 "src/grammar.c"
     break;
 
   case 412: /* LI_489: LI_566 free_modifier_32  */
-#line 1346 "grammar.y"
+#line 1345 "grammar.y"
                            { yyval = node2(489, yyvsp[-1], yyvsp[0]); }
-#line 5143 "src/grammar.c"
+#line 5142 "src/grammar.c"
     break;
 
   case 413: /* mod_head_490: tag_491  */
-#line 1349 "grammar.y"
+#line 1348 "grammar.y"
                            { yyval = node1(490, yyvsp[0]); }
-#line 5149 "src/grammar.c"
+#line 5148 "src/grammar.c"
     break;
 
   case 414: /* mod_head_490: FA_481  */
-#line 1351 "grammar.y"
+#line 1350 "grammar.y"
                            { yyval = node1(490, yyvsp[0]); }
-#line 5155 "src/grammar.c"
+#line 5154 "src/grammar.c"
     break;
 
   case 415: /* tag_491: tense_modal_815  */
-#line 1354 "grammar.y"
+#line 1353 "grammar.y"
                            { yyval = node1(491, yyvsp[0]); }
-#line 5161 "src/grammar.c"
+#line 5160 "src/grammar.c"
     break;
 
   case 416: /* tag_491: tag_491 JOIK_JEK_422 tense_modal_815  */
-#line 1356 "grammar.y"
+#line 1355 "grammar.y"
                            { yyval = node3(491, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 5167 "src/grammar.c"
+#line 5166 "src/grammar.c"
     break;
 
   case 417: /* ZOhU_492: ZOhU_628  */
-#line 1359 "grammar.y"
+#line 1358 "grammar.y"
                            { yyval = node1(492, yyvsp[0]); }
-#line 5173 "src/grammar.c"
+#line 5172 "src/grammar.c"
     break;
 
   case 418: /* ZOhU_492: ZOhU_628 free_modifier_32  */
-#line 1361 "grammar.y"
+#line 1360 "grammar.y"
                            { yyval = node2(492, yyvsp[-1], yyvsp[0]); }
-#line 5179 "src/grammar.c"
+#line 5178 "src/grammar.c"
     break;
 
   case 419: /* KE_493: KE_551  */
-#line 1364 "grammar.y"
+#line 1363 "grammar.y"
                            { yyval = node1(493, yyvsp[0]); }
-#line 5185 "src/grammar.c"
+#line 5184 "src/grammar.c"
     break;
 
   case 420: /* KE_493: KE_551 free_modifier_32  */
-#line 1366 "grammar.y"
+#line 1365 "grammar.y"
                            { yyval = node2(493, yyvsp[-1], yyvsp[0]); }
-#line 5191 "src/grammar.c"
+#line 5190 "src/grammar.c"
     break;
 
   case 421: /* PEhE_494: PEhE_591  */
-#line 1369 "grammar.y"
+#line 1368 "grammar.y"
                            { yyval = node1(494, yyvsp[0]); }
-#line 5197 "src/grammar.c"
+#line 5196 "src/grammar.c"
     break;
 
   case 422: /* PEhE_494: PEhE_591 free_modifier_32  */
-#line 1371 "grammar.y"
+#line 1370 "grammar.y"
                            { yyval = node2(494, yyvsp[-1], yyvsp[0]); }
-#line 5203 "src/grammar.c"
+#line 5202 "src/grammar.c"
     break;
 
   case 423: /* CEhE_495: CEhE_517  */
-#line 1374 "grammar.y"
+#line 1373 "grammar.y"
                            { yyval = node1(495, yyvsp[0]); }
-#line 5209 "src/grammar.c"
+#line 5208 "src/grammar.c"
     break;
 
   case 424: /* CEhE_495: CEhE_517 free_modifier_32  */
-#line 1376 "grammar.y"
+#line 1375 "grammar.y"
                            { yyval = node2(495, yyvsp[-1], yyvsp[0]); }
-#line 5215 "src/grammar.c"
+#line 5214 "src/grammar.c"
     break;
 
   case 425: /* NUhI_496: NUhI_587  */
-#line 1379 "grammar.y"
+#line 1378 "grammar.y"
                            { yyval = node1(496, yyvsp[0]); }
-#line 5221 "src/grammar.c"
+#line 5220 "src/grammar.c"
     break;
 
   case 426: /* NUhI_496: NUhI_587 free_modifier_32  */
-#line 1381 "grammar.y"
+#line 1380 "grammar.y"
                            { yyval = node2(496, yyvsp[-1], yyvsp[0]); }
-#line 5227 "src/grammar.c"
+#line 5226 "src/grammar.c"
     break;
 
   case 427: /* VUhO_497: VUhO_617  */
-#line 1384 "grammar.y"
+#line 1383 "grammar.y"
                            { yyval = node1(497, yyvsp[0]); }
-#line 5233 "src/grammar.c"
+#line 5232 "src/grammar.c"
     break;
 
   case 428: /* VUhO_497: VUhO_617 free_modifier_32  */
-#line 1386 "grammar.y"
+#line 1385 "grammar.y"
                            { yyval = node2(497, yyvsp[-1], yyvsp[0]); }
-#line 5239 "src/grammar.c"
+#line 5238 "src/grammar.c"
     break;
 
   case 429: /* SOI_498: SOI_602  */
-#line 1389 "grammar.y"
+#line 1388 "grammar.y"
                            { yyval = node1(498, yyvsp[0]); }
-#line 5245 "src/grammar.c"
+#line 5244 "src/grammar.c"
     break;
 
   case 430: /* SOI_498: SOI_602 free_modifier_32  */
-#line 1391 "grammar.y"
+#line 1390 "grammar.y"
                            { yyval = node2(498, yyvsp[-1], yyvsp[0]); }
-#line 5251 "src/grammar.c"
+#line 5250 "src/grammar.c"
     break;
 
   case 431: /* LA_499: LA_558  */
-#line 1394 "grammar.y"
+#line 1393 "grammar.y"
                            { yyval = node1(499, yyvsp[0]); }
-#line 5257 "src/grammar.c"
+#line 5256 "src/grammar.c"
     break;
 
   case 432: /* LA_499: LA_558 free_modifier_32  */
-#line 1396 "grammar.y"
+#line 1395 "grammar.y"
                            { yyval = node2(499, yyvsp[-1], yyvsp[0]); }
-#line 5263 "src/grammar.c"
+#line 5262 "src/grammar.c"
     break;
 
   case 433: /* utterance_ordinal_801: lexer_A_905  */
-#line 1399 "grammar.y"
+#line 1398 "grammar.y"
                            { yyval = node1(801, yyvsp[0]); }
-#line 5269 "src/grammar.c"
+#line 5268 "src/grammar.c"
     break;
 
   case 434: /* EK_802: lexer_B_910  */
-#line 1402 "grammar.y"
+#line 1401 "grammar.y"
                            { yyval = node1(802, yyvsp[0]); }
-#line 5275 "src/grammar.c"
+#line 5274 "src/grammar.c"
     break;
 
   case 435: /* EK_802: lexer_B_910 free_modifier_32  */
-#line 1404 "grammar.y"
+#line 1403 "grammar.y"
                            { yyval = node2(802, yyvsp[-1], yyvsp[0]); }
-#line 5281 "src/grammar.c"
+#line 5280 "src/grammar.c"
     break;
 
   case 436: /* EK_BO_803: lexer_C_915  */
-#line 1407 "grammar.y"
+#line 1406 "grammar.y"
                            { yyval = node1(803, yyvsp[0]); }
-#line 5287 "src/grammar.c"
+#line 5286 "src/grammar.c"
     break;
 
   case 437: /* EK_BO_803: lexer_C_915 free_modifier_32  */
-#line 1409 "grammar.y"
+#line 1408 "grammar.y"
                            { yyval = node2(803, yyvsp[-1], yyvsp[0]); }
-#line 5293 "src/grammar.c"
+#line 5292 "src/grammar.c"
     break;
 
   case 438: /* EK_KE_804: lexer_D_916  */
-#line 1412 "grammar.y"
+#line 1411 "grammar.y"
                            { yyval = node1(804, yyvsp[0]); }
-#line 5299 "src/grammar.c"
+#line 5298 "src/grammar.c"
     break;
 
   case 439: /* EK_KE_804: lexer_D_916 free_modifier_32  */
-#line 1414 "grammar.y"
+#line 1413 "grammar.y"
                            { yyval = node2(804, yyvsp[-1], yyvsp[0]); }
-#line 5305 "src/grammar.c"
+#line 5304 "src/grammar.c"
     break;
 
   case 440: /* JEK_805: lexer_E_925  */
-#line 1417 "grammar.y"
+#line 1416 "grammar.y"
                            { yyval = node1(805, yyvsp[0]); }
-#line 5311 "src/grammar.c"
+#line 5310 "src/grammar.c"
     break;
 
   case 441: /* JOIK_806: lexer_F_930  */
-#line 1420 "grammar.y"
+#line 1419 "grammar.y"
                            { yyval = node1(806, yyvsp[0]); }
-#line 5317 "src/grammar.c"
+#line 5316 "src/grammar.c"
     break;
 
   case 442: /* GEK_807: lexer_G_935  */
-#line 1423 "grammar.y"
+#line 1422 "grammar.y"
                            { yyval = node1(807, yyvsp[0]); }
-#line 5323 "src/grammar.c"
+#line 5322 "src/grammar.c"
     break;
 
   case 443: /* GEK_807: lexer_G_935 free_modifier_32  */
-#line 1425 "grammar.y"
+#line 1424 "grammar.y"
                            { yyval = node2(807, yyvsp[-1], yyvsp[0]); }
-#line 5329 "src/grammar.c"
+#line 5328 "src/grammar.c"
     break;
 
   case 444: /* GUhEK_808: lexer_H_940  */
-#line 1428 "grammar.y"
+#line 1427 "grammar.y"
                            { yyval = node1(808, yyvsp[0]); }
-#line 5335 "src/grammar.c"
+#line 5334 "src/grammar.c"
     break;
 
   case 445: /* GUhEK_808: lexer_H_940 free_modifier_32  */
-#line 1430 "grammar.y"
+#line 1429 "grammar.y"
                            { yyval = node2(808, yyvsp[-1], yyvsp[0]); }
-#line 5341 "src/grammar.c"
+#line 5340 "src/grammar.c"
     break;
 
   case 446: /* NAhE_BO_809: lexer_I_945  */
-#line 1433 "grammar.y"
+#line 1432 "grammar.y"
                            { yyval = node1(809, yyvsp[0]); }
-#line 5347 "src/grammar.c"
+#line 5346 "src/grammar.c"
     break;
 
   case 447: /* NAhE_BO_809: lexer_I_945 free_modifier_32  */
-#line 1435 "grammar.y"
+#line 1434 "grammar.y"
                            { yyval = node2(809, yyvsp[-1], yyvsp[0]); }
-#line 5353 "src/grammar.c"
+#line 5352 "src/grammar.c"
     break;
 
   case 448: /* NA_KU_810: lexer_J_950  */
-#line 1438 "grammar.y"
+#line 1437 "grammar.y"
                            { yyval = node1(810, yyvsp[0]); }
-#line 5359 "src/grammar.c"
+#line 5358 "src/grammar.c"
     break;
 
   case 449: /* NA_KU_810: lexer_J_950 free_modifier_32  */
-#line 1440 "grammar.y"
+#line 1439 "grammar.y"
                            { yyval = node2(810, yyvsp[-1], yyvsp[0]); }
-#line 5365 "src/grammar.c"
+#line 5364 "src/grammar.c"
     break;
 
   case 450: /* I_BO_811: lexer_K_955  */
-#line 1443 "grammar.y"
+#line 1442 "grammar.y"
                            { yyval = node1(811, yyvsp[0]); }
-#line 5371 "src/grammar.c"
+#line 5370 "src/grammar.c"
     break;
 
   case 451: /* I_BO_811: lexer_K_955 free_modifier_32  */
-#line 1445 "grammar.y"
+#line 1444 "grammar.y"
                            { yyval = node2(811, yyvsp[-1], yyvsp[0]); }
-#line 5377 "src/grammar.c"
+#line 5376 "src/grammar.c"
     break;
 
   case 452: /* number_812: lexer_L_960  */
-#line 1448 "grammar.y"
+#line 1447 "grammar.y"
                            { yyval = node1(812, yyvsp[0]); }
-#line 5383 "src/grammar.c"
+#line 5382 "src/grammar.c"
     break;
 
   case 453: /* GIhEK_BO_813: lexer_M_965  */
-#line 1451 "grammar.y"
+#line 1450 "grammar.y"
                            { yyval = node1(813, yyvsp[0]); }
-#line 5389 "src/grammar.c"
+#line 5388 "src/grammar.c"
     break;
 
   case 454: /* GIhEK_BO_813: lexer_M_965 free_modifier_32  */
-#line 1453 "grammar.y"
+#line 1452 "grammar.y"
                            { yyval = node2(813, yyvsp[-1], yyvsp[0]); }
-#line 5395 "src/grammar.c"
+#line 5394 "src/grammar.c"
     break;
 
   case 455: /* GIhEK_KE_814: lexer_N_966  */
-#line 1456 "grammar.y"
+#line 1455 "grammar.y"
                            { yyval = node1(814, yyvsp[0]); }
-#line 5401 "src/grammar.c"
+#line 5400 "src/grammar.c"
     break;
 
   case 456: /* GIhEK_KE_814: lexer_N_966 free_modifier_32  */
-#line 1458 "grammar.y"
+#line 1457 "grammar.y"
                            { yyval = node2(814, yyvsp[-1], yyvsp[0]); }
-#line 5407 "src/grammar.c"
+#line 5406 "src/grammar.c"
     break;
 
   case 457: /* tense_modal_815: lexer_O_970  */
-#line 1461 "grammar.y"
+#line 1460 "grammar.y"
                            { yyval = node1(815, yyvsp[0]); }
-#line 5413 "src/grammar.c"
+#line 5412 "src/grammar.c"
     break;
 
   case 458: /* tense_modal_815: lexer_O_970 free_modifier_32  */
-#line 1463 "grammar.y"
+#line 1462 "grammar.y"
                            { yyval = node2(815, yyvsp[-1], yyvsp[0]); }
-#line 5419 "src/grammar.c"
+#line 5418 "src/grammar.c"
     break;
 
   case 459: /* tense_modal_815: FIhO_437 selbri_130 FEhU_gap_458  */
-#line 1465 "grammar.y"
+#line 1464 "grammar.y"
                            { yyval = node3(815, yyvsp[-2], yyvsp[-1], yyvsp[0]); }
-#line 5425 "src/grammar.c"
+#line 5424 "src/grammar.c"
     break;
 
   case 460: /* GIK_816: lexer_P_980  */
-#line 1468 "grammar.y"
+#line 1467 "grammar.y"
                            { yyval = node1(816, yyvsp[0]); }
-#line 5431 "src/grammar.c"
+#line 5430 "src/grammar.c"
     break;
 
   case 461: /* GIK_816: lexer_P_980 free_modifier_32  */
-#line 1470 "grammar.y"
+#line 1469 "grammar.y"
                            { yyval = node2(816, yyvsp[-1], yyvsp[0]); }
-#line 5437 "src/grammar.c"
+#line 5436 "src/grammar.c"
     break;
 
   case 462: /* lerfu_string_817: lexer_Q_985  */
-#line 1473 "grammar.y"
+#line 1472 "grammar.y"
                            { yyval = node1(817, yyvsp[0]); }
-#line 5443 "src/grammar.c"
+#line 5442 "src/grammar.c"
     break;
 
   case 463: /* GIhEK_818: lexer_R_990  */
-#line 1476 "grammar.y"
+#line 1475 "grammar.y"
                            { yyval = node1(818, yyvsp[0]); }
-#line 5449 "src/grammar.c"
+#line 5448 "src/grammar.c"
     break;
 
   case 464: /* GIhEK_818: lexer_R_990 free_modifier_32  */
-#line 1478 "grammar.y"
+#line 1477 "grammar.y"
                            { yyval = node2(818, yyvsp[-1], yyvsp[0]); }
-#line 5455 "src/grammar.c"
+#line 5454 "src/grammar.c"
     break;
 
   case 465: /* I_819: lexer_S_995  */
-#line 1481 "grammar.y"
+#line 1480 "grammar.y"
                            { yyval = node1(819, yyvsp[0]); }
-#line 5461 "src/grammar.c"
+#line 5460 "src/grammar.c"
     break;
 
   case 466: /* I_819: lexer_S_995 free_modifier_32  */
-#line 1483 "grammar.y"
+#line 1482 "grammar.y"
                            { yyval = node2(819, yyvsp[-1], yyvsp[0]); }
-#line 5467 "src/grammar.c"
+#line 5466 "src/grammar.c"
     break;
 
   case 467: /* I_JEK_820: lexer_T_1000  */
-#line 1486 "grammar.y"
+#line 1485 "grammar.y"
                            { yyval = node1(820, yyvsp[0]); }
-#line 5473 "src/grammar.c"
+#line 5472 "src/grammar.c"
     break;
 
   case 468: /* I_JEK_820: lexer_T_1000 free_modifier_32  */
-#line 1488 "grammar.y"
+#line 1487 "grammar.y"
                            { yyval = node2(820, yyvsp[-1], yyvsp[0]); }
-#line 5479 "src/grammar.c"
+#line 5478 "src/grammar.c"
     break;
 
   case 469: /* JEK_BO_821: lexer_U_1005  */
-#line 1491 "grammar.y"
+#line 1490 "grammar.y"
                            { yyval = node1(821, yyvsp[0]); }
-#line 5485 "src/grammar.c"
+#line 5484 "src/grammar.c"
     break;
 
   case 470: /* JEK_BO_821: lexer_U_1005 free_modifier_32  */
-#line 1493 "grammar.y"
+#line 1492 "grammar.y"
                            { yyval = node2(821, yyvsp[-1], yyvsp[0]); }
-#line 5491 "src/grammar.c"
+#line 5490 "src/grammar.c"
     break;
 
   case 471: /* JOIK_BO_822: lexer_V_1010  */
-#line 1496 "grammar.y"
+#line 1495 "grammar.y"
                            { yyval = node1(822, yyvsp[0]); }
-#line 5497 "src/grammar.c"
+#line 5496 "src/grammar.c"
     break;
 
   case 472: /* JOIK_BO_822: lexer_V_1010 free_modifier_32  */
-#line 1498 "grammar.y"
+#line 1497 "grammar.y"
                            { yyval = node2(822, yyvsp[-1], yyvsp[0]); }
-#line 5503 "src/grammar.c"
+#line 5502 "src/grammar.c"
     break;
 
   case 473: /* JOIK_KE_823: lexer_W_1015  */
-#line 1501 "grammar.y"
+#line 1500 "grammar.y"
                            { yyval = node1(823, yyvsp[0]); }
-#line 5509 "src/grammar.c"
+#line 5508 "src/grammar.c"
     break;
 
   case 474: /* JOIK_KE_823: lexer_W_1015 free_modifier_32  */
-#line 1503 "grammar.y"
+#line 1502 "grammar.y"
                            { yyval = node2(823, yyvsp[-1], yyvsp[0]); }
-#line 5515 "src/grammar.c"
+#line 5514 "src/grammar.c"
     break;
 
   case 475: /* PA_MOI_824: lexer_Y_1025  */
-#line 1506 "grammar.y"
+#line 1505 "grammar.y"
                            { yyval = node1(824, yyvsp[0]); }
-#line 5521 "src/grammar.c"
+#line 5520 "src/grammar.c"
     break;
 
 
-#line 5525 "src/grammar.c"
+#line 5524 "src/grammar.c"
 
       default: break;
     }
