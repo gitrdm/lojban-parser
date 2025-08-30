@@ -1,0 +1,4 @@
+text_0(paragraph_10(terms_80(mi),bridi_tail_50(selbri_130(klama),
+tail_terms_71(terms_80(LE_488(le),sumti_tail_111(zarci),()),()))),(i),
+statement_11(terms_80(do),bridi_tail_50(selbri_130(tavla),tail_terms_71(
+terms_80(mi),())))).

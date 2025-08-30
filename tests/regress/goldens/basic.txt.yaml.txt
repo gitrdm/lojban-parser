@@ -1,0 +1,11 @@
+mi:
+  klama:
+    le:
+      zarci:
+        :
+      :
+  i:
+    do:
+      tavla:
+        mi:
+          :

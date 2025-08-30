@@ -35,10 +35,16 @@ asan:
 ubsan:
 	$(CC) $(CFLAGS) -fsanitize=undefined -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan ubsan analyze ci
+.PHONY: test clean asan ubsan analyze ci regress regress-update
 test: parser
 	chmod +x tests/smoke.sh
 	./tests/smoke.sh
+regress: parser
+	chmod +x tests/regress/run.sh
+	./tests/regress/run.sh
+regress-update: parser
+	chmod +x tests/regress/run.sh
+	./tests/regress/run.sh --update
 clean:
 	rm -f *.o src/*.o parser
 
