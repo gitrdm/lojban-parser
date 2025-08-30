@@ -83,4 +83,4 @@ echo >version.h "#define VERSION \"$1\""
 # some fixed rules for topmost object, and clean up.
 mkdir -p grammar
 cat gprefix.y gmiddle.y gbody.y >grammar/grammar.y
-#rm gprefix.y gbody.y gbody.tmp
+rm -f gprefix.y gbody.y gbody.tmp

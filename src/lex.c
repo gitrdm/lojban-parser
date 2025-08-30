@@ -4,6 +4,8 @@
 #include <stdlib.h> // for free()
 
 # include "lojban.h"
+# include <limits.h>
+# include <stdint.h>
 
 /* This module calls getword and lexes the result.  Its morphological
 resolution is rather feeble: it can break up words consisting of compound
@@ -120,18 +122,50 @@ char *
 newstring(n)
 int n;
 	{
-	char *result;
-	static char *master;
-	static int size = 0;
+	/* Bump allocator for short-lived strings; allocate at least 'n' bytes,
+	   rounded up to STRINGQUANTUM. Guard against overflow and OOM. */
+	static char *master = NULL;
+	static size_t size = 0; /* bytes remaining in current block */
 
-	if (n > size) {
-		master = malloc(STRINGQUANTUM);
-		stringspace += STRINGQUANTUM;
-		size = STRINGQUANTUM;
+	size_t need;
+	size_t alloc;
+	char *block;
+	char *result;
+
+	if (n <= 0) n = 1;
+	need = (size_t) n;
+
+	if (need > size) {
+		/* Round up to the next multiple of STRINGQUANTUM */
+		size_t q = (size_t)STRINGQUANTUM;
+		alloc = need;
+		if (q != 0) {
+			size_t rem = alloc % q;
+			if (rem) {
+				size_t add = q - rem;
+				if (add > SIZE_MAX - alloc) {
+					fprintf(stderr, "String allocation overflow (need=%zu)\n", need);
+					exit(1);
+				}
+				alloc += add;
+			}
 		}
+		block = (char *) malloc(alloc);
+		memcheck(block, "string");
+		master = block;
+		size = alloc;
+		/* Track total string space; guard against long overflow */
+		if (alloc > (size_t)LONG_MAX - (size_t)stringspace) {
+			fprintf(stderr, "stringspace counter overflow (alloc=%zu)\n", alloc);
+			/* still continue; but clamp to LONG_MAX to avoid wrap */
+			stringspace = LONG_MAX;
+		} else {
+			stringspace += (long)alloc;
+		}
+	}
 	result = master;
-	master += n;
-	size -= n;
+	master += need;
+	size -= need;
 	return result;
 	}
 

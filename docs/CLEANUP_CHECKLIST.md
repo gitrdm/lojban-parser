@@ -59,7 +59,7 @@ Purpose: stabilize and modernize the codebase with low-risk changes before exper
 - [x] Don’t mutate string literals or shared buffers (fixed in rprint/prologize)
 - [x] Cast to `unsigned char` before `ctype` calls
 - [x] Ensure non-void functions return a value (e.g., `filter.c`)
-- [ ] Audit `newstring`/stringspace growth and add bounds/asserts
+- [x] Audit `newstring`/stringspace growth and add bounds/asserts (overflow guards, quantum-rounded allocations, counter clamp)
 - [ ] Prefer size-aware APIs where applicable (`snprintf`, `strnlen`)
 - [x] Run ASan + smoke tests during changes
 
