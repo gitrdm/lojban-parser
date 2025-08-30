@@ -65,7 +65,8 @@ Purpose: stabilize and modernize the codebase with low-risk changes before exper
 
 - [x] Document debug flags in README
 - [x] `--help` and `--version`
-- [ ] Optional: `--verbose` that maps to `-d*` presets
+- [x] `--verbose[=N]` flag maps to `-d*` presets (N=1 default; N>=2 more)
+	- Usage: `./parser --verbose openwm.txt` or `./parser --verbose=2 -p file`
 
 ## Documentation
 
