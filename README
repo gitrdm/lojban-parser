@@ -51,6 +51,44 @@ To build with AddressSanitizer for memory debugging:
 
 	make asan
 
+Project structure
+-----------------
+
+- include/
+	- Public headers (e.g., grammar.h, token.h, lojban.h, node.h, version.h)
+- src/
+	- All C sources (moved from repo root)
+- docs/
+	- Documentation and checklists
+- tests/
+	- Simple smoke tests and data
+- grammar.y
+	- Generated from the publication baseline (see Regenerating grammar)
+- rulename.i, selmao.i
+	- Generated include fragments used by src/rulename.c and src/selmao.c
+
+Regenerating grammar and names
+------------------------------
+
+Regenerate the parser sources and name tables from a publication baseline using the `regen` target:
+
+	make regen
+
+What `make regen` does:
+
+- Runs `./mkgramy $(BASELINE)` to build `grammar.y` from `grammar.$(BASELINE)` and updates `include/version.h`.
+- Invokes bison (or yacc) to generate `src/grammar.c` and `include/grammar.h`.
+- Runs `./mknames` to rebuild `rulename.i` from `grammar.y` and `include/grammar.h`.
+
+Notes:
+
+- Set `BASELINE` on the command line to switch baselines (defaults to 300):
+
+	make regen BASELINE=233
+
+- `mknames` reads `include/grammar.h`; the regen step no longer writes a header into the repo root, so your hand-edited root `grammar.h` (if any) will not be clobbered.
+- The generated files `src/grammar.c`, `include/grammar.h`, `rulename.i`, and `grammar.y` are reproducible from the inputs in this repo. Avoid editing them by hand; changes will be overwritten by regen.
+
 Testing output formats
 ----------------------
 
@@ -77,3 +115,5 @@ Troubleshooting
 
 - If you see a segmentation fault when using -p (Prolog output), ensure you are running a build that includes fixes which avoid mutating literal strings (this README assumes you are).
 - For crashes or unexpected behavior, try 'make asan' and re-run to get sanitizer diagnostics.
+- If `make regen` fails on header generation, ensure you have one of: `bison` or `yacc`, plus `awk` and `cpp` in your PATH.
+- If `mknames` complains about `include/grammar.h`, run `make regen` first (it is produced there).
