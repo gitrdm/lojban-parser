@@ -3,38 +3,25 @@ Preliminary notes on using this parser, Version 3;0;00:
 This parser implements the 3rd baseline as published in _The Complete
 Lojban Language_.
 
-The parser reads the standard input and writes to the standard output.
+The parser reads from standard input and writes to standard output.
 These may be redirected on the command line with the usual < and > symbols.
-You can also specify the input file as a single argument.  If no file is
-specified, and the standard input is not redirected, the parser will re-execute
+You can also specify the input file as a single argument. If no file is
+specified, and standard input is not redirected, the parser will re-execute
 itself repeatedly and will process only a single line (you can break up the
 single line by using backslash-newline; see below).
 
-The parser accepts certain switches on the command line:
-	-dv prints each valsi as read.
-	-dL prints each token as lexed by the compounder.
-	-dR prints each compounder reduction as attempted.
-	-dl prints each token as lexed by the YACC parser.
-	-dr prints each YACC reduction as executed.
-	-de prints each elidable terminator as inserted.
-	-d* is equivalent to all other -d options together.
-
-	-t produces a dump of the internal tree in TAB-separated columns:
-		column 1 is a node number;
-		column 2 is a rule/selma'o name;
-		column 3 is a word for terminals;
-		columns 3-n are numbers of subnodes for non-terminals;
-		there are no forward references to nodes.
-
-	-e omits the insertion of elidables.
-
-	-p outputs the text as a Prolog datum, with rule/selma'o names
-		used as functors.
-
-	-f outputs a full parse: normally, tree nodes with one
-		child are omitted (most useful with -t or -p).
-
-	-e dumps a cmavo list corresponding to the parser's beliefs.
+Command-line options:
+	-d[vLRlre*]   Debug flags (combine letters):
+								v=valsi, L=cpd_lex, R=cpd_reduce, l=lex, r=reduce, e=elidable, *=all
+	-t            Tree output
+	-s            Simple mode (flatten single-child nodes)
+	-e            Elide mode (omit insertion of elidables)
+	-f            Full parse (do not collapse single-child nodes)
+	-p            Prolog-style output (rule/selma'o names as functors)
+	-y            YAML-like output (structured listing)
+	-c            Generate cmavo list and exit
+	-h, --help    Show help and exit
+	--version     Show version and exit
 
 Input is preprocessed as follows:
 	Upper-case letters are changed to lower-case.
@@ -48,5 +35,45 @@ Input is preprocessed as follows:
 These rules allow the re-parsing of parsed text without error.
 
 At the end of each parse, the parser prints the space used in bytes (broken
-down into token space and string space) and the time in seconds.  Times are not
+down into token space and string space) and the time in seconds. Times are not
 printed when running interactively.
+
+Building
+--------
+
+Use make to build the parser:
+
+	make
+
+This produces the binary 'parser'. For a build with debug symbols and extra warnings (default), the Makefile sets -g -O0 -Wall -Wextra.
+
+To build with AddressSanitizer for memory debugging:
+
+	make asan
+
+Testing output formats
+----------------------
+
+A small smoke test runs the parser over a sample file and exercises the main output modes:
+
+	make test
+
+It runs the following forms and prints the first few lines:
+
+	./parser openwm.txt         # default print
+	./parser -p openwm.txt      # Prolog-style output
+	./parser -t openwm.txt      # tree output
+	./parser -y openwm.txt      # YAML-like output
+
+Usage examples
+--------------
+
+	./parser < textfile
+	./parser -p textfile
+	echo "mi klama" | ./parser -t
+
+Troubleshooting
+---------------
+
+- If you see a segmentation fault when using -p (Prolog output), ensure you are running a build that includes fixes which avoid mutating literal strings (this README assumes you are).
+- For crashes or unexpected behavior, try 'make asan' and re-run to get sanitizer diagnostics.

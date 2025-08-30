@@ -1,13 +1,14 @@
 CC ?= cc
 CFLAGS ?= -g -O0 -Wall -Wextra -Wno-unused-parameter
+SOURCES := $(wildcard *.c)
 
-parser:
-	$(CC) $(CFLAGS) -o parser *.c
+parser: $(SOURCES)
+	$(CC) $(CFLAGS) -o $@ $^
 
 asan:
 	$(CC) $(CFLAGS) -fsanitize=address -fno-omit-frame-pointer -o parser *.c
 
-.PHONY: test
+.PHONY: test clean asan
 test: parser
 	chmod +x tests/smoke.sh
 	./tests/smoke.sh

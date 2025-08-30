@@ -247,6 +247,24 @@ void yyerror(const char *msg) {
 }
 
 
+static void print_help(void) {
+	fprintf(stdout,
+			"Usage: parser [options] [file]\n\n"
+			"Options:\n"
+			"  -d[vLRlre*]   Debug flags (combine letters):\n"
+			"               v=valsi, L=cpd_lex, R=cpd_reduce, l=lex, r=reduce, e=elidable, *=all\n"
+			"  -t           Tree output\n"
+			"  -s           Simple mode (flatten single-child nodes)\n"
+			"  -e           Elide mode\n"
+			"  -f           Single mode\n"
+			"  -p           Prolog-style output\n"
+			"  -y           YAML-like output\n"
+			"  -c           Generate cmavo table and exit\n"
+			"  -h, --help   Show this help and exit\n"
+			"  --version    Show version and exit\n\n"
+			"If [file] is provided, input is read from that file; otherwise stdin is used.\n");
+}
+
 int main(int argc, char **argv) {
 	stream = stdout;
 	setflags(argv);
@@ -294,6 +312,15 @@ void setflags(char **argv) {
 				case '*': D_valsi = D_cpd_lex = D_cpd_reduce =
 						D_lex = D_reduce = D_elidable = 1; break;
 				}
+		else if (strcmp(*argv, "-h") == 0 || strcmp(*argv, "--help") == 0 || strcmp(*argv, "-help") == 0) {
+			copyright();
+			print_help();
+			exit(0);
+		}
+		else if (strcmp(*argv, "--version") == 0 || strcmp(*argv, "-V") == 0) {
+			copyright();
+			exit(0);
+		}
 		else if (strcmp(*argv, "-t") == 0)
 			treemode = 1;
 		else if (strcmp(*argv, "-s") == 0)
