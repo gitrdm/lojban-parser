@@ -35,7 +35,7 @@ asan:
 ubsan:
 	$(CC) $(CFLAGS) -fsanitize=undefined -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan ubsan analyze ci regress regress-update
+.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams
 test: parser
 	chmod +x tests/smoke.sh
 	./tests/smoke.sh
@@ -66,11 +66,26 @@ ci:
 	$(MAKE)
 	$(MAKE) test
 
-.PHONY: regen
+# Export an EBNF-like grammar from the generated Yacc grammar
+ebnf: grammar/grammar.y tools/yacc_to_ebnf.awk
+	@mkdir -p grammar
+	awk -f tools/yacc_to_ebnf.awk grammar/grammar.y > grammar/grammar.ebnf
+	@echo "Wrote grammar/grammar.ebnf"
+
+# Generate simple railroad diagrams (requires ebnf2railroad; optional)
+diagrams: ebnf
+	@if command -v ebnf2railroad >/dev/null 2>&1; then \
+		ebnf2railroad grammar/grammar.ebnf > docs/grammar_railroad.html; \
+		echo "Wrote docs/grammar_railroad.html"; \
+	else \
+		echo "ebnf2railroad not found; skipping diagram generation"; \
+	fi
+
+.PHONY: regen glr analyze-glr
 regen:
 	@mkdir -p grammar $(BUILD_SRC) $(BUILD_INC)
-	@echo "Regenerating grammar from grammar.$(BASELINE) -> grammar/grammar.y ..."
-	./mkgramy $(BASELINE)
+	@echo "Regenerating grammar from grammar.$(BASELINE) -> grammar/grammar.y ... (GLR=$(GLR))"
+	GLR=$(GLR) ./mkgramy $(BASELINE)
 	@if [ -f version.h ]; then \
 		echo "Updating include/version.h"; \
 		mv -f version.h include/version.h; \
@@ -98,3 +113,14 @@ regen:
 	@echo "Regenerating rulename.i ..."
 	./mknames
 	@echo "Done. Run 'make' to rebuild."
+
+# Convenience target to regenerate with GLR enabled (uses gmiddle.glr.y)
+glr:
+	$(MAKE) regen GLR=1
+	$(MAKE)
+
+# Analyzer run on GLR build
+analyze-glr:
+	$(MAKE) clean
+	$(MAKE) glr
+	$(MAKE) analyze

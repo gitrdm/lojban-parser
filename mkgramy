@@ -79,8 +79,12 @@ awk '
 # Spit out version.h since we have the correct version number
 echo >version.h "#define VERSION \"$1\""
 
-# Finally, merge gprefix.y and gbody.y, including gmiddle.y, which is
-# some fixed rules for topmost object, and clean up.
+# Finally, merge gprefix.y and gbody.y, including the middle rules file.
+# Use gmiddle.glr.y if GLR=1 is set to enable a GLR parser in bison.
 mkdir -p grammar
-cat gprefix.y gmiddle.y gbody.y >grammar/grammar.y
+MIDFILE=gmiddle.y
+if [ "${GLR:-0}" = "1" ] && [ -f gmiddle.glr.y ]; then
+	MIDFILE=gmiddle.glr.y
+fi
+cat gprefix.y "$MIDFILE" gbody.y >grammar/grammar.y
 rm -f gprefix.y gbody.y gbody.tmp
