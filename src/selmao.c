@@ -5,7 +5,7 @@
 
 # include "lojban.h"
 
-# include "selmao.i"
+# include "generated/selmao.i"
 
 /* This module assigns cmavo to their selmao using the table in selmao.i.
 Tokens are collected from filter().  Any with types already assigned 

@@ -95,8 +95,8 @@ check-lark: lark
 .PHONY: regen glr analyze-glr
 regen:
 	@mkdir -p grammar $(BUILD_SRC) $(BUILD_INC)
-	@echo "Regenerating grammar from grammar.$(BASELINE) -> grammar/grammar.y ... (GLR=$(GLR))"
-	GLR=$(GLR) ./mkgramy $(BASELINE)
+	@echo "Regenerating grammar from grammar/grammar.$(BASELINE) -> grammar/grammar.y ... (GLR=$(GLR))"
+	GLR=$(GLR) tools/mkgramy $(BASELINE)
 	@if [ -f version.h ]; then \
 		echo "Updating include/version.h"; \
 		mv -f version.h include/version.h; \
@@ -122,7 +122,7 @@ regen:
 		echo "Warning: could not find generated header $$HDR_PATH"; \
 	fi
 	@echo "Regenerating rulename.i ..."
-	./mknames
+	tools/mknames
 	@echo "Done. Run 'make' to rebuild."
 
 # Convenience target to regenerate with GLR enabled (uses gmiddle.glr.y)

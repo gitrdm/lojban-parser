@@ -363,6 +363,7 @@ the 900 series rules are found in the lexer.  */
 %token lexer_Y_1025 1025   /*        :  lexer_Y_725  number_root_961  MOI_663 */
 
 
+%glr-parser
 %start toplevel
 
 %{

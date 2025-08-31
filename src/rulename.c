@@ -4,7 +4,7 @@
 #include <unistd.h> // for isatty(), execv()
 
 # include "lojban.h"
-# include "rulename.i"
+# include "generated/rulename.i"
 
 /* This module provides utilities for converting type codes to rule names
 or selma'o names.
