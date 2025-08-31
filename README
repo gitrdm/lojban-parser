@@ -109,6 +109,35 @@ Grammar exports and diagrams (optional)
 
 	make diagrams  # writes docs/grammar_railroad.html (if tool is available)
 
+Lark grammar export (experimental)
+----------------------------------
+
+- Generate a Lark-compatible grammar skeleton from the generated YACC grammar:
+
+    	make lark       # writes grammar/grammar.lark
+    	make check-lark # verifies grammar.lark loads in Lark (internal consistency)
+
+What this is:
+- A convenience export for experimentation with the Python 'lark' parser (Earley).
+- It declares the nonterminals and references terminal names via `%declare` lines.
+
+What this is NOT:
+- A drop-in, fully working parser. The generated file does not define token regexes;
+	you must provide a lexer that emits the declared tokens (mirroring the C lexer).
+
+How to try with Lark:
+- Install lark and run the example adapter which feeds a token stream into Lark:
+
+		python3 examples/parse_with_lark.py --show-tree "mi klama"
+
+Notes and caveats:
+- Use Earley: the example uses `parser='earley'` and `ambiguity='explicit'` to tolerate
+	the grammar's ambiguity similarly to Bison GLR.
+- The toy adapter maps a tiny subset of Lojban words to declared tokens (cmavo, brivla,
+	names). Extend this mapping to reflect the real classification rules.
+- Treat grammar/grammar.lark as derived documentation for experiments; the C parser
+	remains the source of truth.
+
 Contributor notes
 -----------------
 
@@ -209,3 +238,5 @@ Makefile knobs and targets (summary)
 	- `make ci`     End-to-end: clean → regen → build → test
     - `make ebnf`     Export EBNF-like grammar (grammar/grammar.ebnf)
     - `make diagrams` Generate simple railroad diagrams (optional tool)
+	- `make lark`       Export a Lark grammar skeleton (grammar/grammar.lark)
+	- `make check-lark` Validate the exported Lark grammar loads successfully

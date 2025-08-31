@@ -35,7 +35,7 @@ asan:
 ubsan:
 	$(CC) $(CFLAGS) -fsanitize=undefined -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams
+.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark
 test: parser
 	chmod +x tests/smoke.sh
 	./tests/smoke.sh
@@ -80,6 +80,17 @@ diagrams: ebnf
 	else \
 		echo "ebnf2railroad not found; skipping diagram generation"; \
 	fi
+
+# Generate a Lark-compatible grammar skeleton
+lark: grammar/grammar.y tools/yacc_to_lark.awk
+	@mkdir -p grammar
+	awk -f tools/yacc_to_lark.awk grammar/grammar.y > grammar/grammar.lark
+	@echo "Wrote grammar/grammar.lark"
+
+# Validate the generated Lark grammar by attempting to load it with Lark
+check-lark: lark
+	@command -v python3 >/dev/null 2>&1 || { echo "python3 not found"; exit 1; }
+	@python3 tools/validate_lark_grammar.py
 
 .PHONY: regen glr analyze-glr
 regen:

@@ -1,0 +1,339 @@
+start: toplevel
+%declare BIHE_650
+%declare GEHU_538
+%declare DOI_525
+%declare SOI_602
+%declare SE_596
+%declare NAHU_665
+%declare TAHE_604
+%declare KI_554
+%declare CAI_515
+%declare VUHO_617
+%declare BAI_502
+%declare FIHO_532
+%declare LEXER_V_1010
+%declare DOHU_526
+%declare KEHE_550
+%declare BO_508
+%declare LEXER_G_935
+%declare CMENE_518
+%declare ROI_594
+%declare LEXER_X_1020
+%declare LEXER_O_970
+%declare LEXER_L_960
+%declare ME_574
+%declare FUHA_655
+%declare ZO_626
+%declare FAHA_528
+%declare NUHU_588
+%declare CEI_516
+%declare BEI_505
+%declare LEXER_E_925
+%declare BRIVLA_509
+%declare PA_672
+%declare MEHU_575
+%declare ANY_WORD_698
+%declare KOHA_555
+%declare PEHE_591
+%declare MOHI_577
+%declare ZAHO_621
+%declare LOHU_569
+%declare LEXER_B_910
+%declare MAHO_662
+%declare SU_603
+%declare LEXER_M_965
+%declare VEI_677
+%declare LU_571
+%declare LI_566
+%declare BU_511
+%declare XI_618
+%declare ANY_WORDS_697
+%declare GUHA_544
+%declare SEHU_598
+%declare FOI_533
+%declare FUHE_535
+%declare CO_519
+%declare JOHI_657
+%declare Y_619
+%declare ZOI_627
+%declare LEXER_J_950
+%declare MOHE_664
+%declare ZEI_623
+%declare ZI_624
+%declare TO_606
+%declare GOI_542
+%declare BAHE_503
+%declare NA_578
+%declare SA_595
+%declare LOHO_568
+%declare KE_551
+%declare TEHU_675
+%declare VAU_614
+%declare MAI_661
+%declare ZEHA_622
+%declare NU_586
+%declare COI_520
+%declare LEXER_N_966
+%declare LEXER_C_915
+%declare MOI_663
+%declare LIHU_567
+%declare KU_556
+%declare LEXER_R_990
+%declare LEXER_D_916
+%declare LUHU_573
+%declare A_501
+%declare BEHO_506
+%declare LEXER_H_940
+%declare PU_592
+%declare FA_527
+%declare GOHA_543
+%declare CAHA_514
+%declare FUHO_536
+%declare ZOHU_628
+%declare TOI_607
+%declare LEHU_565
+%declare LEXER_S_995
+%declare LEXER_K_955
+%declare GAHO_656
+%declare PEHO_673
+%declare BIHI_507
+%declare RAHO_593
+%declare LEXER_A_905
+%declare NUHI_587
+%declare CU_521
+%declare JA_546
+%declare TUHE_610
+%declare LEXER_P_980
+%declare VA_613
+%declare TUHU_611
+%declare I_545
+%declare SEI_597
+%declare LEXER_U_1005
+%declare KUHO_557
+%declare ANYTHING_699
+%declare VEHO_678
+%declare TEI_605
+%declare LAU_559
+%declare VIHA_616
+%declare NAI_581
+%declare NIHE_666
+%declare KUHE_658
+%declare LEXER_I_945
+%declare ZIHE_625
+%declare DAHO_524
+%declare NIHO_584
+%declare LAHE_561
+%declare GIHA_541
+%declare CUHE_522
+%declare NOI_585
+%declare LE_562
+%declare JAI_547
+%declare NUHA_667
+%declare LA_558
+%declare JOI_548
+%declare BE_504
+%declare LEXER_Y_1025
+%declare LEXER_W_1015
+%declare VEHA_615
+%declare LEXER_F_930
+%declare BOI_651
+%declare BY_513
+%declare CEHE_517
+%declare VUHU_679
+%declare FAHO_529
+%declare LEXER_T_1000
+%declare LEXER_Q_985
+%declare FEHE_530
+%declare GA_537
+%declare UI_612
+%declare SI_601
+%declare KEI_552
+%declare NAHE_583
+%declare FEHU_531
+%declare GI_539
+
+toplevel: text_0 FAHO_529
+text_0: text_a_1 | indicators_411 text_a_1 | free_modifier_32 text_a_1 | cmene_404 text_a_1 | indicators_411 free_modifier_32 text_a_1 | NAI_581 text_0
+text_a_1: joik_jek_422 text_b_2 | text_b_2
+text_b_2: i_819 text_b_2 | i_jek_820 text_b_2 | i_bo_811 text_b_2 | para_mark_410 text_c_3 | text_c_3
+text_c_3: paragraphs_4 |
+paragraphs_4: paragraph_10 | paragraph_10 para_mark_410 paragraphs_4
+paragraph_10: statement_11 | fragment_20 | paragraph_10 i_819 statement_11 | paragraph_10 i_819 fragment_20 | paragraph_10 i_819
+statement_11: statement_a_12 | prenex_30 statement_11
+statement_a_12: statement_b_13 | statement_a_12 i_jek_820 statement_b_13 | statement_a_12 i_jek_820
+statement_b_13: statement_c_14 | statement_c_14 i_bo_811 statement_b_13 | statement_c_14 i_bo_811
+statement_c_14: sentence_40 | tuhe_447 text_b_2 tuhu_gap_454 | tag_491 tuhe_447 text_b_2 tuhu_gap_454
+fragment_20: ek_802 | na_445 | gihek_818 | quantifier_300 | terms_80 vau_gap_456 | relative_clauses_121 | links_161 | linkargs_160 | prenex_30
+prenex_30: terms_80 zohu_492
+free_modifier_32: free_modifier_a_33 | free_modifier_a_33 free_modifier_32
+free_modifier_a_33: vocative_35 | parenthetical_36 | discursive_bridi_34 | subscript_486 | utterance_ordinal_801
+discursive_bridi_34: sei_440 selbri_130 sehu_gap_459 | soi_498 sumti_90 sehu_gap_459 | soi_498 sumti_90 sumti_90 sehu_gap_459 | sei_440 terms_80 front_gap_451 selbri_130 sehu_gap_459 | sei_440 terms_80 selbri_130 sehu_gap_459
+vocative_35: doi_415 selbri_130 dohu_gap_457 | doi_415 selbri_130 relative_clauses_121 dohu_gap_457 | doi_415 relative_clauses_121 selbri_130 dohu_gap_457 | doi_415 relative_clauses_121 selbri_130 relative_clauses_121 dohu_gap_457 | doi_415 cmene_404 dohu_gap_457 | doi_415 cmene_404 relative_clauses_121 dohu_gap_457 | doi_415 relative_clauses_121 cmene_404 dohu_gap_457 | doi_415 relative_clauses_121 cmene_404 relative_clauses_121 dohu_gap_457 | doi_415 sumti_90 dohu_gap_457 | doi_415 dohu_gap_457
+parenthetical_36: TO_606 text_0 toi_gap_468
+sentence_40: bridi_tail_50 | terms_80 front_gap_451 bridi_tail_50 | terms_80 bridi_tail_50
+subsentence_41: sentence_40 | prenex_30 subsentence_41
+bridi_tail_50: bridi_tail_a_51 | bridi_tail_a_51 gihek_ke_814 bridi_tail_50 kehe_gap_466 tail_terms_71
+bridi_tail_a_51: bridi_tail_b_52 | bridi_tail_a_51 gihek_818 bridi_tail_b_52 tail_terms_71
+bridi_tail_b_52: bridi_tail_c_53 | bridi_tail_c_53 gihek_bo_813 bridi_tail_b_52 tail_terms_71
+bridi_tail_c_53: gek_sentence_54 | selbri_130 tail_terms_71
+gek_sentence_54: gek_807 subsentence_41 gik_816 subsentence_41 tail_terms_71 | tag_491 ke_493 gek_sentence_54 kehe_gap_466 | na_445 gek_sentence_54
+tail_terms_71: terms_80 vau_gap_456 | vau_gap_456
+terms_80: terms_a_81 | terms_80 terms_a_81
+terms_a_81: terms_b_82 | terms_a_81 pehe_494 joik_jek_422 terms_b_82
+terms_b_82: term_83 | terms_b_82 cehe_495 term_83
+term_83: sumti_90 | modifier_84 | term_set_85 | na_ku_810
+modifier_84: mod_head_490 gap_450 | mod_head_490 sumti_90
+term_set_85: nuhi_496 terms_80 nuhu_gap_460 | nuhi_496 gek_807 terms_80 nuhu_gap_460 gik_816 terms_80 nuhu_gap_460
+sumti_90: sumti_a_91 | sumti_a_91 vuho_497 relative_clauses_121
+sumti_a_91: sumti_b_92 | sumti_b_92 ek_ke_804 sumti_90 kehe_gap_466 | sumti_b_92 joik_ke_823 sumti_90 kehe_gap_466
+sumti_b_92: sumti_c_93 | sumti_b_92 joik_ek_421 sumti_c_93
+sumti_c_93: sumti_d_94 | sumti_d_94 ek_bo_803 sumti_c_93 | sumti_d_94 joik_bo_822 sumti_c_93
+sumti_d_94: sumti_e_95 | gek_807 sumti_90 gik_816 sumti_d_94
+sumti_e_95: sumti_f_96 | sumti_f_96 relative_clauses_121 | quantifier_300 selbri_130 gap_450 | quantifier_300 selbri_130 gap_450 relative_clauses_121
+sumti_f_96: sumti_g_97 | quantifier_300 sumti_g_97
+sumti_g_97: qualifier_483 sumti_90 luhu_gap_463 | qualifier_483 relative_clauses_121 sumti_90 luhu_gap_463 | anaphora_400 | la_499 cmene_404 | la_499 relative_clauses_121 cmene_404 | li_489 mex_310 loho_gap_472 | description_110 | quote_arg_432
+description_110: la_499 sumti_tail_111 gap_450 | le_488 sumti_tail_111 gap_450
+sumti_tail_111: sumti_tail_a_112 | relative_clauses_121 sumti_tail_a_112 | sumti_g_97 sumti_tail_a_112 | sumti_g_97 relative_clauses_121 sumti_tail_a_112
+sumti_tail_a_112: selbri_130 | selbri_130 relative_clauses_121 | quantifier_300 selbri_130 | quantifier_300 selbri_130 relative_clauses_121 | quantifier_300 sumti_90
+relative_clauses_121: relative_clause_122 | relative_clauses_121 zihe_487 relative_clause_122
+relative_clause_122: goi_485 term_83 gehu_gap_464 | noi_484 subsentence_41 kuho_gap_469
+selbri_130: tag_491 selbri_a_131 | selbri_a_131
+selbri_a_131: selbri_b_132 | na_445 selbri_130
+selbri_b_132: selbri_c_133 | selbri_c_133 co_443 selbri_b_132
+selbri_c_133: selbri_d_134 | selbri_c_133 selbri_d_134
+selbri_d_134: selbri_e_135 | selbri_d_134 joik_jek_422 selbri_e_135 | selbri_d_134 joik_ke_823 selbri_c_133 kehe_gap_466
+selbri_e_135: selbri_f_136 | selbri_f_136 jek_bo_821 selbri_e_135 | selbri_f_136 joik_bo_822 selbri_e_135
+selbri_f_136: tanru_unit_150 | tanru_unit_150 bo_479 selbri_f_136 | guhek_selbri_137 | nahe_482 guhek_selbri_137
+guhek_selbri_137: guhek_808 selbri_130 gik_816 selbri_f_136
+tanru_unit_150: tanru_unit_a_151 | tanru_unit_150 cei_444 tanru_unit_a_151
+tanru_unit_a_151: tanru_unit_b_152 | tanru_unit_b_152 linkargs_160
+tanru_unit_b_152: bridi_valsi_407 | ke_493 selbri_c_133 kehe_gap_466 | se_480 tanru_unit_b_152 | jai_478 tag_491 tanru_unit_b_152 | jai_478 tanru_unit_b_152 | me_477 sumti_90 mehu_gap_465 | me_477 sumti_90 mehu_gap_465 moi_476 | nuha_475 mex_operator_374 | nahe_482 tanru_unit_b_152 | nu_425 subsentence_41 kei_gap_453
+linkargs_160: be_446 term_83 beho_gap_467 | be_446 term_83 links_161 beho_gap_467
+links_161: bei_442 term_83 | bei_442 term_83 links_161
+quantifier_300: number_812 boi_gap_461 | left_bracket_470 mex_310 right_bracket_gap_471
+mex_310: mex_a_311 | mex_310 operator_370 mex_a_311 | fuha_441 rp_expression_330
+mex_a_311: mex_b_312 | mex_b_312 bihe_439 operator_370 mex_a_311
+mex_b_312: operand_381 | operator_370 mex_c_313 mex_gap_452 | peho_438 operator_370 mex_c_313 mex_gap_452
+mex_c_313: mex_b_312 | mex_c_313 mex_b_312
+rp_expression_330: rp_operand_332 rp_operand_332 operator_370
+rp_operand_332: operand_381 | rp_expression_330
+operator_370: operator_a_371 | operator_370 joik_jek_422 operator_a_371 | operator_370 joik_ke_823 operator_370 kehe_gap_466
+operator_a_371: operator_b_372 | guhek_808 operator_a_371 gik_816 operator_b_372 | operator_b_372 joik_bo_822 operator_a_371 | operator_b_372 jek_bo_821 operator_a_371
+operator_b_372: mex_operator_374 | ke_493 operator_370 kehe_gap_466
+mex_operator_374: VUHU_679 | VUHU_679 free_modifier_32 | se_480 mex_operator_374 | nahe_482 mex_operator_374 | maho_430 mex_310 tehu_gap_473 | nahu_429 selbri_130 tehu_gap_473
+operand_381: operand_a_382 | operand_a_382 ek_ke_804 operand_381 kehe_gap_466 | operand_a_382 joik_ke_823 operand_381 kehe_gap_466
+operand_a_382: operand_b_383 | operand_a_382 joik_ek_421 operand_b_383
+operand_b_383: operand_c_385 | operand_c_385 ek_bo_803 operand_b_383 | operand_c_385 joik_bo_822 operand_b_383
+operand_c_385: quantifier_300 | lerfu_string_817 boi_gap_461 | nihe_428 selbri_130 tehu_gap_473 | mohe_427 sumti_90 tehu_gap_473 | johi_431 mex_c_313 tehu_gap_473 | gek_807 operand_381 gik_816 operand_c_385 | qualifier_483 operand_381 luhu_gap_463
+anaphora_400: KOHA_555 | KOHA_555 free_modifier_32 | lerfu_string_817 boi_gap_461
+cmene_404: cmene_a_405 | cmene_a_405 free_modifier_32
+cmene_a_405: CMENE_518 | cmene_a_405 CMENE_518
+bridi_valsi_407: bridi_valsi_a_408 | bridi_valsi_a_408 free_modifier_32
+bridi_valsi_a_408: BRIVLA_509 | pa_moi_824 | GOHA_543 | GOHA_543 RAHO_593
+para_mark_410: NIHO_584 | NIHO_584 free_modifier_32 | NIHO_584 para_mark_410
+indicators_411: indicators_a_412 | FUHE_535 indicators_a_412
+indicators_a_412: indicator_413 | indicators_a_412 indicator_413
+indicator_413: UI_612 | CAI_515 | UI_612 NAI_581 | CAI_515 NAI_581 | Y_619 | DAHO_524 | FUHO_536
+doi_415: DOI_525 | coi_416 | coi_416 DOI_525
+coi_416: coi_a_417 | coi_416 coi_a_417
+coi_a_417: COI_520 | COI_520 NAI_581
+joik_ek_421: ek_802 | joik_806 | joik_806 free_modifier_32
+joik_jek_422: joik_806 | joik_806 free_modifier_32 | jek_805 | jek_805 free_modifier_32
+xi_424: XI_618 | XI_618 free_modifier_32
+nu_425: nu_a_426 | nu_425 joik_jek_422 nu_a_426
+nu_a_426: NU_586 | NU_586 NAI_581 | NU_586 free_modifier_32 | NU_586 NAI_581 free_modifier_32
+mohe_427: MOHE_664 | MOHE_664 free_modifier_32
+nihe_428: NIHE_666 | NIHE_666 free_modifier_32
+nahu_429: NAHU_665 | NAHU_665 free_modifier_32
+maho_430: MAHO_662 | MAHO_662 free_modifier_32
+johi_431: JOHI_657 | JOHI_657 free_modifier_32
+quote_arg_432: quote_arg_a_433 | quote_arg_a_433 free_modifier_32
+quote_arg_a_433: zoi_quote_434 | zo_quote_435 | lohu_quote_436 | LU_571 text_0 lihu_gap_448
+zoi_quote_434: ZOI_627 ANY_WORD_698 ANYTHING_699 ANY_WORD_698
+zo_quote_435: ZO_626 ANY_WORD_698
+lohu_quote_436: LOHU_569 ANY_WORDS_697 LEHU_565
+fiho_437: FIHO_532 | FIHO_532 free_modifier_32
+peho_438: PEHO_673 | PEHO_673 free_modifier_32
+bihe_439: BIHE_650 | BIHE_650 free_modifier_32
+sei_440: SEI_597 | SEI_597 free_modifier_32
+fuha_441: FUHA_655 | FUHA_655 free_modifier_32
+bei_442: BEI_505 | BEI_505 free_modifier_32
+co_443: CO_519 | CO_519 free_modifier_32
+cei_444: CEI_516 | CEI_516 free_modifier_32
+na_445: NA_578 | NA_578 free_modifier_32
+be_446: BE_504 | BE_504 free_modifier_32
+tuhe_447: TUHE_610 | TUHE_610 free_modifier_32
+lihu_gap_448: LIHU_567 |
+gap_450: KU_556 | KU_556 free_modifier_32 |
+front_gap_451: CU_521 | CU_521 free_modifier_32
+mex_gap_452: KUHE_658 | KUHE_658 free_modifier_32 |
+kei_gap_453: KEI_552 | KEI_552 free_modifier_32 |
+tuhu_gap_454: TUHU_611 | TUHU_611 free_modifier_32 |
+vau_gap_456: VAU_614 | VAU_614 free_modifier_32 |
+dohu_gap_457: DOHU_526 |
+fehu_gap_458: FEHU_531 | FEHU_531 free_modifier_32 |
+sehu_gap_459: SEHU_598 |
+nuhu_gap_460: NUHU_588 | NUHU_588 free_modifier_32 |
+boi_gap_461: BOI_651 | BOI_651 free_modifier_32 |
+sub_gap_462: BOI_651 |
+luhu_gap_463: LUHU_573 | LUHU_573 free_modifier_32 |
+gehu_gap_464: GEHU_538 | GEHU_538 free_modifier_32 |
+mehu_gap_465: MEHU_575 | MEHU_575 free_modifier_32 |
+kehe_gap_466: KEHE_550 | KEHE_550 free_modifier_32 |
+beho_gap_467: BEHO_506 | BEHO_506 free_modifier_32 |
+toi_gap_468: TOI_607 |
+kuho_gap_469: KUHO_557 | KUHO_557 free_modifier_32 |
+left_bracket_470: VEI_677 | VEI_677 free_modifier_32
+right_bracket_gap_471: VEHO_678 | VEHO_678 free_modifier_32 |
+loho_gap_472: LOHO_568 | LOHO_568 free_modifier_32 |
+tehu_gap_473: TEHU_675 | TEHU_675 free_modifier_32 |
+right_br_no_free_474: VEHO_678 |
+nuha_475: NUHA_667 | NUHA_667 free_modifier_32
+moi_476: MOI_663 | MOI_663 free_modifier_32
+me_477: ME_574 | ME_574 free_modifier_32
+jai_478: JAI_547 | JAI_547 free_modifier_32
+bo_479: BO_508 | BO_508 free_modifier_32
+se_480: SE_596 | SE_596 free_modifier_32
+fa_481: FA_527 | FA_527 free_modifier_32
+nahe_482: NAHE_583 | NAHE_583 free_modifier_32
+qualifier_483: LAHE_561 | LAHE_561 free_modifier_32 | nahe_bo_809
+noi_484: NOI_585 | NOI_585 free_modifier_32
+goi_485: GOI_542 | GOI_542 free_modifier_32
+subscript_486: xi_424 number_812 sub_gap_462 | xi_424 left_bracket_470 mex_310 right_br_no_free_474 | xi_424 lerfu_string_817 sub_gap_462
+zihe_487: ZIHE_625 | ZIHE_625 free_modifier_32
+le_488: LE_562 | LE_562 free_modifier_32
+li_489: LI_566 | LI_566 free_modifier_32
+mod_head_490: tag_491 | fa_481
+tag_491: tense_modal_815 | tag_491 joik_jek_422 tense_modal_815
+zohu_492: ZOHU_628 | ZOHU_628 free_modifier_32
+ke_493: KE_551 | KE_551 free_modifier_32
+pehe_494: PEHE_591 | PEHE_591 free_modifier_32
+cehe_495: CEHE_517 | CEHE_517 free_modifier_32
+nuhi_496: NUHI_587 | NUHI_587 free_modifier_32
+vuho_497: VUHO_617 | VUHO_617 free_modifier_32
+soi_498: SOI_602 | SOI_602 free_modifier_32
+la_499: LA_558 | LA_558 free_modifier_32
+utterance_ordinal_801: LEXER_A_905
+ek_802: LEXER_B_910 | LEXER_B_910 free_modifier_32
+ek_bo_803: LEXER_C_915 | LEXER_C_915 free_modifier_32
+ek_ke_804: LEXER_D_916 | LEXER_D_916 free_modifier_32
+jek_805: LEXER_E_925
+joik_806: LEXER_F_930
+gek_807: LEXER_G_935 | LEXER_G_935 free_modifier_32
+guhek_808: LEXER_H_940 | LEXER_H_940 free_modifier_32
+nahe_bo_809: LEXER_I_945 | LEXER_I_945 free_modifier_32
+na_ku_810: LEXER_J_950 | LEXER_J_950 free_modifier_32
+i_bo_811: LEXER_K_955 | LEXER_K_955 free_modifier_32
+number_812: LEXER_L_960
+gihek_bo_813: LEXER_M_965 | LEXER_M_965 free_modifier_32
+gihek_ke_814: LEXER_N_966 | LEXER_N_966 free_modifier_32
+tense_modal_815: LEXER_O_970 | LEXER_O_970 free_modifier_32 | fiho_437 selbri_130 fehu_gap_458
+gik_816: LEXER_P_980 | LEXER_P_980 free_modifier_32
+lerfu_string_817: LEXER_Q_985
+gihek_818: LEXER_R_990 | LEXER_R_990 free_modifier_32
+i_819: LEXER_S_995 | LEXER_S_995 free_modifier_32
+i_jek_820: LEXER_T_1000 | LEXER_T_1000 free_modifier_32
+jek_bo_821: LEXER_U_1005 | LEXER_U_1005 free_modifier_32
+joik_bo_822: LEXER_V_1010 | LEXER_V_1010 free_modifier_32
+joik_ke_823: LEXER_W_1015 | LEXER_W_1015 free_modifier_32
+pa_moi_824: LEXER_Y_1025
