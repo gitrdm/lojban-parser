@@ -60,7 +60,6 @@ int vowel_cmavo[46] = {
 	A_501, UI_612, UI_612, UI_612, UI_612, UI_612, Y_619,
 	UI_612, UI_612, UI_612, UI_612, UI_612,
 	UI_612, UI_612, UI_612, UI_612, UI_612,
-	BY_513,
 };
 
 int b_cmavo[35] = {
