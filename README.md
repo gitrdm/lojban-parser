@@ -57,6 +57,39 @@ Sanitizers and analysis
 - make analyze        GCC static analyzer (if available)
 - make ci             Clean → regen → build → test
 
+What these do and when to use them
+- AddressSanitizer (ASan): Runtime instrumentation that catches memory bugs as they happen.
+  - Finds: use-after-free/return, heap/stack/global OOB, double/invalid free, and (optionally) leaks.
+  - Use: build with ASan then run your usual commands/tests; failures print a stack trace with file:line.
+    
+	  make asan
+	  ./parser -p openwm.txt
+  
+  - Tips: keep debug symbols (-g). Tuning via env var (examples):
+    
+	  ASAN_OPTIONS=detect_leaks=1:abort_on_error=1 ./parser openwm.txt
+  
+  - Overhead: higher CPU/RAM; use for debugging, not benchmarking.
+
+- UndefinedBehaviorSanitizer (UBSan): Reports undefined-behavior at runtime.
+  - Finds: signed integer overflow, invalid shifts, out-of-bounds indexing, misaligned/invalid pointer casts, vptr/type violations, etc.
+  - Use: 
+    
+	  make ubsan
+	  ./parser openwm.txt
+
+  - Notes: Often complements ASan; run separately to isolate reports.
+
+- GCC static analyzer: Compile-time analysis that flags potential issues without running the program.
+  - Use:
+    
+	  make analyze
+  
+  - Output: Warnings with paths and notes; expect some false positives—fix high-confidence issues first.
+
+- ci target: Convenience wrapper to validate end-to-end locally.
+  - Runs: clean → regen → build → test; use before commits/PRs.
+
 ## Regenerating grammar and names
 
 make regen performs:
