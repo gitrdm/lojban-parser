@@ -106,6 +106,7 @@ Notes
 
 - EBNF: make ebnf → grammar/grammar.ebnf
 - Lark: make lark → grammar/grammar.lark; make check-lark validates it loads in Lark
+ - Diagrams (optional): make diagrams → docs/grammar_railroad.html (requires ebnf2railroad on PATH)
 
 What the Lark export is
 - A convenience skeleton declaring nonterminals and terminals via %declare for experimentation with Python Lark (Earley)
@@ -129,6 +130,9 @@ Examples
 - Use make asan/ubsan for diagnostics on crashes
 - Ensure bison or yacc, awk, and cpp are on PATH for make regen
 - If mknames complains about include/grammar.h, run make regen first
+
+Deep dive on grammar tweaks
+- See docs/hand-fixes.md for a guided tour of the intentional "hand" fixes in the grammar and build pipeline, plus Tree-sitter port notes.
 
 ## Directory map
 
