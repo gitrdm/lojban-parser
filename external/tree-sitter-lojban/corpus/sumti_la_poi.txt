@@ -1,0 +1,12 @@
+# la cmene with poi relative clause
+
+la djan poi mi klama ku'o klama
+
+==================
+
+(statement
+  (sumti
+    (la)
+    (cmene)
+    (relative_clause_rc (noi) (subsentence (statement (sumti (word)) (selbri (tanru_unit (word))))) (kuho)))
+  (selbri (tanru_unit (word))))

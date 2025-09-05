@@ -1,0 +1,15 @@
+=====================
+KE mixed tanru chain
+=====================
+
+mi ke klama ke'e bo citka bo ke dansu ke'e
+---
+(source_file
+  (statement
+    (sumti (word))
+    (selbri
+      (tanru_unit (ke) (selbri (tanru_unit (word))) (kehe))
+      (bo)
+      (tanru_unit (word))
+      (bo)
+      (tanru_unit (ke) (selbri (tanru_unit (word))) (kehe)))))

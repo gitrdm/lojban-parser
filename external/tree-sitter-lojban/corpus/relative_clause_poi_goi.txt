@@ -1,0 +1,17 @@
+=====================
+POI + GOI variants
+=====================
+
+lo nanmu poi klama ku'o klama
+---
+(source_file
+  (statement
+  (sumti (lo) (sumti_tail (selbri (tanru_unit (word)))) (relative_clause_rc (noi) (subsentence (statement (sumti (word)) (selbri (tanru_unit (word))))) (kuho)))
+  (selbri (tanru_unit (word)))))
+
+lo cukta goi mi ge'u klama
+---
+(source_file
+  (statement
+  (sumti (lo) (sumti_tail (selbri (tanru_unit (word)))) (relative_clause_rc (goi) (term (sumti (word))) (gehu)))
+  (selbri (tanru_unit (word)))))

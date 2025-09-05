@@ -1,0 +1,10 @@
+============================
+Sumti with relative clause
+============================
+
+lo nanmu noi klama ku'o klama
+---
+(source_file
+  (statement
+  (sumti (lo) (sumti_tail (selbri (tanru_unit (word)))) (relative_clause_rc (noi) (subsentence (statement (sumti (word)) (selbri (tanru_unit (word))))) (kuho)))
+  (selbri (tanru_unit (word)))))

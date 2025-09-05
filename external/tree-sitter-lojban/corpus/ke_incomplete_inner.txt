@@ -1,0 +1,13 @@
+===============================
+KE with incomplete inner selbri
+===============================
+
+mi ke bo citka
+---
+(source_file
+  (statement
+    (sumti (mi))
+    (selbri
+      (tanru_unit (ke) (selbri (tanru_unit (word))))
+      (bo)
+      (tanru_unit (word)))))

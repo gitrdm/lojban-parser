@@ -6,5 +6,5 @@ mi klama
 ---
 (source_file
   (statement
-    (sumti (word))
-    (selbri (word))))
+  (sumti (mi))
+  (selbri (tanru_unit (word)))))

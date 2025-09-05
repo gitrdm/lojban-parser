@@ -1,0 +1,44 @@
+=====================
+Basic sumti: la cmene
+=====================
+
+la djan
+---
+(source_file
+  (sumti (la) (cmene)))
+
+=====================
+Basic sumti: le sumti_tail
+=====================
+
+le gerku
+---
+(source_file
+  (sumti (le) (sumti_tail (selbri (word)))))
+
+=====================
+Basic sumti: lo sumti_tail
+=====================
+
+lo nanmu
+---
+(source_file
+  (sumti (lo) (sumti_tail (selbri (word)))))
+
+=====================
+Sumti with KU
+=====================
+
+lo nanmu ku
+---
+(source_file
+  (sumti (sumti (lo) (sumti_tail (selbri (word)))) (ku)))
+
+=====================
+Mekso sumti: li mex
+=====================
+
+li pa
+---
+(source_file
+  (sumti (li) (mex (li) (number))))

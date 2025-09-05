@@ -53,6 +53,18 @@
             "members": [
               {
                 "type": "SYMBOL",
+                "name": "cu"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
                 "name": "connective"
               },
               {
@@ -382,12 +394,180 @@
       ]
     },
     "sumti": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sumti_base"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "relative_clause_rc"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ku"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "sumti_base": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "la"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "cmene"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "le"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "lo"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mi"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "do"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ti"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ta"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tu"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "da"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        }
+      ]
+    },
+    "sumti_tail": {
       "type": "SYMBOL",
-      "name": "word"
+      "name": "selbri"
+    },
+    "tanru_unit": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ke"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "selbri"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "kehe"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "brivla"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "word"
+        }
+      ]
     },
     "selbri": {
-      "type": "SYMBOL",
-      "name": "word"
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "tanru_unit"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "bo"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "tanru_unit"
+                }
+              ]
+            }
+          }
+        ]
+      }
     },
     "quote": {
       "type": "SEQ",
@@ -469,6 +649,58 @@
         }
       ]
     },
+    "relative_clause_rc": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "noi"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "subsentence"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kuho"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "goi"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "term"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gehu"
+            }
+          ]
+        }
+      ]
+    },
+    "subsentence": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "statement"
+        }
+      ]
+    },
+    "term": {
+      "type": "SYMBOL",
+      "name": "sumti"
+    },
     "mex": {
       "type": "SEQ",
       "members": [
@@ -509,6 +741,9 @@
     [
       "parenthetical",
       "statement"
+    ],
+    [
+      "tanru_unit"
     ]
   ],
   "precedences": [],
@@ -595,6 +830,14 @@
     },
     {
       "type": "SYMBOL",
+      "name": "kehe"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ku"
+    },
+    {
+      "type": "SYMBOL",
       "name": "jek_bo"
     },
     {
@@ -676,6 +919,62 @@
     {
       "type": "SYMBOL",
       "name": "mex_operator"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "la"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "le"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "lo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "noi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "kuho"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "goi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "gehu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "cu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "mi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "do"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ti"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ta"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "tu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "da"
     }
   ],
   "inline": [],

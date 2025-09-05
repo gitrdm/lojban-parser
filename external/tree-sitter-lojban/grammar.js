@@ -8,52 +8,73 @@ const { grammar, repeat, repeat1, choice, prec, seq, optional, token } = /** @ty
 module.exports = grammar({
   name: 'lojban',
   externals: $ => [
-    $.word,
-    $.cmene,
-    $.brivla,
-    $.lu,
-    $.lihU,
-    $.to,
-    $.toi,
-    $.sei,
-    $.seu,
-    $.vuhO,
-    $.vuhU,
-    $.joi,
-  $.jek,
-  $.ja,
-  $.jo,
-  $.ju,
-  $.ce,
-  $.ceo,
-  $.bo,
-  $.ke,
-  $.jek_bo,
-  $.joi_bo,
-  $.ja_bo,
-  $.jo_bo,
-  $.ju_bo,
-  $.ce_bo,
-  $.ceo_bo,
-  $.i,
-  $.i_bo,
-  $.i_jek,
-  $.i_joi,
-  $.i_ja,
-  $.i_jo,
-  $.i_ju,
-  $.i_ce,
-  $.i_ceo,
+  // Must match scanner.c TokenType order exactly
+  $.word,     // WORD
+  $.cmene,    // CMENE
+  $.brivla,   // BRIVLA
+  $.lu,       // LU
+  $.lihU,     // LIHU
+  $.to,       // TO
+  $.toi,      // TOI
+  $.sei,      // SEI
+  $.seu,      // SEU
+  $.vuhO,     // VUH_O
+  $.vuhU,     // VUH_U
+  $.joi,      // JOI
+  $.jek,      // JEK
+  $.ja,       // JA
+  $.jo,       // JO
+  $.ju,       // JU
+  $.ce,       // CE
+  $.ceo,      // CEO
+  $.bo,       // BO
+  $.ke,       // KE
+  $.kehe,     // KEHE
+  $.ku,       // KU
+  $.jek_bo,   // JEK_BO
+  $.joi_bo,   // JOI_BO
+  $.ja_bo,    // JA_BO
+  $.jo_bo,    // JO_BO
+  $.ju_bo,    // JU_BO
+  $.ce_bo,    // CE_BO
+  $.ceo_bo,   // CEO_BO
+  $.i,        // I
+  $.i_bo,     // I_BO
+  $.i_jek,    // I_JEK
+  $.i_joi,    // I_JOI
+  $.i_ja,     // I_JA
+  $.i_jo,     // I_JO
+  $.i_ju,     // I_JU
+  $.i_ce,     // I_CE
+  $.i_ceo,    // I_CEO
   // Mekso
-  $.li,
-  $.boi,
-  $.xi,
-  $.number,
-  $.mex_operator,
+  $.li,       // LI
+  $.boi,      // BOI
+  $.xi,       // XI
+  $.number,   // NUMBER
+  $.mex_operator, // MEX_OPERATOR
+  // Sumti starters (incremental)
+  $.la,       // LA
+  $.le,       // LE
+  $.lo,       // LO
+  // Relative clause cmavo
+  $.noi,      // NOI
+  $.kuho,     // KUHO
+  $.goi,      // GOI
+  $.gehu,     // GEHU
+  // Bridi separator
+  $.cu,       // CU
+  $.mi,       // MI
+  $.do,       // DO
+  $.ti,       // TI
+  $.ta,       // TA
+  $.tu,       // TU
+  $.da,       // DA
   ],
   conflicts: $ => [
     [$.quote, $.statement],
-    [$.parenthetical, $.statement]
+  [$.parenthetical, $.statement],
+  [$.tanru_unit]
   ],
 
   extras: $ => [
@@ -79,6 +100,7 @@ module.exports = grammar({
     // A statement: sumti selbri (sumti)* with optional connectives
     statement: $ => prec.right(seq(
       $.sumti,
+      optional($.cu),
       optional($.connective),
       $.selbri,
       repeat(seq(optional($.connective), $.sumti))
@@ -117,9 +139,36 @@ module.exports = grammar({
   i_statement: $ => seq($.i_prefix, $.statement),
   i_prefix: $ => choice($.i, $.i_bo, $.i_jek, $.i_joi, $.i_ja, $.i_jo, $.i_ju, $.i_ce, $.i_ceo),
 
-    // Shells: basic placeholders
-    sumti: $ => $.word,  // TODO: refine with proper sumti structure
-    selbri: $ => $.word,  // TODO: refine with brivla/gismu/etc.
+    // Sumti (incremental)
+    sumti: $ => seq(
+      $.sumti_base,
+      optional($.relative_clause_rc),
+      optional($.ku)
+    ),
+
+    sumti_base: $ => choice(
+      seq($.la, $.cmene),      // la cmene
+      seq($.le, $.sumti_tail), // le + selbri
+      seq($.lo, $.sumti_tail), // lo + selbri
+  $.mi,                    // mi
+  $.do,                    // do
+  $.ti,                    // ti
+  $.ta,                    // ta
+  $.tu,                    // tu
+  $.da,                    // da
+      $.word                   // fallback until we add more
+    ),
+
+  // Minimal tail for le/lo for this step
+    sumti_tail: $ => $.selbri,
+
+    // Tanru: minimal support with KE/KEhE grouping and BO binding
+    tanru_unit: $ => choice(
+      seq($.ke, $.selbri, optional($.kehe)),
+      $.brivla,
+      $.word
+    ),
+  selbri: $ => prec.left(1, seq($.tanru_unit, repeat(seq($.bo, $.tanru_unit)))),
 
     // Quotes and parentheticals
     quote: $ => seq($.lu, repeat1($.word), $.lihU),
@@ -128,23 +177,22 @@ module.exports = grammar({
     // Free modifier
     free_modifier: $ => seq($.sei, repeat1($.word), $.seu),
 
-    // Relative clause: VUhO ... VUhU
-    relative_clause: $ => seq($.vuhO, repeat1($._unit), $.vuhU),
+  // Relative clause shells (kept for earlier tests)
+  relative_clause: $ => seq($.vuhO, repeat1($._unit), $.vuhU),
+
+    // Relative clauses (basic paths only)
+    relative_clause_rc: $ => choice(
+      seq($.noi, $.subsentence, $.kuho),     // poi/noi/voi … ku'o
+      seq($.goi, $.term, $.gehu)             // goi … ge'u
+    ),
+
+  // Minimal subsentence placeholder for this phase
+  subsentence: $ => choice($.statement),
+
+    // Minimal term placeholder: treat as sumti for now
+    term: $ => $.sumti,
 
     // Mekso (basic)
-    mex: $ => seq($.li, $.number, optional($.boi)),  // e.g., li pa boi
-
-    // Tokens (now externals)
-    // word: $ => token(/[A-Za-z0-9.'-]+/),
-    // lu: $ => 'lu',
-    // lihU: $ => "li'u",
-    // to: $ => 'to',
-    // toi: $ => 'toi',
-    // sei: $ => 'sei',
-    // seu: $ => "se'u",
-    // vuhO: $ => 'vuhO',
-    // vuhU: $ => 'vuhU',
-    // joi: $ => 'joi',
-    // jek: $ => 'jek',
+    mex: $ => seq($.li, $.number, optional($.boi)),
   }
 });

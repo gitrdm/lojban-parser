@@ -1,0 +1,13 @@
+=====================
+KE without KEhE
+=====================
+
+mi ke klama bo citka
+---
+(source_file
+  (statement
+    (sumti (word))
+    (selbri
+      (tanru_unit (ke) (selbri (tanru_unit (word))))
+      (bo)
+      (tanru_unit (word)))))

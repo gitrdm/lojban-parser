@@ -269,15 +269,54 @@
     }
   },
   {
+    "type": "relative_clause_rc",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "gehu",
+          "named": true
+        },
+        {
+          "type": "goi",
+          "named": true
+        },
+        {
+          "type": "kuho",
+          "named": true
+        },
+        {
+          "type": "noi",
+          "named": true
+        },
+        {
+          "type": "subsentence",
+          "named": true
+        },
+        {
+          "type": "term",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "selbri",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "word",
+          "type": "bo",
+          "named": true
+        },
+        {
+          "type": "tanru_unit",
           "named": true
         }
       ]
@@ -332,6 +371,10 @@
           "named": true
         },
         {
+          "type": "cu",
+          "named": true
+        },
+        {
           "type": "selbri",
           "named": true
         },
@@ -343,13 +386,95 @@
     }
   },
   {
-    "type": "sumti",
+    "type": "subsentence",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
       "required": true,
       "types": [
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sumti",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ku",
+          "named": true
+        },
+        {
+          "type": "relative_clause_rc",
+          "named": true
+        },
+        {
+          "type": "sumti_base",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sumti_base",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "cmene",
+          "named": true
+        },
+        {
+          "type": "da",
+          "named": true
+        },
+        {
+          "type": "do",
+          "named": true
+        },
+        {
+          "type": "la",
+          "named": true
+        },
+        {
+          "type": "le",
+          "named": true
+        },
+        {
+          "type": "lo",
+          "named": true
+        },
+        {
+          "type": "mi",
+          "named": true
+        },
+        {
+          "type": "sumti_tail",
+          "named": true
+        },
+        {
+          "type": "ta",
+          "named": true
+        },
+        {
+          "type": "ti",
+          "named": true
+        },
+        {
+          "type": "tu",
+          "named": true
+        },
         {
           "type": "word",
           "named": true
@@ -358,7 +483,72 @@
     }
   },
   {
+    "type": "sumti_tail",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "selbri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tanru_unit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "brivla",
+          "named": true
+        },
+        {
+          "type": "ke",
+          "named": true
+        },
+        {
+          "type": "kehe",
+          "named": true
+        },
+        {
+          "type": "selbri",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "term",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sumti",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bo",
+    "named": true
+  },
+  {
+    "type": "brivla",
     "named": true
   },
   {
@@ -375,6 +565,30 @@
   },
   {
     "type": "ceo_bo",
+    "named": true
+  },
+  {
+    "type": "cmene",
+    "named": true
+  },
+  {
+    "type": "cu",
+    "named": true
+  },
+  {
+    "type": "da",
+    "named": true
+  },
+  {
+    "type": "do",
+    "named": true
+  },
+  {
+    "type": "gehu",
+    "named": true
+  },
+  {
+    "type": "goi",
     "named": true
   },
   {
@@ -454,11 +668,47 @@
     "named": true
   },
   {
+    "type": "ke",
+    "named": true
+  },
+  {
+    "type": "kehe",
+    "named": true
+  },
+  {
+    "type": "ku",
+    "named": true
+  },
+  {
+    "type": "kuho",
+    "named": true
+  },
+  {
+    "type": "la",
+    "named": true
+  },
+  {
+    "type": "le",
+    "named": true
+  },
+  {
     "type": "lihU",
     "named": true
   },
   {
+    "type": "lo",
+    "named": true
+  },
+  {
     "type": "lu",
+    "named": true
+  },
+  {
+    "type": "mi",
+    "named": true
+  },
+  {
+    "type": "noi",
     "named": true
   },
   {
@@ -470,11 +720,23 @@
     "named": true
   },
   {
+    "type": "ta",
+    "named": true
+  },
+  {
+    "type": "ti",
+    "named": true
+  },
+  {
     "type": "to",
     "named": true
   },
   {
     "type": "toi",
+    "named": true
+  },
+  {
+    "type": "tu",
     "named": true
   },
   {

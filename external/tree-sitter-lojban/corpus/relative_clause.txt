@@ -5,4 +5,4 @@ Relative clause
 vuhO mi klama vuhU
 ---
 (source_file
-  (relative_clause (vuhO) (statement (sumti (word)) (selbri (word))) (vuhU)))
+  (relative_clause (vuhO) (statement (sumti (mi)) (selbri (tanru_unit (word)))) (vuhU)))

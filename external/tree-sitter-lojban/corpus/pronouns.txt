@@ -1,0 +1,13 @@
+============
+Pronouns
+============
+
+mi klama
+---
+(source_file
+  (statement (sumti (mi)) (selbri (tanru_unit (word)))))
+
+do klama
+---
+(source_file
+  (statement (sumti (do)) (selbri (tanru_unit (word)))))

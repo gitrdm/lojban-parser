@@ -6,4 +6,4 @@ lu mi li'u to mi toi
 ---
 (source_file
   (quote (lu) (word) (lihU))
-  (parenthetical (to) (statement (sumti (word)) (selbri (word))) (toi)))
+  (parenthetical (to) (statement (sumti (mi)) (selbri (tanru_unit (word)))) (toi)))

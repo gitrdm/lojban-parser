@@ -8,4 +8,4 @@ mi je do klama
   (statement
     (sumti (word))
   (connective (jek))
-    (selbri (word))))
+  (selbri (tanru_unit (word)))))

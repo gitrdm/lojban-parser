@@ -1,0 +1,13 @@
+=====================
+KE/KEhE tanru grouping
+=====================
+
+mi ke klama ke'e bo citka
+---
+(source_file
+  (statement
+    (sumti (word))
+    (selbri
+      (tanru_unit (ke) (selbri (tanru_unit (word))) (kehe))
+      (bo)
+      (tanru_unit (word)))))

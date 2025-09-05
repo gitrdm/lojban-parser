@@ -1,0 +1,18 @@
+=================================
+Pronouns ti/ta/tu as subject/object
+=================================
+
+ti cu klama ta
+---
+(source_file
+  (statement (sumti (ti)) (selbri (tanru_unit (word))) (sumti (ta))))
+
+ta cu klama tu
+---
+(source_file
+  (statement (sumti (ta)) (selbri (tanru_unit (word))) (sumti (tu)))))
+
+tu cu klama ti
+---
+(source_file
+  (statement (sumti (tu)) (selbri (tanru_unit (word))) (sumti (ti))))

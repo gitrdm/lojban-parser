@@ -1,0 +1,18 @@
+=====================
+Pronouns: ti/ta/tu
+=====================
+
+ti klama
+---
+(source_file
+  (statement (sumti (ti)) (selbri (tanru_unit (word)))))
+
+ta klama
+---
+(source_file
+  (statement (sumti (ta)) (selbri (tanru_unit (word)))))
+
+tu klama
+---
+(source_file
+  (statement (sumti (tu)) (selbri (tanru_unit (word)))))

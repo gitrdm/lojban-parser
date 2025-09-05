@@ -1,0 +1,17 @@
+=====================
+Sumti: le/lo + selbri
+=====================
+
+le gerku klama
+---
+(source_file
+  (statement
+  (sumti (le) (sumti_tail (selbri (tanru_unit (word)))))
+  (selbri (tanru_unit (word)))))
+
+lo nanmu klama
+---
+(source_file
+  (statement
+  (sumti (lo) (sumti_tail (selbri (tanru_unit (word)))))
+  (selbri (tanru_unit (word)))))

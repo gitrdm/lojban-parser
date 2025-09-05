@@ -8,7 +8,7 @@ mi je bo do klama
   (statement
     (sumti (word))
     (connective (jek_bo))
-    (selbri (word))))
+  (selbri (tanru_unit (word)))))
 
 =====================
 Connectives JOI + BO
@@ -20,4 +20,4 @@ mi joi bo do klama
   (statement
     (sumti (word))
     (connective (joi_bo))
-    (selbri (word))))
+  (selbri (tanru_unit (word)))))

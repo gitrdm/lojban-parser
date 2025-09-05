@@ -1,0 +1,14 @@
+===============================
+Nested KE with missing inner KEhE
+===============================
+
+mi ke ke klama bo citka ke'e
+---
+(source_file
+  (statement
+    (sumti (word))
+    (selbri
+      (tanru_unit
+        (ke)
+        (selbri (tanru_unit (ke) (selbri (tanru_unit (word))) (bo) (tanru_unit (word))))
+        (kehe)))))

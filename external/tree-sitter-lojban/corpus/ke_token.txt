@@ -7,4 +7,4 @@ mi ke klama
 (source_file
   (statement
     (sumti (word))
-    (selbri (word))))
+  (selbri (tanru_unit (word)))))

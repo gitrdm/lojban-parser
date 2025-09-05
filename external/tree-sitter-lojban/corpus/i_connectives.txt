@@ -6,10 +6,10 @@ mi klama
 i do citka
 ---
 (source_file
-  (statement (sumti (word)) (selbri (word)))
+  (statement (sumti (mi)) (selbri (tanru_unit (word))))
   (i_statement
     (i_prefix (i))
-    (statement (sumti (word)) (selbri (word)))))
+    (statement (sumti (word)) (selbri (tanru_unit (word))))))
 
 =====================
 i bo sentence glue
@@ -19,10 +19,10 @@ mi klama
 i bo do citka
 ---
 (source_file
-  (statement (sumti (word)) (selbri (word)))
+  (statement (sumti (mi)) (selbri (tanru_unit (word))))
   (i_statement
     (i_prefix (i_bo))
-    (statement (sumti (word)) (selbri (word)))))
+    (statement (sumti (word)) (selbri (tanru_unit (word))))))
 
 =====================
 i je connective between sentences
@@ -32,10 +32,10 @@ mi klama
 i je do citka
 ---
 (source_file
-  (statement (sumti (word)) (selbri (word)))
+  (statement (sumti (mi)) (selbri (tanru_unit (word))))
   (i_statement
     (i_prefix (i_jek))
-    (statement (sumti (word)) (selbri (word)))))
+    (statement (sumti (word)) (selbri (tanru_unit (word))))))
 
 =====================
 i joi connective between sentences
@@ -45,7 +45,7 @@ mi klama
 i joi do citka
 ---
 (source_file
-  (statement (sumti (word)) (selbri (word)))
+  (statement (sumti (mi)) (selbri (tanru_unit (word))))
   (i_statement
     (i_prefix (i_joi))
-    (statement (sumti (word)) (selbri (word)))))
+    (statement (sumti (word)) (selbri (tanru_unit (word))))))

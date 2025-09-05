@@ -1,0 +1,13 @@
+============================
+Morphology: brivla heuristics
+============================
+
+lo cmalu klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla))))) (selbri (tanru_unit (brivla)))))
+
+lo ce'u klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (word))))) (selbri (tanru_unit (brivla)))))

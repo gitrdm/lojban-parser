@@ -1,0 +1,10 @@
+=====================
+Sumti: lo ... ku closure
+=====================
+
+lo nanmu ku klama
+---
+(source_file
+  (statement
+  (sumti (lo) (sumti_tail (selbri (tanru_unit (word)))) (ku))
+  (selbri (tanru_unit (word)))))

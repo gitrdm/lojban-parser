@@ -45,6 +45,8 @@ enum TokenType {
   CEO,
   BO,
   KE,
+  KEHE,
+  KU,
   JEK_BO,
   JOI_BO,
   JA_BO,
@@ -67,6 +69,21 @@ enum TokenType {
   XI,
   NUMBER,
   MEX_OPERATOR,
+  // Sumti starters
+  LA,
+  LE,
+  LO,
+  NOI,
+  KUHO,
+  GOI,
+  GEHU,
+  CU,
+  MI,
+  DO,
+  TI,
+  TA,
+  TU,
+  DA,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -116,17 +133,29 @@ static inline int is_word_char(int32_t ch) {
 static int iscmene(const char *p) {
   size_t len = strlen(p);
   if (len == 0 || !isC(p[len-1])) return 0;
-  // Simple check, no bad sequences for now
+  // Basic filter: require at least one consonant (final consonant already checked)
+  int has_c = 0;
+  for (size_t i = 0; i < len; i++) {
+    if (isC(p[i])) { has_c = 1; break; }
+  }
+  if (!has_c) return 0;
   return 1;
 }
 
 static int isbrivla(const char *p) {
+  // Heuristic: brivla end with a vowel and contain a consonant cluster somewhere (ignoring y and ')
+  size_t len = strlen(p);
+  if (len < 3) return 0;
+  if (!isV(p[len-1])) return 0;
   int lastC = 0;
   for (const char *q = p; *q; q++) {
     if (*q == 'y' || *q == '\'') continue;
-    else if (isC(*q) && lastC) return 1;
-    else if (isC(*q)) lastC = 1;
-    else lastC = 0;
+    if (isC(*q)) {
+      if (lastC) return 1;
+      lastC = 1;
+    } else {
+      lastC = 0;
+    }
   }
   return 0;
 }
@@ -173,6 +202,34 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
+  // la (sumti starter)
+  if (valid_symbols[LA] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // LA
+    }
+    return false;
+  }
+
+  // le / lo (sumti starters)
+  if ((valid_symbols[LE] || valid_symbols[LO]) && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    int c = tolower(lexer->lookahead);
+    if (c == 'e' && valid_symbols[LE]) {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // LE
+    }
+    if (c == 'o' && valid_symbols[LO]) {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // LO
+    }
+    return false;
+  }
+
   // to
   if (valid_symbols[TO] && tolower(lexer->lookahead) == 't') {
     lexer->advance(lexer, false);
@@ -182,6 +239,23 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       return true; // TO
     }
     return false;
+  }
+
+  // noi/poi/voi (NOI)
+  if (valid_symbols[NOI]) {
+    if (tolower(lexer->lookahead) == 'n' || tolower(lexer->lookahead) == 'p' || tolower(lexer->lookahead) == 'v') {
+      int first = tolower(lexer->lookahead);
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'o') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // NOI (noi/poi/voi)
+        }
+      }
+      return false;
+    }
   }
 
   // toi
@@ -465,6 +539,83 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
+  // cu
+  if (valid_symbols[CU] && tolower(lexer->lookahead) == 'c') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // CU
+    }
+    return false;
+  }
+
+  // mi (pronoun)
+  if (valid_symbols[MI] && tolower(lexer->lookahead) == 'm') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // MI
+    }
+    return false;
+  }
+
+  // do (pronoun)
+  if (valid_symbols[DO] && tolower(lexer->lookahead) == 'd') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // DO
+    }
+    return false;
+  }
+
+  // ti (pronoun)
+  if (valid_symbols[TI] && tolower(lexer->lookahead) == 't') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // TI
+    }
+    return false;
+  }
+
+  // ta (pronoun)
+  if (valid_symbols[TA] && tolower(lexer->lookahead) == 't') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // TA
+    }
+    return false;
+  }
+
+  // tu (pronoun)
+  if (valid_symbols[TU] && tolower(lexer->lookahead) == 't') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // TU
+    }
+    return false;
+  }
+
+  // da (indefinite/variable)
+  if (valid_symbols[DA] && tolower(lexer->lookahead) == 'd') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // DA
+    }
+    return false;
+  }
+
   // ke
   if (valid_symbols[KE] && tolower(lexer->lookahead) == 'k') {
     lexer->advance(lexer, false);
@@ -472,6 +623,34 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // KE
+    }
+    return false;
+  }
+
+  // ke'e (KEhE)
+  if (valid_symbols[KEHE] && tolower(lexer->lookahead) == 'k') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'e') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // KEhE
+        }
+      }
+    }
+    return false;
+  }
+
+  // ku
+  if (valid_symbols[KU] && tolower(lexer->lookahead) == 'k') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // KU
     }
     return false;
   }
@@ -504,6 +683,54 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
           return true; // VUH_U
+        }
+      }
+    }
+    return false;
+  }
+
+  // ku'o (KUhO)
+  if (valid_symbols[KUHO] && tolower(lexer->lookahead) == 'k') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // KUhO
+        }
+      }
+    }
+    return false;
+  }
+
+  // goi (GOI)
+  if (valid_symbols[GOI] && tolower(lexer->lookahead) == 'g') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // GOI
+      }
+    }
+    return false;
+  }
+
+  // ge'u (GEhU)
+  if (valid_symbols[GEHU] && tolower(lexer->lookahead) == 'g') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // GEhU
         }
       }
     }

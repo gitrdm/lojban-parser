@@ -1,0 +1,8 @@
+============
+DA variable
+============
+
+da klama
+---
+(source_file
+  (statement (sumti (da)) (selbri (tanru_unit (word)))))

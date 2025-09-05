@@ -1,0 +1,15 @@
+=================
+Morphology sanity
+=================
+
+lo klama klama
+---
+(source_file
+  (statement
+    (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla)))))
+    (selbri (tanru_unit (brivla)))))
+
+la djan klama
+---
+(source_file
+  (statement (sumti (la) (cmene)) (selbri (tanru_unit (word)))))

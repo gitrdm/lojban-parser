@@ -1,0 +1,11 @@
+=================================
+Pronouns in object and subject
+=================================
+
+do cu klama mi
+---
+(source_file
+  (statement
+    (sumti (do))
+    (selbri (tanru_unit (word)))
+    (sumti (mi))))

@@ -1,0 +1,10 @@
+=====================
+Sumti: la cmene inside statement
+=====================
+
+la djan klama
+---
+(source_file
+  (statement
+    (sumti (la) (cmene))
+  (selbri (tanru_unit (word)))))

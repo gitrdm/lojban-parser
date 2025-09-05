@@ -1,0 +1,10 @@
+====================================
+KE group with missing outer KEhE (EOF)
+====================================
+
+mi ke klama
+---
+(source_file
+  (statement
+    (sumti (word))
+    (selbri (tanru_unit (ke) (selbri (tanru_unit (word)))))))

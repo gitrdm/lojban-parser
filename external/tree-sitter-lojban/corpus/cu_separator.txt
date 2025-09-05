@@ -1,0 +1,13 @@
+============
+CU separator
+============
+
+mi cu klama
+---
+(source_file
+  (statement (sumti (mi)) (selbri (tanru_unit (word)))))
+
+lo nanmu cu klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (word))))) (selbri (tanru_unit (word)))))
