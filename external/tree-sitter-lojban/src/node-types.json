@@ -1,5 +1,20 @@
 [
   {
+    "type": "by",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "by_unit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "connective",
     "named": true,
     "fields": {},
@@ -526,6 +541,10 @@
           "named": true
         },
         {
+          "type": "by",
+          "named": true
+        },
+        {
           "type": "ke",
           "named": true
         },
@@ -568,7 +587,7 @@
     "named": true
   },
   {
-    "type": "by",
+    "type": "by_unit",
     "named": true
   },
   {

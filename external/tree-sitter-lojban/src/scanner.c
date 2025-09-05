@@ -163,12 +163,28 @@ static int isbrivla(const char *p) {
   }
   // No cluster found. For 5+ letter words, accept simple CVCCV/CCVCV approximations.
   if (len >= 5) {
-    // Map to C/V ignoring y and '
+    // Map to C/V ignoring y, h, ' and treating a single r/n between vowels as a hyphen (skip)
     char buf[64];
     size_t j = 0;
     for (size_t i = 0; i < len && j < sizeof(buf)-1; i++) {
       char ch = p[i];
       if (ch == 'y' || ch == 'h' || ch == '\'') continue;
+      if ((ch == 'r' || ch == 'n')) {
+        // Look at previous mapped and next significant to detect V r/n V pattern
+        char prev = (j > 0) ? buf[j-1] : 'X';
+        // Find next significant
+        char nextSig = 'X';
+        for (size_t k = i + 1; k < len; k++) {
+          char ch2 = p[k];
+          if (ch2 == 'y' || ch2 == 'h' || ch2 == '\'') continue;
+          nextSig = isC(ch2) ? 'C' : (isV(ch2) ? 'V' : 'X');
+          break;
+        }
+        if (prev == 'V' && nextSig == 'V') {
+          // Treat r/n as hyphen separator; skip it
+          continue;
+        }
+      }
       buf[j++] = isC(ch) ? 'C' : (isV(ch) ? 'V' : 'X');
     }
     buf[j] = 0;
@@ -678,20 +694,31 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // BY (basic lerfu word): any single letter followed by 'y', optional trailing '.' pause
+  // BY (basic lerfu word): either vowel alone (a/e/i/o/u) or consonant followed by 'y'; optional trailing '.' pause
   if (valid_symbols[BY] && iswalpha(lexer->lookahead)) {
     int32_t first = tolower(lexer->lookahead);
-    lexer->advance(lexer, false);
-    if (tolower(lexer->lookahead) == 'y') {
+    // Case 1: vowel lerfu word
+    if (first == 'a' || first == 'e' || first == 'i' || first == 'o' || first == 'u') {
       lexer->advance(lexer, false);
-      // Optional trailing dot pause
       if (lexer->lookahead == '.') {
         lexer->advance(lexer, false);
       }
       lexer->mark_end(lexer);
-      return true; // BY
+      return true; // BY (vowel)
     }
-    return false;
+    // Case 2: consonant+y
+    if (isC((char)first)) {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'y') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '.') {
+          lexer->advance(lexer, false);
+        }
+        lexer->mark_end(lexer);
+        return true; // BY (consonant+y)
+      }
+      return false;
+    }
   }
 
   // ke
@@ -919,6 +946,12 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       // If we saw an internal pause, only allow CMENE classification; otherwise classify normally
       if (valid_symbols[CMENE] && iscmene(scanner->word_buffer)) {
         return true; // CMENE
+      } else if (saw_internal_pause && valid_symbols[CMENE]) {
+        // Optionally tolerate cmene ending in a vowel if the name contains an internal pause
+        size_t nlen = scanner->word_len;
+        if (nlen > 0 && isV(scanner->word_buffer[nlen-1])) {
+          return true; // CMENE (final vowel variant when marked)
+        }
       } else if (!saw_internal_pause && valid_symbols[BRIVLA] && isbrivla(scanner->word_buffer)) {
         return true; // BRIVLA
       } else if (!saw_internal_pause && valid_symbols[WORD]) {

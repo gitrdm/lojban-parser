@@ -1,0 +1,10 @@
+====================================
+Cmene: allow final vowel when marked
+====================================
+
+# Name with internal pause and final vowel should classify as CMENE
+
+la djan.aria klama
+---
+(source_file
+  (statement (sumti (la) (cmene)) (selbri (tanru_unit (word)))))

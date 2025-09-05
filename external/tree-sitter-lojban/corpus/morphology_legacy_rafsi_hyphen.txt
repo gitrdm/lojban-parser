@@ -1,0 +1,17 @@
+========================================
+Morphology: legacy rafsi/hyphen tolerance
+========================================
+
+# Accept CCVCV via r/n hyphen between vowels
+
+lo banrasta klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla))))) (selbri (tanru_unit (brivla)))))
+
+# Still reject too-simple CVCV
+
+lo cavu klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (word))))) (selbri (tanru_unit (brivla)))))

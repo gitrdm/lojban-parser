@@ -552,6 +552,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "by"
+        },
+        {
+          "type": "SYMBOL",
           "name": "word"
         }
       ]
@@ -583,6 +587,17 @@
             }
           }
         ]
+      }
+    },
+    "by": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "by_unit"
+        }
       }
     },
     "quote": {
@@ -760,6 +775,9 @@
     ],
     [
       "tanru_unit"
+    ],
+    [
+      "by"
     ]
   ],
   "precedences": [],
@@ -1006,7 +1024,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "by"
+      "name": "by_unit"
     }
   ],
   "inline": [],

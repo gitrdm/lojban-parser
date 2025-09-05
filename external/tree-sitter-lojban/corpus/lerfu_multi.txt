@@ -1,0 +1,17 @@
+============================
+Lerfu-string: multi-lerfu
+============================
+
+# Sequence of BY units (vowel and consonant+y) as a sumti
+
+a by. cy dy. klama
+---
+(source_file
+  (statement (sumti (by)) (selbri (tanru_unit (brivla)))))
+
+# Mixed forms inside le ...
+
+le a by. by a klama
+---
+(source_file
+  (statement (sumti (le) (sumti_tail (selbri (tanru_unit (by))))) (selbri (tanru_unit (brivla)))))

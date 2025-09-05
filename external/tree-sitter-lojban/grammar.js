@@ -73,12 +73,13 @@ module.exports = grammar({
   $.ko,       // KO
   $.mio,      // MIO (mi'o)
   $.maa,      // MAA (ma'a)
-  $.by,       // BY (lerfu-string basic)
+  $.by_unit,  // BY unit (single lerfu word)
   ],
   conflicts: $ => [
     [$.quote, $.statement],
   [$.parenthetical, $.statement],
-  [$.tanru_unit]
+  [$.tanru_unit],
+  [$.by]
   ],
 
   extras: $ => [
@@ -163,22 +164,26 @@ module.exports = grammar({
   $.ko,                    // ko
   $.mio,                   // mi'o
   $.maa,                   // ma'a
-  $.by,                    // lerfu-string (basic BY)
+  $.by,                    // lerfu-string (sequence of BY units)
       $.word                   // fallback until we add more
     ),
 
   // Minimal tail for le/lo for this step
     sumti_tail: $ => $.selbri,
 
-    // Tanru: minimal support with KE/KEhE grouping and BO binding
+  // Tanru: minimal support with KE/KEhE grouping and BO binding
     tanru_unit: $ => choice(
       seq($.ke, $.selbri, optional($.kehe)),
       $.brivla,
+      $.by,
       $.word
     ),
   selbri: $ => prec.left(1, seq($.tanru_unit, repeat(seq($.bo, $.tanru_unit)))),
 
-    // Quotes and parentheticals
+  // Lerfu: by is one or more BY units (prefer grouping to the right to avoid ambiguity)
+  by: $ => prec.right(1, repeat1($.by_unit)),
+
+  // Quotes and parentheticals
     quote: $ => seq($.lu, repeat1($.word), $.lihU),
     parenthetical: $ => seq($.to, repeat1($._unit), $.toi),
 
