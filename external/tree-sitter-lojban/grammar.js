@@ -17,6 +17,8 @@ module.exports = grammar({
   $.to,       // TO
   $.toi,      // TOI
   $.sei,      // SEI
+  $.zio,      // ZIO (zi'o)
+  $.ceu,      // CEU (ce'u)
   $.seu,      // SEU
   $.vuhO,     // VUH_O
   $.vuhU,     // VUH_U
@@ -74,8 +76,9 @@ module.exports = grammar({
   $.mio,      // MIO (mi'o)
   $.maa,      // MAA (ma'a)
   $.by_unit,  // BY unit (single lerfu word)
-  $.zio,      // ZIO (zi'o)
-  $.ceu,      // CEU (ce'u)
+  $.lahe,     // LAhE (la'e)
+  $.lee,      // LE'e (le'e)
+  $.loe,      // LO'e (lo'e)
   ],
   conflicts: $ => [
     [$.quote, $.statement],
@@ -102,7 +105,8 @@ module.exports = grammar({
       $.quote,
       $.parenthetical,
       $.free_modifier,
-      $.relative_clause
+      $.relative_clause,
+      $.mex
     ),
 
     // A statement: sumti selbri (sumti)* with optional connectives
@@ -158,6 +162,9 @@ module.exports = grammar({
       seq($.la, $.cmene),      // la cmene
       seq($.le, $.sumti_tail), // le + selbri
       seq($.lo, $.sumti_tail), // lo + selbri
+      seq($.lee, $.sumti_tail), // le'e + selbri
+      seq($.loe, $.sumti_tail), // lo'e + selbri
+      seq($.lahe, $.sumti_base), // la'e + (basic sumti)
   $.mi,                    // mi
   $.do,                    // do
   $.ti,                    // ti
@@ -214,7 +221,7 @@ module.exports = grammar({
     // Minimal term placeholder: treat as sumti for now
     term: $ => $.sumti,
 
-    // Mekso (basic)
-    mex: $ => seq($.li, $.number, optional($.boi)),
+  // Mekso: li NUMBER ((MEX_OPERATOR NUMBER)*) (BOI)?
+  mex: $ => seq($.li, $.number, repeat(seq($.mex_operator, $.number)), optional($.boi)),
   }
 });

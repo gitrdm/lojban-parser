@@ -1,0 +1,18 @@
+=====================================
+Sumti: la'e/le'e/lo'e starter coverage
+=====================================
+
+la'e le bajra cu klama
+---
+(source_file
+  (statement (sumti (lahe) (sumti (le) (sumti_tail (selbri (tanru_unit (brivla))))) (ku)?) (selbri (tanru_unit (brivla)))))
+
+le'e bajra cu klama
+---
+(source_file
+  (statement (sumti (lee) (sumti_tail (selbri (tanru_unit (brivla))))) (selbri (tanru_unit (brivla)))))
+
+lo'e bajra cu klama
+---
+(source_file
+  (statement (sumti (loe) (sumti_tail (selbri (tanru_unit (brivla))))) (selbri (tanru_unit (brivla)))))

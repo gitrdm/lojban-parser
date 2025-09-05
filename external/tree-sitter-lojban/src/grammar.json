@@ -35,6 +35,10 @@
         {
           "type": "SYMBOL",
           "name": "relative_clause"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "mex"
         }
       ]
     },
@@ -469,6 +473,45 @@
           ]
         },
         {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "lee"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "loe"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "lahe"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_base"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "mi"
         },
@@ -797,6 +840,22 @@
           "name": "number"
         },
         {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "mex_operator"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
           "type": "CHOICE",
           "members": [
             {
@@ -869,6 +928,14 @@
     {
       "type": "SYMBOL",
       "name": "sei"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "zio"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ceu"
     },
     {
       "type": "SYMBOL",
@@ -1084,11 +1151,15 @@
     },
     {
       "type": "SYMBOL",
-      "name": "zio"
+      "name": "lahe"
     },
     {
       "type": "SYMBOL",
-      "name": "ceu"
+      "name": "lee"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "loe"
     }
   ],
   "inline": [],

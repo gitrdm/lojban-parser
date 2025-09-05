@@ -90,6 +90,9 @@ enum TokenType {
   MIO,
   MAA,
   BY,
+  LAHE,
+  LEE,
+  LOE,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -885,6 +888,57 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // LI
+    }
+    return false;
+  }
+
+  // la'e (LAHE)
+  if (valid_symbols[LAHE] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'e') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LAhE (la'e)
+        }
+      }
+    }
+    return false;
+  }
+
+  // le'e (LEE)
+  if (valid_symbols[LEE] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'e') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LE'e (le'e)
+        }
+      }
+    }
+    return false;
+  }
+
+  // lo'e (LOE)
+  if (valid_symbols[LOE] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'e') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LO'e (lo'e)
+        }
+      }
     }
     return false;
   }

@@ -175,6 +175,33 @@
     }
   },
   {
+    "type": "mex",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "boi",
+          "named": true
+        },
+        {
+          "type": "li",
+          "named": true
+        },
+        {
+          "type": "mex_operator",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthetical",
     "named": true,
     "fields": {},
@@ -188,6 +215,10 @@
         },
         {
           "type": "i_statement",
+          "named": true
+        },
+        {
+          "type": "mex",
           "named": true
         },
         {
@@ -254,6 +285,10 @@
         },
         {
           "type": "i_statement",
+          "named": true
+        },
+        {
+          "type": "mex",
           "named": true
         },
         {
@@ -352,6 +387,10 @@
         },
         {
           "type": "i_statement",
+          "named": true
+        },
+        {
+          "type": "mex",
           "named": true
         },
         {
@@ -498,11 +537,23 @@
           "named": true
         },
         {
+          "type": "lahe",
+          "named": true
+        },
+        {
           "type": "le",
           "named": true
         },
         {
+          "type": "lee",
+          "named": true
+        },
+        {
           "type": "lo",
+          "named": true
+        },
+        {
+          "type": "loe",
           "named": true
         },
         {
@@ -515,6 +566,10 @@
         },
         {
           "type": "mio",
+          "named": true
+        },
+        {
+          "type": "sumti_base",
           "named": true
         },
         {
@@ -789,7 +844,19 @@
     "named": true
   },
   {
+    "type": "lahe",
+    "named": true
+  },
+  {
     "type": "le",
+    "named": true
+  },
+  {
+    "type": "lee",
+    "named": true
+  },
+  {
+    "type": "li",
     "named": true
   },
   {
@@ -801,11 +868,19 @@
     "named": true
   },
   {
+    "type": "loe",
+    "named": true
+  },
+  {
     "type": "lu",
     "named": true
   },
   {
     "type": "maa",
+    "named": true
+  },
+  {
+    "type": "mex_operator",
     "named": true
   },
   {
