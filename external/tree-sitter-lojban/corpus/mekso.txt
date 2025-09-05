@@ -1,0 +1,26 @@
+=====================
+Basic Mekso
+=====================
+
+li pa
+---
+(source_file
+  (mex (li) (number)))
+
+=====================
+Mekso with BOI
+=====================
+
+li re boi
+---
+(source_file
+  (mex (li) (number) (boi)))
+
+=====================
+Mekso with operator
+=====================
+
+li pa su'i re
+---
+(source_file
+  (mex (li) (number) (mex_operator) (number)))

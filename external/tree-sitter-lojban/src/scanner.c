@@ -61,6 +61,12 @@ enum TokenType {
   I_JU,
   I_CE,
   I_CEO,
+  // Mekso
+  LI,
+  BOI,
+  XI,
+  NUMBER,
+  MEX_OPERATOR,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -498,6 +504,68 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
           return true; // VUH_U
+        }
+      }
+    }
+    return false;
+  }
+
+  // li
+  if (valid_symbols[LI] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // LI
+    }
+    return false;
+  }
+
+  // boi
+  if (valid_symbols[BOI] && tolower(lexer->lookahead) == 'b') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // BOI
+      }
+    }
+    return false;
+  }
+
+  // xi
+  if (valid_symbols[XI] && tolower(lexer->lookahead) == 'x') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // XI
+    }
+    return false;
+  }
+
+  // number (digits)
+  if (valid_symbols[NUMBER] && isdigit(lexer->lookahead)) {
+    do {
+      lexer->advance(lexer, false);
+    } while (isdigit(lexer->lookahead));
+    lexer->mark_end(lexer);
+    return true; // NUMBER
+  }
+
+  // mex_operator (basic: su'i, pi'i, etc.)
+  if (valid_symbols[MEX_OPERATOR] && tolower(lexer->lookahead) == 's') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // MEX_OPERATOR (su'i)
         }
       }
     }

@@ -468,6 +468,31 @@
           "name": "vuhU"
         }
       ]
+    },
+    "mex": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "li"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "boi"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     }
   },
   "extras": [
@@ -631,6 +656,26 @@
     {
       "type": "SYMBOL",
       "name": "i_ceo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "li"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "boi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "xi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "number"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "mex_operator"
     }
   ],
   "inline": [],

@@ -44,6 +44,12 @@ module.exports = grammar({
   $.i_ju,
   $.i_ce,
   $.i_ceo,
+  // Mekso
+  $.li,
+  $.boi,
+  $.xi,
+  $.number,
+  $.mex_operator,
   ],
   conflicts: $ => [
     [$.quote, $.statement],
@@ -124,6 +130,9 @@ module.exports = grammar({
 
     // Relative clause: VUhO ... VUhU
     relative_clause: $ => seq($.vuhO, repeat1($._unit), $.vuhU),
+
+    // Mekso (basic)
+    mex: $ => seq($.li, $.number, optional($.boi)),  // e.g., li pa boi
 
     // Tokens (now externals)
     // word: $ => token(/[A-Za-z0-9.'-]+/),

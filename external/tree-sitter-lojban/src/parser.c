@@ -9,10 +9,10 @@
 #define LANGUAGE_VERSION 15
 #define STATE_COUNT 90
 #define LARGE_STATE_COUNT 26
-#define SYMBOL_COUNT 52
+#define SYMBOL_COUNT 57
 #define ALIAS_COUNT 0
-#define TOKEN_COUNT 37
-#define EXTERNAL_TOKEN_COUNT 36
+#define TOKEN_COUNT 42
+#define EXTERNAL_TOKEN_COUNT 41
 #define FIELD_COUNT 0
 #define MAX_ALIAS_SEQUENCE_LENGTH 4
 #define MAX_RESERVED_WORD_SET_SIZE 0
@@ -56,21 +56,26 @@ enum ts_symbol_identifiers {
   sym_i_ju = 34,
   sym_i_ce = 35,
   sym_i_ceo = 36,
-  sym_source_file = 37,
-  sym__unit = 38,
-  sym_statement = 39,
-  sym_connective = 40,
-  sym_i_statement = 41,
-  sym_i_prefix = 42,
-  sym_sumti = 43,
-  sym_selbri = 44,
-  sym_quote = 45,
-  sym_parenthetical = 46,
-  sym_free_modifier = 47,
-  sym_relative_clause = 48,
-  aux_sym_source_file_repeat1 = 49,
-  aux_sym_statement_repeat1 = 50,
-  aux_sym_quote_repeat1 = 51,
+  sym_li = 37,
+  sym_boi = 38,
+  sym_xi = 39,
+  sym_number = 40,
+  sym_mex_operator = 41,
+  sym_source_file = 42,
+  sym__unit = 43,
+  sym_statement = 44,
+  sym_connective = 45,
+  sym_i_statement = 46,
+  sym_i_prefix = 47,
+  sym_sumti = 48,
+  sym_selbri = 49,
+  sym_quote = 50,
+  sym_parenthetical = 51,
+  sym_free_modifier = 52,
+  sym_relative_clause = 53,
+  aux_sym_source_file_repeat1 = 54,
+  aux_sym_statement_repeat1 = 55,
+  aux_sym_quote_repeat1 = 56,
 };
 
 static const char * const ts_symbol_names[] = {
@@ -111,6 +116,11 @@ static const char * const ts_symbol_names[] = {
   [sym_i_ju] = "i_ju",
   [sym_i_ce] = "i_ce",
   [sym_i_ceo] = "i_ceo",
+  [sym_li] = "li",
+  [sym_boi] = "boi",
+  [sym_xi] = "xi",
+  [sym_number] = "number",
+  [sym_mex_operator] = "mex_operator",
   [sym_source_file] = "source_file",
   [sym__unit] = "_unit",
   [sym_statement] = "statement",
@@ -166,6 +176,11 @@ static const TSSymbol ts_symbol_map[] = {
   [sym_i_ju] = sym_i_ju,
   [sym_i_ce] = sym_i_ce,
   [sym_i_ceo] = sym_i_ceo,
+  [sym_li] = sym_li,
+  [sym_boi] = sym_boi,
+  [sym_xi] = sym_xi,
+  [sym_number] = sym_number,
+  [sym_mex_operator] = sym_mex_operator,
   [sym_source_file] = sym_source_file,
   [sym__unit] = sym__unit,
   [sym_statement] = sym_statement,
@@ -329,6 +344,26 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .named = true,
   },
   [sym_i_ceo] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_li] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_boi] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_xi] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_number] = {
+    .visible = true,
+    .named = true,
+  },
+  [sym_mex_operator] = {
     .visible = true,
     .named = true,
   },
@@ -643,6 +678,11 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [sym_i_ju] = ACTIONS(1),
     [sym_i_ce] = ACTIONS(1),
     [sym_i_ceo] = ACTIONS(1),
+    [sym_li] = ACTIONS(1),
+    [sym_boi] = ACTIONS(1),
+    [sym_xi] = ACTIONS(1),
+    [sym_number] = ACTIONS(1),
+    [sym_mex_operator] = ACTIONS(1),
   },
   [STATE(1)] = {
     [sym_source_file] = STATE(87),
@@ -2727,6 +2767,11 @@ enum ts_external_scanner_symbol_identifiers {
   ts_external_token_i_ju = 33,
   ts_external_token_i_ce = 34,
   ts_external_token_i_ceo = 35,
+  ts_external_token_li = 36,
+  ts_external_token_boi = 37,
+  ts_external_token_xi = 38,
+  ts_external_token_number = 39,
+  ts_external_token_mex_operator = 40,
 };
 
 static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
@@ -2766,6 +2811,11 @@ static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
   [ts_external_token_i_ju] = sym_i_ju,
   [ts_external_token_i_ce] = sym_i_ce,
   [ts_external_token_i_ceo] = sym_i_ceo,
+  [ts_external_token_li] = sym_li,
+  [ts_external_token_boi] = sym_boi,
+  [ts_external_token_xi] = sym_xi,
+  [ts_external_token_number] = sym_number,
+  [ts_external_token_mex_operator] = sym_mex_operator,
 };
 
 static const bool ts_external_scanner_states[13][EXTERNAL_TOKEN_COUNT] = {
@@ -2806,6 +2856,11 @@ static const bool ts_external_scanner_states[13][EXTERNAL_TOKEN_COUNT] = {
     [ts_external_token_i_ju] = true,
     [ts_external_token_i_ce] = true,
     [ts_external_token_i_ceo] = true,
+    [ts_external_token_li] = true,
+    [ts_external_token_boi] = true,
+    [ts_external_token_xi] = true,
+    [ts_external_token_number] = true,
+    [ts_external_token_mex_operator] = true,
   },
   [2] = {
     [ts_external_token_word] = true,
