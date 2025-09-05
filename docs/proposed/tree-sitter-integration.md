@@ -15,6 +15,10 @@ Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C pars
 - Reuse existing tokenization via an external scanner to surface the current 900-series `lexer_*` compounds initially.
 - Keep existing C CLI parser intact (Bison) while we converge on parity; enable side-by-side validation.
 
+## Priority: implement the full grammar (corpus as acceptance test)
+
+Implement the full grammar correctly now. Use the large test corpus at `tests/regress/inputs/test_sentences.jsonl` with the canonical results in `tests/regress/outputs/sentences_results.jsonl` as the acceptance test for coverage and correctness. Avoid quick, one-off hacks purely to “make the corpus pass”; fixes should advance the complete grammar and scanner in line with Lojban semantics.
+
 Non-goals (phase 1)
 - Rewriting the lexical/preparser pipeline from scratch.
 - Producing exactly identical AST node numbering/shape as the current C parser (we’ll document a mapping).
@@ -215,6 +219,7 @@ Promoting to its own repo (best practice when stable)
   - Behavior: case-insensitive; tolerates whitespace and pause '.' between parts.
 - Expand `tools/ts-validate` to run C parser and diff normalized shapes.
   - Done (stub): runs C parser when available and prints an approximate shape diff (node line counts). Next: normalize TS vs C for structural diff.
+- Add a corpus runner to process `tests/regress/inputs/test_sentences.jsonl`, compare against `tests/regress/outputs/sentences_results.jsonl`, and track pass rates; use this to verify progress of the full grammar. Any failures should guide principled grammar/scanner improvements—not ad‑hoc patches.
 - Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
 - Expand corpus with more test cases from `openwm.txt` and regression inputs.
 - Add a few additional quote/parenthetical tests (e.g., `lu ... li'u`, `to ... toi`).
