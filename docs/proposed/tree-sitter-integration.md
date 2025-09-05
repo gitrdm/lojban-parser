@@ -115,12 +115,12 @@ Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
 
-Status: in progress - morphology and reserved cmavo implemented; 900-series compounds integrated for connective families and i-joiners; spacing/pause tolerant; corpus updated and passing. Selbri now supports BO-chained tanru with minimal units.
+Status: in progress - morphology and reserved cmavo implemented; 900-series compounds integrated for connective families and i-joiners; spacing/pause tolerant; corpus updated and passing. Selbri supports BO-chained tanru with minimal units and KE/KEhE grouping; CU separator present; relative clauses (NOI/KUhO and GOI/GEhU) attached to sumti.
 
 Phase 3: Coverage expansion
 - Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
 - Flesh out precedence and associativity tables; remove any residual left recursion.
-- Tanru composition: BO chaining (done) and KE/KEhE grouping (next).
+- Tanru composition: BO chaining (done) and KE/KEhE grouping (done).
 
 Phase 4: Validation and CI
 - Build a corpus from `openwm.txt`, tests/regress inputs.
@@ -237,13 +237,12 @@ Promoting to its own repo (best practice when stable)
 - Add a corpus runner to process `tests/regress/inputs/test_sentences.jsonl`, compare against `tests/regress/outputs/sentences_results.jsonl`, and track pass rates; use this to verify progress of the full grammar. Any failures should guide principled grammar/scanner improvements—not ad‑hoc patches.
 - Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
 - Expand corpus with more test cases from `openwm.txt` and regression inputs.
-- Add a few additional quote/parenthetical tests (e.g., `lu ... li'u`, `to ... toi`).
- - Add subscript contexts and BOI strictness tests.
- - Selbri: implement KE/KEhE grouping as an atomic tanru unit (scanner adds `ke'e`), with tests showing grouping and optional closer.
- - Add minimal pronouns (mi/do) as dedicated terminals used in sumti; add simple subject/object corpus tests.
- - Add KE/KEhE edge cases to corpus: missing inner KEhE and missing outer KEhE at EOF to validate recovery.
-  - Expand pronouns: add ti/ta/tu as dedicated sumti terminals with small corpus tests. (Done)
-  - Negative KE recovery case: `ke` with incomplete inner selbri (e.g., `mi ke bo citka`) to validate graceful recovery. (Done)
+- Quotes/parentheses: add more LU/LIhU and TO/TOI tests (nesting/recovery).
+- Mekso: expand NUMBER/MEX_OPERATOR coverage and add subscript `XI` contexts; enforce BOI strictness only in subscript where required; add tests.
+- Lerfu: extend BY to handle multi-lerfu strings and integration in more sumti tails.
+- Morphology: incrementally port additional legacy lex rules (rafsi endings, hyphenation) with guard tests; keep y/h tolerance scoped.
+- Sumti: broaden starters/anaphora and quantifiers beyond current set (la'e/le'e/lo'e, zi'o, ce'u, etc.) with focused tests.
+- Validation: enhance tools/ts-validate to normalize and diff TS vs C trees structurally, and wire into CI.
 
 ## Changelog (2025-09-05)
 
@@ -252,7 +251,9 @@ Promoting to its own repo (best practice when stable)
 - Extended corpus with variants and i-prefixed tests.
 - Enhanced `tools/ts-validate` to run the C parser and print a basic TS vs C shape diff.
  - Selbri: added tanru with BO chaining (tanru_unit + (bo tanru_unit)*). Updated corpus expectations to wrap selbri heads in `tanru_unit`.
- - Relative clauses: allowed `poi/noi/voi … ku'o` after `la cmene` sumti. Added focused tests.
- - Planned: KE/KEhE grouping as a tanru unit; add `ke'e` to the scanner and minimal corpus cases.
- - Implemented: KE/KEhE grouping in grammar and scanner, with nested/missing-closer tests; added minimal pronouns (mi/do) in scanner and grammar, with simple corpus tests.
-  - Implemented: Additional pronouns (ti/ta/tu) as dedicated terminals and corpus tests; added negative KE recovery test.
+ - Relative clauses: implemented `poi/noi/voi … ku'o` and `goi … ge'u` after sumti. Added focused tests.
+ - KE/KEhE: grouping implemented as tanru unit including nested/missing-closer recovery tests.
+ - Pronouns: added mi/do, ti/ta/tu, variable da; added ko, mi'o, ma'a as dedicated terminals; subject/object corpus variants.
+ - CU separator: implemented between leading sumti and selbri.
+ - Morphology: ported and refined cmene/brivla heuristics. Brivla require final vowel and either a consonant cluster or a CVCCV/CCVCV-like segment (ignoring y/h). Cmene require final consonant; internal pauses allowed only as .C. Guard tests added.
+ - Lerfu: basic BY lerfu-word added as a sumti path with tiny corpus tests.
