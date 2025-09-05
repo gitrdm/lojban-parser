@@ -1,0 +1,17 @@
+========================
+Lerfu-string: basic BY
+========================
+
+# Single lerfu-word as sumti
+
+a.y klama
+---
+(source_file
+  (statement (sumti (by)) (selbri (tanru_unit (brivla)))))
+
+# BY inside le ...
+
+le a.y klama
+---
+(source_file
+  (statement (sumti (le) (sumti_tail (selbri (tanru_unit (by))))) (selbri (tanru_unit (brivla)))))

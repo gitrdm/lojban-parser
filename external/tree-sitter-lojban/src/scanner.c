@@ -84,6 +84,10 @@ enum TokenType {
   TA,
   TU,
   DA,
+  KO,
+  MIO,
+  MAA,
+  BY,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -149,13 +153,26 @@ static int isbrivla(const char *p) {
   if (!isV(p[len-1])) return 0;
   int lastC = 0;
   for (const char *q = p; *q; q++) {
-    if (*q == 'y' || *q == '\'') continue;
+    if (*q == 'y' || *q == 'h' || *q == '\'') continue; // tolerate y and h separators
     if (isC(*q)) {
       if (lastC) return 1;
       lastC = 1;
     } else {
       lastC = 0;
     }
+  }
+  // No cluster found. For 5+ letter words, accept simple CVCCV/CCVCV approximations.
+  if (len >= 5) {
+    // Map to C/V ignoring y and '
+    char buf[64];
+    size_t j = 0;
+    for (size_t i = 0; i < len && j < sizeof(buf)-1; i++) {
+      char ch = p[i];
+      if (ch == 'y' || ch == 'h' || ch == '\'') continue;
+      buf[j++] = isC(ch) ? 'C' : (isV(ch) ? 'V' : 'X');
+    }
+    buf[j] = 0;
+    if (strstr(buf, "CVCCV") || strstr(buf, "CCVCV")) return 1;
   }
   return 0;
 }
@@ -616,6 +633,67 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
+  // ko (imperative pronoun)
+  if (valid_symbols[KO] && tolower(lexer->lookahead) == 'k') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // KO
+    }
+    return false;
+  }
+
+  // mi'o (inclusive we)
+  if (valid_symbols[MIO] && tolower(lexer->lookahead) == 'm') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // MIO (mi'o)
+        }
+      }
+    }
+    return false;
+  }
+
+  // ma'a (inclusive we all)
+  if (valid_symbols[MAA] && tolower(lexer->lookahead) == 'm') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'a') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // MAA (ma'a)
+        }
+      }
+    }
+    return false;
+  }
+
+  // BY (basic lerfu word): any single letter followed by 'y', optional trailing '.' pause
+  if (valid_symbols[BY] && iswalpha(lexer->lookahead)) {
+    int32_t first = tolower(lexer->lookahead);
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'y') {
+      lexer->advance(lexer, false);
+      // Optional trailing dot pause
+      if (lexer->lookahead == '.') {
+        lexer->advance(lexer, false);
+      }
+      lexer->mark_end(lexer);
+      return true; // BY
+    }
+    return false;
+  }
+
   // ke
   if (valid_symbols[KE] && tolower(lexer->lookahead) == 'k') {
     lexer->advance(lexer, false);
@@ -799,32 +877,51 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // Fallback to WORD
+  // Fallback to WORD/CMENE/BRIVLA with cmene internal pause handling
   if (valid_symbols[WORD] || valid_symbols[CMENE] || valid_symbols[BRIVLA]) {
-    if (is_word_char(lexer->lookahead) && !lexer->eof(lexer)) {
-      // Buffer the word
+    if ((is_word_char(lexer->lookahead) || (valid_symbols[CMENE] && iswalpha(lexer->lookahead))) && !lexer->eof(lexer)) {
+      // Buffer the word, allowing cmene-internal pauses of the form .C (dot followed by consonant)
       Scanner *scanner = (Scanner *)payload;
       scanner->word_len = 0;
-      do {
-        if (scanner->word_len >= scanner->word_cap) {
-          scanner->word_cap *= 2;
-          scanner->word_buffer = realloc(scanner->word_buffer, scanner->word_cap);
+      bool saw_internal_pause = false;
+      for (;;) {
+        if (is_word_char(lexer->lookahead)) {
+          if (scanner->word_len >= scanner->word_cap) {
+            scanner->word_cap *= 2;
+            scanner->word_buffer = realloc(scanner->word_buffer, scanner->word_cap);
+          }
+          int32_t ch = lexer->lookahead;
+          if (ch >= 'A' && ch <= 'Z') ch = (int32_t)tolower(ch);
+          scanner->word_buffer[scanner->word_len++] = (char)ch;
+          lexer->advance(lexer, false);
+        } else if (valid_symbols[CMENE] && lexer->lookahead == '.') {
+          // Peek next; allow dot only if followed by consonant letter, and don't include dot in buffer
+          lexer->advance(lexer, false); // consume '.'
+          if (!iswalpha(lexer->lookahead)) {
+            // Dot not followed by a letter: invalid internal pause for cmene
+            break;
+          }
+          int32_t nxt = tolower(lexer->lookahead);
+          if (!isC((char)nxt)) {
+            // Not a consonant -> stop, will classify the segment before '.'
+            break;
+          }
+          saw_internal_pause = true;
+          // continue without adding '.'; next loop iteration will add the consonant
+        } else {
+          break;
         }
-        // Lower-case into buffer for classification; keep apostrophes
-        int32_t ch = lexer->lookahead;
-        if (ch >= 'A' && ch <= 'Z') ch = (int32_t)tolower(ch);
-        scanner->word_buffer[scanner->word_len++] = (char)ch;
-        lexer->advance(lexer, false);
-      } while (!lexer->eof(lexer) && is_word_char(lexer->lookahead));
+        if (lexer->eof(lexer)) break;
+      }
       scanner->word_buffer[scanner->word_len] = 0;
       lexer->mark_end(lexer);
 
-      // Classify
+      // If we saw an internal pause, only allow CMENE classification; otherwise classify normally
       if (valid_symbols[CMENE] && iscmene(scanner->word_buffer)) {
         return true; // CMENE
-      } else if (valid_symbols[BRIVLA] && isbrivla(scanner->word_buffer)) {
+      } else if (!saw_internal_pause && valid_symbols[BRIVLA] && isbrivla(scanner->word_buffer)) {
         return true; // BRIVLA
-      } else if (valid_symbols[WORD]) {
+      } else if (!saw_internal_pause && valid_symbols[WORD]) {
         return true; // WORD
       }
     }

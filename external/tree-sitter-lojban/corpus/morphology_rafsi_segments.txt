@@ -1,0 +1,17 @@
+===============================
+Morphology: rafsi-like segments
+===============================
+
+# Accept CVCCV/CCVCV-like pattern when no cluster detected initially
+
+lo fragyda klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla))))) (selbri (tanru_unit (brivla)))))
+
+# Reject too-simple CVCV without cluster for brivla
+
+lo cavu klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (word))))) (selbri (tanru_unit (brivla)))))

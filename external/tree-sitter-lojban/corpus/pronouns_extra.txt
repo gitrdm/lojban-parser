@@ -1,0 +1,15 @@
+=====================
+Pronouns: ko / mi'o / ma'a
+=====================
+
+ko klama
+---
+(source_file (statement (sumti (ko)) (selbri (tanru_unit (word)))))
+
+mi'o klama
+---
+(source_file (statement (sumti (mio)) (selbri (tanru_unit (word)))))
+
+ma'a klama
+---
+(source_file (statement (sumti (maa)) (selbri (tanru_unit (word)))))

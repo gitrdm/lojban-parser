@@ -432,6 +432,10 @@
       "required": true,
       "types": [
         {
+          "type": "by",
+          "named": true
+        },
+        {
           "type": "cmene",
           "named": true
         },
@@ -441,6 +445,10 @@
         },
         {
           "type": "do",
+          "named": true
+        },
+        {
+          "type": "ko",
           "named": true
         },
         {
@@ -456,7 +464,15 @@
           "named": true
         },
         {
+          "type": "maa",
+          "named": true
+        },
+        {
           "type": "mi",
+          "named": true
+        },
+        {
+          "type": "mio",
           "named": true
         },
         {
@@ -549,6 +565,10 @@
   },
   {
     "type": "brivla",
+    "named": true
+  },
+  {
+    "type": "by",
     "named": true
   },
   {
@@ -676,6 +696,10 @@
     "named": true
   },
   {
+    "type": "ko",
+    "named": true
+  },
+  {
     "type": "ku",
     "named": true
   },
@@ -704,7 +728,15 @@
     "named": true
   },
   {
+    "type": "maa",
+    "named": true
+  },
+  {
     "type": "mi",
+    "named": true
+  },
+  {
+    "type": "mio",
     "named": true
   },
   {

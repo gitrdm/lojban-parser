@@ -1,0 +1,17 @@
+=============================
+Cmene: internal pause rules
+=============================
+
+# Allowed: pause + consonant continuation inside cmene
+
+la djan.klark klama
+---
+(source_file
+  (statement (sumti (la) (cmene)) (selbri (tanru_unit (word)))))
+
+# Disallowed: trailing pause without consonant
+
+la djan. a klama
+---
+(source_file
+  (statement (sumti (la) (word)) (selbri (tanru_unit (word)))))

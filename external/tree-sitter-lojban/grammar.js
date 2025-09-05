@@ -70,6 +70,10 @@ module.exports = grammar({
   $.ta,       // TA
   $.tu,       // TU
   $.da,       // DA
+  $.ko,       // KO
+  $.mio,      // MIO (mi'o)
+  $.maa,      // MAA (ma'a)
+  $.by,       // BY (lerfu-string basic)
   ],
   conflicts: $ => [
     [$.quote, $.statement],
@@ -156,6 +160,10 @@ module.exports = grammar({
   $.ta,                    // ta
   $.tu,                    // tu
   $.da,                    // da
+  $.ko,                    // ko
+  $.mio,                   // mi'o
+  $.maa,                   // ma'a
+  $.by,                    // lerfu-string (basic BY)
       $.word                   // fallback until we add more
     ),
 
