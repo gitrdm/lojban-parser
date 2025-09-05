@@ -76,8 +76,13 @@ awk '
     }
 ' gbody.tmp >gbody.y
 
-# Spit out version.h since we have the correct version number
+# Spit out version.h with version and parser algorithm (LR vs GLR)
 echo >version.h "#define VERSION \"$1\""
+if [ "${GLR:-0}" = "1" ]; then
+    echo "#define PARSER_ALGO \"GLR\"" >>version.h
+else
+    echo "#define PARSER_ALGO \"LR\"" >>version.h
+fi
 
 # Finally, merge gprefix.y and gbody.y, including the middle rules file.
 # Use grammar/gmiddle.glr.y if GLR=1 is set to enable a GLR parser in bison.
