@@ -4,4 +4,9 @@ Simple text
 
 mi klama
 ---
-(text)
+(source_file
+  (statement
+    (sumti
+      (word))
+    (selbri
+      (word))))

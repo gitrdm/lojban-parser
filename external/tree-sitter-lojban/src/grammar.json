@@ -209,53 +209,6 @@
           "name": "vuhU"
         }
       ]
-    },
-    "word": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[A-Za-z0-9.'-]+"
-      }
-    },
-    "lu": {
-      "type": "STRING",
-      "value": "lu"
-    },
-    "lihU": {
-      "type": "STRING",
-      "value": "li'u"
-    },
-    "to": {
-      "type": "STRING",
-      "value": "to"
-    },
-    "toi": {
-      "type": "STRING",
-      "value": "toi"
-    },
-    "sei": {
-      "type": "STRING",
-      "value": "sei"
-    },
-    "seu": {
-      "type": "STRING",
-      "value": "se'u"
-    },
-    "vuhO": {
-      "type": "STRING",
-      "value": "vuhO"
-    },
-    "vuhU": {
-      "type": "STRING",
-      "value": "vuhU"
-    },
-    "joi": {
-      "type": "STRING",
-      "value": "joi"
-    },
-    "jek": {
-      "type": "STRING",
-      "value": "jek"
     }
   },
   "extras": [
@@ -275,7 +228,52 @@
     ]
   ],
   "precedences": [],
-  "externals": [],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "word"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "lu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "lihU"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "to"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "toi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "sei"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "seu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "vuhO"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "vuhU"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "joi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "jek"
+    }
+  ],
   "inline": [],
   "supertypes": [],
   "reserved": {}

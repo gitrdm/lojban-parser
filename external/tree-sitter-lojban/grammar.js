@@ -7,6 +7,19 @@ const { grammar, repeat, repeat1, choice, prec, seq, optional, token } = /** @ty
 
 module.exports = grammar({
   name: 'lojban',
+  externals: $ => [
+    $.word,
+    $.lu,
+    $.lihU,
+    $.to,
+    $.toi,
+    $.sei,
+    $.seu,
+    $.vuhO,
+    $.vuhU,
+    $.joi,
+    $.jek,
+  ],
   conflicts: $ => [
     [$.quote, $.statement],
     [$.parenthetical, $.statement]
@@ -59,17 +72,17 @@ module.exports = grammar({
     // Relative clause: VUhO ... VUhU
     relative_clause: $ => seq($.vuhO, repeat1($._unit), $.vuhU),
 
-    // Tokens
-    word: $ => token(/[A-Za-z0-9.'-]+/),
-    lu: $ => 'lu',
-    lihU: $ => "li'u",
-    to: $ => 'to',
-    toi: $ => 'toi',
-    sei: $ => 'sei',
-    seu: $ => "se'u",
-    vuhO: $ => 'vuhO',
-    vuhU: $ => 'vuhU',
-    joi: $ => 'joi',
-    jek: $ => 'jek',
+    // Tokens (now externals)
+    // word: $ => token(/[A-Za-z0-9.'-]+/),
+    // lu: $ => 'lu',
+    // lihU: $ => "li'u",
+    // to: $ => 'to',
+    // toi: $ => 'toi',
+    // sei: $ => 'sei',
+    // seu: $ => "se'u",
+    // vuhO: $ => 'vuhO',
+    // vuhU: $ => 'vuhU',
+    // joi: $ => 'joi',
+    // jek: $ => 'jek',
   }
 });
