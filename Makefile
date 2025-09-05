@@ -35,7 +35,7 @@ asan:
 ubsan:
 	$(CC) $(CFLAGS) -fsanitize=undefined -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark
+.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark sentences-manifest regress-sentences
 test: parser
 	chmod +x tests/smoke.sh
 	./tests/smoke.sh
@@ -91,6 +91,16 @@ lark: grammar/grammar.y tools/yacc_to_lark.awk
 check-lark: lark
 	@command -v python3 >/dev/null 2>&1 || { echo "python3 not found"; exit 1; }
 	@python3 tools/validate_lark_grammar.py
+
+# Build JSONL manifest from test_sentences.txt
+sentences-manifest:
+	@command -v python3 >/dev/null 2>&1 || { echo "python3 not found"; exit 1; }
+	@python3 tools/convert_sentences_to_jsonl.py tests/regress/test_sentences.txt tests/regress/inputs/test_sentences.jsonl
+	@echo "Wrote tests/regress/inputs/test_sentences.jsonl"
+
+# Placeholder target: run only the sentence-based regressions (runner to be implemented)
+regress-sentences: sentences-manifest
+	@echo "TODO: implement sentence regression runner; manifest ready at tests/regress/inputs/test_sentences.jsonl"
 
 .PHONY: regen glr analyze-glr
 regen:
