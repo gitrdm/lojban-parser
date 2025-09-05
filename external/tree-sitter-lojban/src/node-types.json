@@ -1,5 +1,24 @@
 [
   {
+    "type": "connective",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "jek",
+          "named": true
+        },
+        {
+          "type": "joi",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "free_modifier",
     "named": true,
     "fields": {},
@@ -43,6 +62,10 @@
           "named": true
         },
         {
+          "type": "relative_clause",
+          "named": true
+        },
+        {
           "type": "statement",
           "named": true
         },
@@ -81,6 +104,60 @@
     }
   },
   {
+    "type": "relative_clause",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "free_modifier",
+          "named": true
+        },
+        {
+          "type": "parenthetical",
+          "named": true
+        },
+        {
+          "type": "quote",
+          "named": true
+        },
+        {
+          "type": "relative_clause",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        },
+        {
+          "type": "vuhO",
+          "named": true
+        },
+        {
+          "type": "vuhU",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "selbri",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -102,6 +179,10 @@
           "named": true
         },
         {
+          "type": "relative_clause",
+          "named": true
+        },
+        {
           "type": "statement",
           "named": true
         }
@@ -117,11 +198,42 @@
       "required": true,
       "types": [
         {
+          "type": "connective",
+          "named": true
+        },
+        {
+          "type": "selbri",
+          "named": true
+        },
+        {
+          "type": "sumti",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "sumti",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
           "type": "word",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "jek",
+    "named": true
+  },
+  {
+    "type": "joi",
+    "named": true
   },
   {
     "type": "lihU",
@@ -145,6 +257,14 @@
   },
   {
     "type": "toi",
+    "named": true
+  },
+  {
+    "type": "vuhO",
+    "named": true
+  },
+  {
+    "type": "vuhU",
     "named": true
   },
   {

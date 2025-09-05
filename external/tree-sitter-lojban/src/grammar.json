@@ -27,12 +27,101 @@
         {
           "type": "SYMBOL",
           "name": "free_modifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "relative_clause"
         }
       ]
     },
     "statement": {
       "type": "PREC_RIGHT",
-      "value": 1,
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "sumti"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "connective"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "selbri"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "connective"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "sumti"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "connective": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "joi"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "jek"
+          }
+        }
+      ]
+    },
+    "sumti": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "word"
+        }
+      }
+    },
+    "selbri": {
+      "type": "PREC_RIGHT",
+      "value": 0,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -101,6 +190,26 @@
         }
       ]
     },
+    "relative_clause": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "vuhO"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_unit"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "vuhU"
+        }
+      ]
+    },
     "word": {
       "type": "TOKEN",
       "content": {
@@ -131,6 +240,22 @@
     "seu": {
       "type": "STRING",
       "value": "se'u"
+    },
+    "vuhO": {
+      "type": "STRING",
+      "value": "vuhO"
+    },
+    "vuhU": {
+      "type": "STRING",
+      "value": "vuhU"
+    },
+    "joi": {
+      "type": "STRING",
+      "value": "joi"
+    },
+    "jek": {
+      "type": "STRING",
+      "value": "jek"
     }
   },
   "extras": [

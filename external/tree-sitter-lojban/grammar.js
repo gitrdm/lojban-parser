@@ -20,34 +20,56 @@ module.exports = grammar({
   // Simple tokens to get started; real tokens will be provided via external scanner later
   // Here we define only a handful to support generation and basic tests.
   rules: {
-    // Top level: a sequence of units (statements, quotes, parentheticals, freemods)
+    // Top level: a sequence of units
     source_file: $ => repeat($._unit),
 
     _unit: $ => choice(
       $.statement,
       $.quote,
       $.parenthetical,
-      $.free_modifier
+      $.free_modifier,
+      $.relative_clause
     ),
 
-    // A statement is (for now) a run of words; refined in later phases
-    statement: $ => prec.right(1, repeat1($.word)),
+    // A statement: sumti selbri (sumti)* with optional connectives
+    statement: $ => prec.right(seq(
+      $.sumti,
+      optional($.connective),
+      $.selbri,
+      repeat(seq(optional($.connective), $.sumti))
+    )),
 
-    // Quotes and parentheticals with optional closing to exercise recovery
-  quote: $ => seq($.lu, repeat1($.word), $.lihU),
-  parenthetical: $ => seq($.to, repeat1($._unit), $.toi),
+    // Connective: basic JOI/JEK with precedence
+    connective: $ => choice(
+      prec.left(2, $.joi),
+      prec.left(1, $.jek)
+    ),
 
-    // A free modifier using SEI ... (SE'U)? with content words inside
-  free_modifier: $ => seq($.sei, repeat1($.word), $.seu),
+    // Shells: basic placeholders
+    sumti: $ => prec.right(repeat1($.word)),  // TODO: refine with proper sumti structure
+    selbri: $ => prec.right(repeat1($.word)),  // TODO: refine with brivla/gismu/etc.
 
-    // Tokens (will move to external scanner later)
-  // Generic word token (reserved structural cmavo are defined above and preferred)
-  word: $ => token(/[A-Za-z0-9.'-]+/),
+    // Quotes and parentheticals
+    quote: $ => seq($.lu, repeat1($.word), $.lihU),
+    parenthetical: $ => seq($.to, repeat1($._unit), $.toi),
+
+    // Free modifier
+    free_modifier: $ => seq($.sei, repeat1($.word), $.seu),
+
+    // Relative clause: VUhO ... VUhU
+    relative_clause: $ => seq($.vuhO, repeat1($._unit), $.vuhU),
+
+    // Tokens
+    word: $ => token(/[A-Za-z0-9.'-]+/),
     lu: $ => 'lu',
     lihU: $ => "li'u",
     to: $ => 'to',
     toi: $ => 'toi',
     sei: $ => 'sei',
     seu: $ => "se'u",
+    vuhO: $ => 'vuhO',
+    vuhU: $ => 'vuhU',
+    joi: $ => 'joi',
+    jek: $ => 'jek',
   }
 });

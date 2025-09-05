@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Minimal placeholder: ensure the Tree-sitter grammar can parse given files.
+# Parse sample files with Tree-sitter and print trees for shape comparison.
 # Usage: tools/ts-validate [path...]
 
 TS_DIR="$(dirname "$0")/../external/tree-sitter-lojban"
@@ -35,7 +35,7 @@ for f in "$@"; do
   fi
   echo "Parsing: $f"
   # tree-sitter parse prints a tree; capture nonzero on failure
-  if ! $TS parse "$f" >/dev/null; then
+  if ! $TS parse "$f"; then
     echo "Failed to parse: $f" >&2
     status=1
   fi
