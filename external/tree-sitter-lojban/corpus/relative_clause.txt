@@ -1,0 +1,8 @@
+=================
+Relative clause
+=================
+
+vuhO mi klama vuhU
+---
+(source_file
+  (relative_clause (vuhO) (statement (sumti (word)) (selbri (word))) (vuhU)))

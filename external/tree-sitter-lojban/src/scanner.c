@@ -249,6 +249,40 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
+  // vuhO
+  if (valid_symbols[VUH_O] && tolower(lexer->lookahead) == 'v') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'h') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // VUH_O
+        }
+      }
+    }
+    return false;
+  }
+
+  // vuhU
+  if (valid_symbols[VUH_U] && tolower(lexer->lookahead) == 'v') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'h') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // VUH_U
+        }
+      }
+    }
+    return false;
+  }
+
   // Fallback to WORD
   if (valid_symbols[WORD] || valid_symbols[CMENE] || valid_symbols[BRIVLA]) {
     if (is_word_char(lexer->lookahead) && !lexer->eof(lexer)) {
