@@ -6,6 +6,9 @@ BASE_WARN := -Wall -Wextra -Wno-unused-parameter
 STRICT_WARN := -Wpedantic -Wshadow -Wconversion -Wpointer-arith -Wformat=2
 CFLAGS ?= -std=$(STD) -g -O0 $(BASE_WARN) -Iinclude -I.
 
+# Default goal: build the parser. Use `make help` to list targets.
+.DEFAULT_GOAL := parser
+
 # Opt-in strict mode: make STRICT=1
 ifeq ($(STRICT),1)
 	CFLAGS += $(STRICT_WARN)
@@ -35,7 +38,31 @@ asan:
 ubsan:
 	$(CC) $(CFLAGS) -fsanitize=undefined -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark sentences-manifest regress-sentences
+.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark sentences-manifest regress-sentences help parser_lr parser_glr all-parsers
+help:
+	@echo "Usage: make [target]" && echo && \
+	echo "Targets:" && \
+	echo "  parser                Build the parser (default)" && \
+	echo "  parser_lr             Build LR parser binary (regenerate without GLR)" && \
+	echo "  parser_glr            Build GLR parser binary (regenerate with GLR)" && \
+	echo "  all-parsers           Build both LR and GLR; symlink parser -> parser_lr" && \
+	echo "  regen                 Regenerate grammar and headers" && \
+	echo "  glr                   Regenerate with GLR and build" && \
+	echo "  test                  Run smoke tests" && \
+	echo "  regress               Run regression suite" && \
+	echo "  regress-update        Refresh regression goldens" && \
+	echo "  ebnf                  Export EBNF (grammar/grammar.ebnf)" && \
+	echo "  diagrams              Generate railroad diagrams (optional tool)" && \
+	echo "  lark                  Export Lark grammar skeleton" && \
+	echo "  check-lark            Validate the Lark grammar loads" && \
+	echo "  asan                  Build with AddressSanitizer" && \
+	echo "  ubsan                 Build with UndefinedBehaviorSanitizer" && \
+	echo "  analyze               Run GCC static analyzer (if available)" && \
+	echo "  analyze-glr           Run analyzer on GLR build" && \
+	echo "  sentences-manifest    Generate JSONL manifest from test_sentences.txt" && \
+	echo "  regress-sentences     Run sentence-based regressions (TODO placeholder)" && \
+	echo && \
+	echo "Default target: parser"
 test: parser
 	chmod +x tests/smoke.sh
 	./tests/smoke.sh
@@ -46,7 +73,7 @@ regress-update: parser
 	chmod +x tests/regress/run.sh
 	./tests/regress/run.sh --update
 clean:
-	rm -f *.o src/*.o parser
+	rm -f *.o src/*.o parser parser_lr parser_glr
 
 # Static analyzer (GCC -fanalyzer) - compiles sources with analyzer enabled
 analyze:
@@ -99,8 +126,12 @@ sentences-manifest:
 	@echo "Wrote tests/regress/inputs/test_sentences.jsonl"
 
 # Placeholder target: run only the sentence-based regressions (runner to be implemented)
-regress-sentences: sentences-manifest
-	@echo "TODO: implement sentence regression runner; manifest ready at tests/regress/inputs/test_sentences.jsonl"
+regress-sentences: parser_lr parser_glr sentences-manifest
+	@command -v python3 >/dev/null 2>&1 || { echo "python3 not found"; exit 1; }
+	@echo "Running sentence regressions against LR and GLR..."
+	@python3 tools/run_sentences_regress.py --jsonl tests/regress/inputs/test_sentences.jsonl \
+		--parser ./parser_lr --label LR \
+		--parser ./parser_glr --label GLR || true
 
 .PHONY: regen glr analyze-glr
 regen:
@@ -145,3 +176,17 @@ analyze-glr:
 	$(MAKE) clean
 	$(MAKE) glr
 	$(MAKE) analyze
+
+# Build separate LR and GLR binaries (regenerating in-between) and a convenience symlink
+parser_lr:
+	$(MAKE) regen GLR=0
+	$(MAKE)
+	@mv -f parser parser_lr
+
+parser_glr:
+	$(MAKE) regen GLR=1
+	$(MAKE)
+	@mv -f parser parser_glr
+
+all-parsers: parser_lr parser_glr
+	ln -sf parser_lr parser
