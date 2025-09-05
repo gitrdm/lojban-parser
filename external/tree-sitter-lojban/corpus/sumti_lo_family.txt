@@ -1,0 +1,22 @@
+=== lo’a/lo’i/lo’o family coverage ===
+
+lo’a tavla
+---
+(source_file
+  (statement
+    (sumti (sumti_base loa) (sumti_tail (selbri (tanru_unit (tanru_atom (word))))))
+    (selbri (tanru_unit (tanru_atom (brivla))))))
+
+lo’i tavla
+---
+(source_file
+  (statement
+    (sumti (sumti_base lohi) (sumti_tail (selbri (tanru_unit (tanru_atom (word))))))
+    (selbri (tanru_unit (tanru_atom (brivla))))))
+
+lo’o tavla
+---
+(source_file
+  (statement
+    (sumti (sumti_base loo) (sumti_tail (selbri (tanru_unit (tanru_atom (word))))))
+    (selbri (tanru_unit (tanru_atom (brivla))))))

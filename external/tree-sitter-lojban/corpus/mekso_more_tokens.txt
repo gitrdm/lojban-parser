@@ -1,0 +1,17 @@
+=== Mekso: ge’a, ki’o, pi ===
+
+li 2 te’a 3
+---
+(source_file (mex (li) (number) (mex_operator) (number)))
+
+li 1000 ki’o 234
+---
+(source_file (mex (li) (number) (mex_operator) (number)))
+
+li 3 pi 14
+---
+(source_file (mex (li) (number) (mex_operator) (number)))
+
+li 2 ge’a 3
+---
+(source_file (mex (li) (number) (mex_operator) (number)))

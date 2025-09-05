@@ -97,6 +97,8 @@ enum TokenType {
   LOHI,
   LEA,
   LEO,
+  LOA,
+  LOO,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -981,6 +983,40 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
+  // lo'a (LOA)
+  if (valid_symbols[LOA] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'a') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LO'a (lo'a)
+        }
+      }
+    }
+    return false;
+  }
+
+  // lo'o (LOO)
+  if (valid_symbols[LOO] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LO'o (lo'o)
+        }
+      }
+    }
+    return false;
+  }
+
   // le'a (LEA)
   if (valid_symbols[LEA] && tolower(lexer->lookahead) == 'l') {
     lexer->advance(lexer, false);
@@ -1049,7 +1085,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return true; // NUMBER
   }
 
-  // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish)
+  // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish), fe'a (root-ish), fe'i (divide), te'a (power), ge'a/ki'o/pi (basic placeholders)
   if (valid_symbols[MEX_OPERATOR]) {
     int32_t la = tolower(lexer->lookahead);
     if (la == 's') {
@@ -1139,6 +1175,45 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
               return true; // te'a
             }
           }
+        }
+        return false;
+      } else if (la == 'g') {
+        // ge'a
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'e') {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'a') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // ge'a
+            }
+          }
+        }
+        return false;
+      } else if (la == 'k') {
+        // ki'o
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'o') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // ki'o
+            }
+          }
+        }
+        return false;
+      } else if (la == 'p') {
+        // pi (as operator for decimal separator in simple model)
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // pi
         }
         return false;
       }
