@@ -109,26 +109,12 @@
       ]
     },
     "sumti": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SYMBOL",
-          "name": "word"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "word"
     },
     "selbri": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "REPEAT1",
-        "content": {
-          "type": "SYMBOL",
-          "name": "word"
-        }
-      }
+      "type": "SYMBOL",
+      "name": "word"
     },
     "quote": {
       "type": "SEQ",
@@ -232,6 +218,14 @@
     {
       "type": "SYMBOL",
       "name": "word"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "cmene"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "brivla"
     },
     {
       "type": "SYMBOL",

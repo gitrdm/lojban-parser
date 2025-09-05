@@ -9,6 +9,8 @@ module.exports = grammar({
   name: 'lojban',
   externals: $ => [
     $.word,
+    $.cmene,
+    $.brivla,
     $.lu,
     $.lihU,
     $.to,
@@ -59,8 +61,8 @@ module.exports = grammar({
     ),
 
     // Shells: basic placeholders
-    sumti: $ => prec.right(repeat1($.word)),  // TODO: refine with proper sumti structure
-    selbri: $ => prec.right(repeat1($.word)),  // TODO: refine with brivla/gismu/etc.
+    sumti: $ => $.word,  // TODO: refine with proper sumti structure
+    selbri: $ => $.word,  // TODO: refine with brivla/gismu/etc.
 
     // Quotes and parentheticals
     quote: $ => seq($.lu, repeat1($.word), $.lihU),

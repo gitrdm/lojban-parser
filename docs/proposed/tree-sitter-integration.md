@@ -1,6 +1,6 @@
 # Tree-sitter integration design (proposal)
 
-Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 started)
+Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 in progress)
 Owner: TBD
 Reviewers: TBD
 Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C parser to eliminate most hand fixes and enable incremental, editor-friendly parsing.
@@ -22,8 +22,8 @@ Non-goals (phase 1)
 ## Deliverables
 
 - `external/tree-sitter-lojban/` subdir with:
-  - `grammar.js` (Tree-sitter grammar with sumti/selbri/connectives and precedence).
-  - `src/scanner.c` (external scanner with basic token emission; bridging to full lexer in progress).
+  - `grammar.js` (Tree-sitter grammar with sumti/selbri/connectives and precedence; simplified shells for early validation).
+  - `src/scanner.c` (external scanner with whitespace handling, word buffering, and basic cmene/brivla classification; bridging to full lexer in progress).
   - `tree-sitter.json` (ABI 15 manifest and metadata).
   - `queries/` placeholders (highlights/folds/injections).
   - `corpus/` sample tests.
@@ -37,8 +37,11 @@ Non-goals (phase 1)
 ## Architecture
 
 - Lexer/Scanner
-  - Start by reusing the existing lexer/preparser logic (Steps 1–5) through a Tree-sitter external scanner.
-  - External scanner exposes the same 900-series compound tokens (`lexer_*`) to preserve current disambiguation and performance.
+  - External scanner implemented and active. It currently:
+    - Skips whitespace internally and uses `mark_end` to report correct token spans.
+    - Buffers alphabetic sequences as words and classifies them with minimal morphology: `cmene` (ends with consonant) and `brivla` (double consonant pattern), mirroring `iscmene`/`isbrivla` from `src/lex.c`.
+    - Emits generic `word` when classification is inconclusive.
+  - Next: bridge more of the existing lexer/preparser to surface 900-series compound tokens (`lexer_*`) and reserved cmavo families.
   - Longer-term: explore moving some compounding into TS rules once precedence is encoded and ambiguity is manageable.
 
 - Grammar
@@ -107,7 +110,7 @@ Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
 
-Status: started - basic scanner emits reserved cmavo and words; integrating full lexer logic next.
+Status: in progress - scanner emits words with basic cmene/brivla classification; reserved cmavo subset scaffolded; integrating 900-series compounds next.
 
 Phase 3: Coverage expansion
 - Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
@@ -205,7 +208,8 @@ Promoting to its own repo (best practice when stable)
 
 ## Next steps
 
-- Integrate full lexer logic into `src/scanner.c` for 900-series token emission.
+- Integrate 900-series compounding and reserved cmavo families into `src/scanner.c`.
 - Expand `tools/ts-validate` to run C parser and diff normalized shapes.
 - Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
 - Expand corpus with more test cases from `openwm.txt` and regression inputs.
+- Add a few additional quote/parenthetical tests (e.g., `lu ... li'u`, `to ... toi`).
