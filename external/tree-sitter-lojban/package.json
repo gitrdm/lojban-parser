@@ -1,0 +1,17 @@
+{
+  "name": "tree-sitter-lojban",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tree-sitter grammar for Lojban (skeleton; uses external scanner in later phases)",
+  "keywords": ["tree-sitter", "lojban", "grammar"],
+  "license": "SEE-REPO-LICENSE",
+  "scripts": {
+    "generate": "tree-sitter generate",
+    "test": "tree-sitter test"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.8"
+  },
+  "lojbanBaseline": "300",
+  "mkgramyCommit": "TBD"
+}
