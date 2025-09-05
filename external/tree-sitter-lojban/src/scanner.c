@@ -977,21 +977,70 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return true; // NUMBER
   }
 
-  // mex_operator (basic: su'i, pi'i, etc.)
-  if (valid_symbols[MEX_OPERATOR] && tolower(lexer->lookahead) == 's') {
-    lexer->advance(lexer, false);
-    if (tolower(lexer->lookahead) == 'u') {
+  // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish)
+  if (valid_symbols[MEX_OPERATOR]) {
+    int32_t la = tolower(lexer->lookahead);
+    if (la == 's') {
+      // su'i
       lexer->advance(lexer, false);
-      if (lexer->lookahead == '\'') {
+      if (tolower(lexer->lookahead) == 'u') {
         lexer->advance(lexer, false);
-        if (tolower(lexer->lookahead) == 'i') {
+        if (lexer->lookahead == '\'') {
           lexer->advance(lexer, false);
-          lexer->mark_end(lexer);
-          return true; // MEX_OPERATOR (su'i)
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // su'i
+          }
         }
       }
+      return false;
+    } else if (la == 'v') {
+      // vu'u
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'u') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'u') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // vu'u
+          }
+        }
+      }
+      return false;
+    } else if (la == 'p') {
+      // pi'i
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // pi'i
+          }
+        }
+      }
+      return false;
+    } else if (la == 'f') {
+      // fa'u
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'a') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'u') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // fa'u
+          }
+        }
+      }
+      return false;
     }
-    return false;
   }
 
   // Fallback to WORD/CMENE/BRIVLA with cmene internal pause handling

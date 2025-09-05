@@ -1,0 +1,8 @@
+============================
+Mekso: more operators tested
+============================
+
+li re vu'u pa pi'i ci fa'u vo
+---
+(source_file
+  (mex (li) (number) (mex_operator) (number) (mex_operator) (number) (mex_operator) (number)))

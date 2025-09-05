@@ -1,0 +1,10 @@
+============================
+Lerfu: separators/pauses
+============================
+
+# BY units separated by spaces/pauses
+
+a . by . cy klama
+---
+(source_file
+  (statement (sumti (by)) (selbri (tanru_unit (brivla)))))
