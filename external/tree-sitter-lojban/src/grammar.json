@@ -92,6 +92,22 @@
       "members": [
         {
           "type": "PREC_LEFT",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
+            "name": "joi_bo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
+            "name": "jek_bo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
           "value": 3,
           "content": {
             "type": "SEQ",
@@ -308,6 +324,14 @@
     {
       "type": "SYMBOL",
       "name": "ke"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "jek_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "joi_bo"
     }
   ],
   "inline": [],

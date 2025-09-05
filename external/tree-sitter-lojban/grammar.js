@@ -23,6 +23,8 @@ module.exports = grammar({
   $.jek,
   $.bo,
   $.ke,
+  $.jek_bo,
+  $.joi_bo,
   ],
   conflicts: $ => [
     [$.quote, $.statement],
@@ -58,6 +60,8 @@ module.exports = grammar({
 
     // Connective: basic JOI/JEK with precedence
     connective: $ => choice(
+      prec.left(4, $.joi_bo),
+      prec.left(4, $.jek_bo),
       prec.left(3, seq($.joi, $.bo)),
       prec.left(3, seq($.jek, $.bo)),
       prec.left(2, $.joi),

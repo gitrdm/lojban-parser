@@ -1,0 +1,35 @@
+=====================
+JE + BO with spaces and pause
+=====================
+
+mi je   .   bo do klama
+---
+(source_file
+  (statement
+    (sumti (word))
+    (connective (jek_bo))
+    (selbri (word))))
+
+=====================
+JOI + BO with mixed case
+=====================
+
+mi JOI   bo do klama
+---
+(source_file
+  (statement
+    (sumti (word))
+    (connective (joi_bo))
+    (selbri (word))))
+
+=====================
+JOI + BO separated by many spaces
+=====================
+
+mi joi        bo do klama
+---
+(source_file
+  (statement
+    (sumti (word))
+    (connective (joi_bo))
+    (selbri (word))))

@@ -1,6 +1,6 @@
 # Tree-sitter Lojban (staged in monorepo)
 
-Status: experimental. External scanner recognizes a small set of reserved cmavo (lu/li'u, to/toi, sei/se'u, joi, je), `bo`, `ke`, and generic words with basic cmene/brivla classification. Grammar has shells for sumti/selbri and basic constructs.
+Status: experimental. External scanner recognizes a small set of reserved cmavo (lu/li'u, to/toi, sei/se'u, joi, je), `bo`, `ke`, relative clause `vuhO`/`vuhU`, and generic words with basic cmene/brivla classification. It also emits combined connective compounds `joi_bo` and `jek_bo` (recognizes "joi bo"/"je bo" across spaces and pauses). Grammar has shells for sumti/selbri and basic constructs, with connective precedence and preference for combined tokens.
 
 Usage (from repo root):
 
@@ -10,7 +10,8 @@ Usage (from repo root):
 
 Notes:
 - The scanner treats '.' as whitespace, is case-insensitive for reserved tokens, and includes apostrophe as a word character.
-- Next milestones: compound 900-series tokens for connective families; expand corpus and add CI.# tree-sitter-lojban (scaffold)
+- Combined tokens supported so far: `jek_bo` (je+bo), `joi_bo` (joi+bo). Spacing and pause (.) between parts are allowed.
+- Next milestones: broaden 900-series connective families; expand corpus and add CI.# tree-sitter-lojban (scaffold)
 
 Experimental Tree-sitter grammar for Lojban, staged inside the lojban-parser repo.
 

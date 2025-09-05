@@ -16,7 +16,15 @@
           "named": true
         },
         {
+          "type": "jek_bo",
+          "named": true
+        },
+        {
           "type": "joi",
+          "named": true
+        },
+        {
+          "type": "joi_bo",
           "named": true
         }
       ]
@@ -240,7 +248,15 @@
     "named": true
   },
   {
+    "type": "jek_bo",
+    "named": true
+  },
+  {
     "type": "joi",
+    "named": true
+  },
+  {
+    "type": "joi_bo",
     "named": true
   },
   {

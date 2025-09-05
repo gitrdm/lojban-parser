@@ -111,7 +111,7 @@ Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
 
-Status: in progress - scanner emits words with basic cmene/brivla classification; reserved cmavo subset (quotes, parentheses, free-mods, connectives, bo/ke, vuhO/vuhU) implemented; integrating 900-series compounds next.
+Status: in progress - scanner emits words with basic cmene/brivla classification; reserved cmavo subset (quotes, parentheses, free-mods, connectives, bo/ke, vuhO/vuhU) implemented; initial 900-series compounds added (`jek_bo`, `joi_bo`) with spacing/pause tolerance; corpus updated and passing.
 
 Phase 3: Coverage expansion
 - Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
@@ -210,6 +210,7 @@ Promoting to its own repo (best practice when stable)
 ## Next steps
 
 - Integrate 900-series compounding (connectives + BO/KE; JOI/JEK families) and expand reserved cmavo families in `src/scanner.c`.
+  - Done (initial): `jek_bo` (je+bo), `joi_bo` (joi+bo), including spaces and '.' pause between parts; added corpus cases.
 - Expand `tools/ts-validate` to run C parser and diff normalized shapes.
 - Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
 - Expand corpus with more test cases from `openwm.txt` and regression inputs.

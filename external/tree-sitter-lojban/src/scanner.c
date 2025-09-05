@@ -40,6 +40,8 @@ enum TokenType {
   JEK,
   BO,
   KE,
+  JEK_BO,
+  JOI_BO,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -202,13 +204,27 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // joi
-  if (valid_symbols[JOI] && tolower(lexer->lookahead) == 'j') {
+  // joi / joi bo
+  if ((valid_symbols[JOI] || valid_symbols[JOI_BO]) && tolower(lexer->lookahead) == 'j') {
     lexer->advance(lexer, false);
     if (tolower(lexer->lookahead) == 'o') {
       lexer->advance(lexer, false);
       if (tolower(lexer->lookahead) == 'i') {
         lexer->advance(lexer, false);
+        // Optionally produce JOI_BO if allowed
+        if (valid_symbols[JOI_BO]) {
+          // Skip whitespace/pause
+          while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'b') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'o') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // JOI_BO
+            }
+            return false;
+          }
+        }
         lexer->mark_end(lexer);
         return true; // JOI
       }
@@ -216,11 +232,23 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // jek: recognize 'je' (using token name jek for now)
-  if (valid_symbols[JEK] && tolower(lexer->lookahead) == 'j') {
+  // jek: recognize 'je' (or 'je bo' as JEK_BO)
+  if ((valid_symbols[JEK] || valid_symbols[JEK_BO]) && tolower(lexer->lookahead) == 'j') {
     lexer->advance(lexer, false);
     if (tolower(lexer->lookahead) == 'e') {
       lexer->advance(lexer, false);
+      if (valid_symbols[JEK_BO]) {
+        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'b') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // JEK_BO
+          }
+          return false;
+        }
+      }
       lexer->mark_end(lexer);
       return true; // JEK ('je')
     }

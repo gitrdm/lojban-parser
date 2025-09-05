@@ -7,5 +7,17 @@ mi je bo do klama
 (source_file
   (statement
     (sumti (word))
-    (connective (jek) (bo))
+    (connective (jek_bo))
+    (selbri (word))))
+
+=====================
+Connectives JOI + BO
+=====================
+
+mi joi bo do klama
+---
+(source_file
+  (statement
+    (sumti (word))
+    (connective (joi_bo))
     (selbri (word))))
