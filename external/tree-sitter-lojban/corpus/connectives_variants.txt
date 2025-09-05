@@ -1,0 +1,65 @@
+=====================
+JEK family (ja/je/jo/ju)
+=====================
+
+mi ja do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ja)) (selbri (word))))
+
+mi jo do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (jo)) (selbri (word))))
+
+mi ju do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ju)) (selbri (word))))
+
+=====================
+JEK + BO variants
+=====================
+
+mi ja bo do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ja_bo)) (selbri (word))))
+
+mi jo bo do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (jo_bo)) (selbri (word))))
+
+mi ju bo do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ju_bo)) (selbri (word))))
+
+=====================
+JOI family (ce/ce'o/joi)
+=====================
+
+mi ce do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ce)) (selbri (word))))
+
+mi ce'o do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ceo)) (selbri (word))))
+
+=====================
+JOI + BO variants
+=====================
+
+mi ce bo do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ce_bo)) (selbri (word))))
+
+mi ce'o bo do klama
+---
+(source_file
+  (statement (sumti (word)) (connective (ceo_bo)) (selbri (word))))

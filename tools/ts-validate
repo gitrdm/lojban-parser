@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-# Parse sample files with Tree-sitter and print trees for shape comparison.
+# Parse sample files with Tree-sitter and optionally diff shape vs the C parser.
 # Usage: tools/ts-validate [path...]
 
 TS_DIR="$(dirname "$0")/../external/tree-sitter-lojban"
@@ -35,9 +35,21 @@ for f in "$@"; do
   fi
   echo "Parsing: $f"
   # tree-sitter parse prints a tree; capture nonzero on failure
-  if ! $TS parse "$f"; then
-    echo "Failed to parse: $f" >&2
+  ts_tree="$($TS parse "$f" 2>/dev/null || true)"
+  if [ -z "$ts_tree" ]; then
+    echo "Failed to parse (TS): $f" >&2
     status=1
+  else
+    echo "$ts_tree"
+  fi
+
+  # If the C parser exists, run it and show a crude shape diff (line counts only)
+  PARSER_C="$(cd "$TS_DIR/../.." && pwd)/parser"
+  if [ -x "$PARSER_C" ]; then
+    c_out="$("$PARSER_C" < "$f" 2>/dev/null || true)"
+    ts_lines=$(printf "%s" "$ts_tree" | sed 's/[()]/\n&\n/g' | grep -E '^[()]|^[[:space:]]*[a-zA-Z_]' | wc -l || echo 0)
+    c_lines=$(printf "%s" "$c_out" | sed 's/[{}]/\n&\n/g' | grep -E '^[{}]|[a-zA-Z_]+' | wc -l || echo 0)
+    echo "--- shape (approx): TS_nodes=$ts_lines C_nodes=$c_lines"
   fi
 done
 

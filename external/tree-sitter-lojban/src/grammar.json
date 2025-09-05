@@ -18,6 +18,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "i_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "quote"
         },
         {
@@ -103,7 +107,47 @@
           "value": 4,
           "content": {
             "type": "SYMBOL",
+            "name": "ceo_bo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
+            "name": "ce_bo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
             "name": "jek_bo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
+            "name": "ja_bo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
+            "name": "jo_bo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 4,
+          "content": {
+            "type": "SYMBOL",
+            "name": "ju_bo"
           }
         },
         {
@@ -131,7 +175,92 @@
             "members": [
               {
                 "type": "SYMBOL",
+                "name": "ceo"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ce"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
                 "name": "jek"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ja"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "jo"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ju"
               },
               {
                 "type": "SYMBOL",
@@ -150,11 +279,105 @@
         },
         {
           "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "ceo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "ce"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
           "value": 1,
           "content": {
             "type": "SYMBOL",
             "name": "jek"
           }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "ja"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "jo"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "ju"
+          }
+        }
+      ]
+    },
+    "i_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "i_prefix"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "statement"
+        }
+      ]
+    },
+    "i_prefix": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "i"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_bo"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_jek"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_joi"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_ja"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_jo"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_ju"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_ce"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "i_ceo"
         }
       ]
     },
@@ -319,6 +542,26 @@
     },
     {
       "type": "SYMBOL",
+      "name": "ja"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "jo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ju"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ce"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ceo"
+    },
+    {
+      "type": "SYMBOL",
       "name": "bo"
     },
     {
@@ -332,6 +575,62 @@
     {
       "type": "SYMBOL",
       "name": "joi_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ja_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "jo_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ju_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ce_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ceo_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_jek"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_joi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_ja"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_jo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_ju"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_ce"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "i_ceo"
     }
   ],
   "inline": [],

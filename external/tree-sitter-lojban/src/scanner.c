@@ -38,10 +38,29 @@ enum TokenType {
   VUH_U,
   JOI,
   JEK,
+  JA,
+  JO,
+  JU,
+  CE,
+  CEO,
   BO,
   KE,
   JEK_BO,
   JOI_BO,
+  JA_BO,
+  JO_BO,
+  JU_BO,
+  CE_BO,
+  CEO_BO,
+  I,
+  I_BO,
+  I_JEK,
+  I_JOI,
+  I_JA,
+  I_JO,
+  I_JU,
+  I_CE,
+  I_CEO,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -232,10 +251,58 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // jek: recognize 'je' (or 'je bo' as JEK_BO)
-  if ((valid_symbols[JEK] || valid_symbols[JEK_BO]) && tolower(lexer->lookahead) == 'j') {
+  // ce / ce'o and their _bo forms
+  if ((valid_symbols[CE] || valid_symbols[CE_BO] || valid_symbols[CEO] || valid_symbols[CEO_BO]) && tolower(lexer->lookahead) == 'c') {
     lexer->advance(lexer, false);
     if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      // Optionally ce'o
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          if (valid_symbols[CEO_BO]) {
+            // Try CEO_BO
+            while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'b') {
+              lexer->advance(lexer, false);
+              if (tolower(lexer->lookahead) == 'o') {
+                lexer->advance(lexer, false);
+                lexer->mark_end(lexer);
+                return true; // CEO_BO
+              }
+              return false;
+            }
+          }
+          lexer->mark_end(lexer);
+          if (valid_symbols[CEO]) return true; // CEO
+        }
+        return false;
+      }
+      // plain ce
+      if (valid_symbols[CE_BO]) {
+        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'b') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // CE_BO
+          }
+          return false;
+        }
+      }
+      lexer->mark_end(lexer);
+      if (valid_symbols[CE]) return true; // CE
+    }
+    return false;
+  }
+
+  // jek: recognize 'je' (or 'je bo' as JEK_BO)
+  if ((valid_symbols[JEK] || valid_symbols[JEK_BO] || valid_symbols[JA] || valid_symbols[JA_BO] || valid_symbols[JO] || valid_symbols[JO_BO] || valid_symbols[JU] || valid_symbols[JU_BO]) && tolower(lexer->lookahead) == 'j') {
+    lexer->advance(lexer, false);
+    int c = tolower(lexer->lookahead);
+    if (c == 'e') {
       lexer->advance(lexer, false);
       if (valid_symbols[JEK_BO]) {
         while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
@@ -251,6 +318,132 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       }
       lexer->mark_end(lexer);
       return true; // JEK ('je')
+    }
+    if (c == 'a') {
+      lexer->advance(lexer, false);
+      if (valid_symbols[JA_BO]) {
+        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'b') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // JA_BO
+          }
+          return false;
+        }
+      }
+      lexer->mark_end(lexer);
+      return true; // JA
+    }
+    if (c == 'o') {
+      lexer->advance(lexer, false);
+      if (valid_symbols[JO_BO]) {
+        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'b') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // JO_BO
+          }
+          return false;
+        }
+      }
+      lexer->mark_end(lexer);
+      return true; // JO
+    }
+    if (c == 'u') {
+      lexer->advance(lexer, false);
+      if (valid_symbols[JU_BO]) {
+        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'b') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // JU_BO
+          }
+          return false;
+        }
+      }
+      lexer->mark_end(lexer);
+      return true; // JU
+    }
+    return false;
+  }
+
+  // i / i bo / i jek / i joi / i ja/jo/ju / i ce/ce'o
+  if ((valid_symbols[I] || valid_symbols[I_BO] || valid_symbols[I_JEK] || valid_symbols[I_JOI] || valid_symbols[I_JA] || valid_symbols[I_JO] || valid_symbols[I_JU] || valid_symbols[I_CE] || valid_symbols[I_CEO]) && tolower(lexer->lookahead) == 'i') {
+    lexer->advance(lexer, false);
+    lexer->mark_end(lexer);
+    // Lookahead for compounds if allowed
+    while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+    if (valid_symbols[I_BO] && tolower(lexer->lookahead) == 'b') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'o') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // I_BO
+      }
+      return false;
+    }
+    if ((valid_symbols[I_JEK] || valid_symbols[I_JOI] || valid_symbols[I_JA] || valid_symbols[I_JO] || valid_symbols[I_JU]) && tolower(lexer->lookahead) == 'j') {
+      lexer->advance(lexer, false);
+      int c = tolower(lexer->lookahead);
+      if (c == 'e' && valid_symbols[I_JEK]) {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // I_JEK (i je)
+      }
+      if (c == 'a' && valid_symbols[I_JA]) {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // I_JA
+      }
+      if (c == 'o' && valid_symbols[I_JO]) {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // I_JO
+      }
+      if (c == 'u' && valid_symbols[I_JU]) {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // I_JU
+      }
+      if (c == 'o') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i' && valid_symbols[I_JOI]) {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // I_JOI (i joi)
+        }
+        return false;
+      }
+      return false;
+    }
+    if ((valid_symbols[I_CE] || valid_symbols[I_CEO]) && tolower(lexer->lookahead) == 'c') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'' && valid_symbols[I_CEO]) {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // I_CEO
+          }
+          return false;
+        }
+        if (valid_symbols[I_CE]) {
+          lexer->mark_end(lexer);
+          return true; // I_CE
+        }
+      }
+      return false;
+    }
+    if (valid_symbols[I]) {
+      return true; // bare I
     }
     return false;
   }

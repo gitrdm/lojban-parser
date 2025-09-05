@@ -12,6 +12,30 @@
           "named": true
         },
         {
+          "type": "ce",
+          "named": true
+        },
+        {
+          "type": "ce_bo",
+          "named": true
+        },
+        {
+          "type": "ceo",
+          "named": true
+        },
+        {
+          "type": "ceo_bo",
+          "named": true
+        },
+        {
+          "type": "ja",
+          "named": true
+        },
+        {
+          "type": "ja_bo",
+          "named": true
+        },
+        {
           "type": "jek",
           "named": true
         },
@@ -20,11 +44,27 @@
           "named": true
         },
         {
+          "type": "jo",
+          "named": true
+        },
+        {
+          "type": "jo_bo",
+          "named": true
+        },
+        {
           "type": "joi",
           "named": true
         },
         {
           "type": "joi_bo",
+          "named": true
+        },
+        {
+          "type": "ju",
+          "named": true
+        },
+        {
+          "type": "ju_bo",
           "named": true
         }
       ]
@@ -54,6 +94,72 @@
     }
   },
   {
+    "type": "i_prefix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "i",
+          "named": true
+        },
+        {
+          "type": "i_bo",
+          "named": true
+        },
+        {
+          "type": "i_ce",
+          "named": true
+        },
+        {
+          "type": "i_ceo",
+          "named": true
+        },
+        {
+          "type": "i_ja",
+          "named": true
+        },
+        {
+          "type": "i_jek",
+          "named": true
+        },
+        {
+          "type": "i_jo",
+          "named": true
+        },
+        {
+          "type": "i_joi",
+          "named": true
+        },
+        {
+          "type": "i_ju",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "i_statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "i_prefix",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthetical",
     "named": true,
     "fields": {},
@@ -63,6 +169,10 @@
       "types": [
         {
           "type": "free_modifier",
+          "named": true
+        },
+        {
+          "type": "i_statement",
           "named": true
         },
         {
@@ -128,6 +238,10 @@
           "named": true
         },
         {
+          "type": "i_statement",
+          "named": true
+        },
+        {
           "type": "parenthetical",
           "named": true
         },
@@ -180,6 +294,10 @@
       "types": [
         {
           "type": "free_modifier",
+          "named": true
+        },
+        {
+          "type": "i_statement",
           "named": true
         },
         {
@@ -244,6 +362,66 @@
     "named": true
   },
   {
+    "type": "ce",
+    "named": true
+  },
+  {
+    "type": "ce_bo",
+    "named": true
+  },
+  {
+    "type": "ceo",
+    "named": true
+  },
+  {
+    "type": "ceo_bo",
+    "named": true
+  },
+  {
+    "type": "i",
+    "named": true
+  },
+  {
+    "type": "i_bo",
+    "named": true
+  },
+  {
+    "type": "i_ce",
+    "named": true
+  },
+  {
+    "type": "i_ceo",
+    "named": true
+  },
+  {
+    "type": "i_ja",
+    "named": true
+  },
+  {
+    "type": "i_jek",
+    "named": true
+  },
+  {
+    "type": "i_jo",
+    "named": true
+  },
+  {
+    "type": "i_joi",
+    "named": true
+  },
+  {
+    "type": "i_ju",
+    "named": true
+  },
+  {
+    "type": "ja",
+    "named": true
+  },
+  {
+    "type": "ja_bo",
+    "named": true
+  },
+  {
     "type": "jek",
     "named": true
   },
@@ -252,11 +430,27 @@
     "named": true
   },
   {
+    "type": "jo",
+    "named": true
+  },
+  {
+    "type": "jo_bo",
+    "named": true
+  },
+  {
     "type": "joi",
     "named": true
   },
   {
     "type": "joi_bo",
+    "named": true
+  },
+  {
+    "type": "ju",
+    "named": true
+  },
+  {
+    "type": "ju_bo",
     "named": true
   },
   {
