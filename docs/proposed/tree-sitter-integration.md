@@ -1,6 +1,6 @@
 # Tree-sitter integration design (proposal)
 
-Status: Draft for review
+Status: Scaffolded (Phase 0 complete; Phase 1 started)
 Owner: TBD
 Reviewers: TBD
 Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C parser to eliminate most hand fixes and enable incremental, editor-friendly parsing.
@@ -21,13 +21,17 @@ Non-goals (phase 1)
 
 ## Deliverables
 
-- `tree-sitter-lojban/` subdir (or separate repo) with:
-  - `grammar.js` (Tree-sitter grammar rules and precedence).
-  - `scanner.c` (external scanner bridging current tokenization; optional at start).
-  - `bindings/*` (optional, if we publish separately).
+- `external/tree-sitter-lojban/` subdir with:
+  - `grammar.js` (Tree-sitter grammar skeleton; precedence to be added).
+  - `scanner.c` (external scanner stub; will bridge current tokenization).
+  - `tree-sitter.json` (ABI 15 manifest and metadata).
+  - `queries/` placeholders (highlights/folds/injections).
+  - `corpus/` sample for harness sanity.
+  - `package.json` (optional if using npx; global CLI also supported).
 - Integration glue in this repo:
-  - `tools/ts-validate` script to parse sample corpus and compare shapes.
-  - CI job to compile grammar, run a corpus parse, and surface regressions.
+  - Make targets: `ts-generate`, `ts-test`, `ts-clean`.
+  - `tools/ts-validate` (WIP) to compare shapes vs the C parser.
+  - CI (later): compile grammar, run a corpus parse, and surface regressions.
   - Docs: user guide + mapping from C AST to TS nodes.
 
 ## Architecture
@@ -97,6 +101,8 @@ Phase 1: Skeleton grammar
 - Define precedence for basic connectives and JOI/JEK families.
 - Mark extras (UI/CAI/Y) and optional closers.
 
+Status: scaffold in place with a minimal rule to enable generate/test; expand with real nonterminals next.
+
 Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
@@ -144,9 +150,10 @@ Staging inside this repo (recommended for iteration)
 
 - Location: `external/tree-sitter-lojban/`
 - Layout:
-  - `package.json`            # name, version, scripts (generate/test), metadata: BASELINE, mkgramy SHA
-  - `grammar.js`              # Tree-sitter grammar with precedence
-  - `scanner.c`               # External scanner using the shared scanner core
+  - `tree-sitter.json`        # ABI 15 manifest
+  - `package.json`            # optional (if using npx)
+  - `grammar.js`              # Tree-sitter grammar (to be expanded with precedence)
+  - `scanner.c`               # External scanner using the shared scanner core (stub now)
   - `src/` (optional)         # If splitting scanner into multiple C files
   - `queries/`
     - `highlights.scm`
@@ -157,11 +164,13 @@ Staging inside this repo (recommended for iteration)
   - `LICENSE`
 
 - Integration glue (in this repo):
-  - `tools/ts-validate`       # Compare TS vs C parser shapes
+  - `tools/ts-validate`       # Compare TS vs C parser shapes (WIP in this repo)
   - `tools/export_grammar_json.py`  # Emit precedence/associativity data (optional)
   - Makefile targets:
     - `ts-generate`           # Run `tree-sitter generate` in the subdir
-    - `ts-validate`           # Run the shape diff over the corpus
+    - `ts-test`               # Run `tree-sitter test`
+    - `ts-clean`              # Remove generated TS artifacts
+    - (optional) `ts-validate`# Run the shape diff over the corpus
     - (optional) `ts-ci`      # Wrapper used by CI
 
 Promoting to its own repo (best practice when stable)
@@ -194,5 +203,7 @@ Promoting to its own repo (best practice when stable)
 
 ## Next steps
 
-- Review and amend this design.
-- Greenlight Phase 1; I’ll scaffold `tree-sitter-lojban/` with a minimal grammar and placeholders for the scanner and queries.
+- Expand `grammar.js` with initial nonterminals (text→paragraph→statement; shells; delimiters) and precedence.
+- Implement `scanner.c` bridging the core lexer/preparser compounds (900‑series).
+- Add `tools/ts-validate` to normalize and compare shapes vs the C parser.
+- Add a CI job to run `ts-generate`/`ts-test` and validate over a small corpus.

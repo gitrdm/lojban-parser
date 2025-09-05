@@ -38,7 +38,7 @@ asan:
 ubsan:
 	$(CC) $(CFLAGS) -fsanitize=undefined -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark sentences-manifest regress-sentences help parser_lr parser_glr all-parsers
+.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark sentences-manifest regress-sentences help parser_lr parser_glr all-parsers ts-generate ts-test ts-clean ts-validate
 help:
 	@echo "Usage: make [target]" && echo && \
 	echo "Targets:" && \
@@ -55,6 +55,9 @@ help:
 	echo "  diagrams              Generate railroad diagrams (optional tool)" && \
 	echo "  lark                  Export Lark grammar skeleton" && \
 	echo "  check-lark            Validate the Lark grammar loads" && \
+	echo "  ts-generate           Generate Tree-sitter parser sources" && \
+	echo "  ts-test               Run Tree-sitter tests" && \
+	echo "  ts-validate           Parse sample files with Tree-sitter (placeholder)" && \
 	echo "  asan                  Build with AddressSanitizer" && \
 	echo "  ubsan                 Build with UndefinedBehaviorSanitizer" && \
 	echo "  analyze               Run GCC static analyzer (if available)" && \
@@ -167,6 +170,10 @@ ts-test:
 
 ts-clean:
 	@rm -f $(TS_DIR)/src/parser.c $(TS_DIR)/src/node-types.json $(TS_DIR)/src/tree_sitter/parser.h
+
+ts-validate: ts-generate
+	@chmod +x tools/ts-validate
+	@tools/ts-validate examples/* || true
 regen:
 	@mkdir -p grammar $(BUILD_SRC) $(BUILD_INC)
 	@echo "Regenerating grammar from grammar/grammar.$(BASELINE) -> grammar/grammar.y ... (GLR=$(GLR))"

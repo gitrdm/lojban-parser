@@ -1,5 +1,86 @@
 [
   {
+    "type": "free_modifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "sei",
+          "named": true
+        },
+        {
+          "type": "seu",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parenthetical",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "free_modifier",
+          "named": true
+        },
+        {
+          "type": "parenthetical",
+          "named": true
+        },
+        {
+          "type": "quote",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        },
+        {
+          "type": "to",
+          "named": true
+        },
+        {
+          "type": "toi",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quote",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "lihU",
+          "named": true
+        },
+        {
+          "type": "lu",
+          "named": true
+        },
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -9,14 +90,65 @@
       "required": false,
       "types": [
         {
-          "type": "text",
+          "type": "free_modifier",
+          "named": true
+        },
+        {
+          "type": "parenthetical",
+          "named": true
+        },
+        {
+          "type": "quote",
+          "named": true
+        },
+        {
+          "type": "statement",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "text",
+    "type": "statement",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lihU",
+    "named": true
+  },
+  {
+    "type": "lu",
+    "named": true
+  },
+  {
+    "type": "sei",
+    "named": true
+  },
+  {
+    "type": "seu",
+    "named": true
+  },
+  {
+    "type": "to",
+    "named": true
+  },
+  {
+    "type": "toi",
+    "named": true
+  },
+  {
+    "type": "word",
     "named": true
   }
 ]

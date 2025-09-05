@@ -6,21 +6,131 @@
       "type": "REPEAT",
       "content": {
         "type": "SYMBOL",
-        "name": "_statement"
+        "name": "_unit"
       }
     },
-    "_statement": {
+    "_unit": {
       "type": "CHOICE",
       "members": [
         {
           "type": "SYMBOL",
-          "name": "text"
+          "name": "statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "quote"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parenthetical"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "free_modifier"
         }
       ]
     },
-    "text": {
-      "type": "PATTERN",
-      "value": "[^\\n]+"
+    "statement": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "SYMBOL",
+          "name": "word"
+        }
+      }
+    },
+    "quote": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "lu"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "lihU"
+        }
+      ]
+    },
+    "parenthetical": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "to"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_unit"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "toi"
+        }
+      ]
+    },
+    "free_modifier": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sei"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "word"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "seu"
+        }
+      ]
+    },
+    "word": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[A-Za-z0-9.'-]+"
+      }
+    },
+    "lu": {
+      "type": "STRING",
+      "value": "lu"
+    },
+    "lihU": {
+      "type": "STRING",
+      "value": "li'u"
+    },
+    "to": {
+      "type": "STRING",
+      "value": "to"
+    },
+    "toi": {
+      "type": "STRING",
+      "value": "toi"
+    },
+    "sei": {
+      "type": "STRING",
+      "value": "sei"
+    },
+    "seu": {
+      "type": "STRING",
+      "value": "se'u"
     }
   },
   "extras": [
@@ -29,7 +139,16 @@
       "value": "\\s+"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "quote",
+      "statement"
+    ],
+    [
+      "parenthetical",
+      "statement"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [],

@@ -6,11 +6,14 @@ Status: Skeleton. See `docs/proposed/tree-sitter-integration.md` for design goal
 
 ## Usage
 
-- Generate parser sources:
-  - npm install
-  - npx tree-sitter generate
-- Run tests (none yet):
-  - npx tree-sitter test
+- From repo root (preferred):
+  - make ts-generate
+  - make ts-test
+  - tools/ts-validate examples/*  # optional, quick parse check
+
+- From this directory (direct CLI):
+  - tree-sitter generate  (or: npx tree-sitter generate)
+  - tree-sitter test      (or: npx tree-sitter test)
 
 ## Layout
 

@@ -1,2 +1,5 @@
-; Placeholder highlights: treat everything as text for now
-((text) @string)
+; Minimal placeholders to avoid query failures
+(quote) @string
+(parenthetical) @comment
+(free_modifier) @keyword
+(statement) @text

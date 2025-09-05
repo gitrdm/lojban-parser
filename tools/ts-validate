@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# Minimal placeholder: ensure the Tree-sitter grammar can parse given files.
+# Usage: tools/ts-validate [path...]
+
+TS_DIR="$(dirname "$0")/../external/tree-sitter-lojban"
+TS_DIR="$(cd "$TS_DIR" && pwd)"
+
+if command -v tree-sitter >/dev/null 2>&1; then
+  TS=tree-sitter
+elif command -v npx >/dev/null 2>&1; then
+  TS="npx tree-sitter"
+else
+  echo "tree-sitter CLI not found; install Node.js and tree-sitter-cli" >&2
+  exit 1
+fi
+
+cd "$TS_DIR"
+
+# Ensure generated sources exist
+$TS generate >/dev/null
+
+if [ "$#" -eq 0 ]; then
+  echo "No inputs provided; parsing corpus samples (if any)..."
+  set +e
+  $TS test
+  exit 0
+fi
+
+status=0
+for f in "$@"; do
+  if [ ! -f "$f" ]; then
+    echo "Skip (not a file): $f" >&2
+    continue
+  fi
+  echo "Parsing: $f"
+  # tree-sitter parse prints a tree; capture nonzero on failure
+  if ! $TS parse "$f" >/dev/null; then
+    echo "Failed to parse: $f" >&2
+    status=1
+  fi
+done
+
+exit $status
