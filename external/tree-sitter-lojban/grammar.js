@@ -1,12 +1,5 @@
 // @ts-check
 /* global grammar, repeat, choice */
-// Provide minimal fallbacks for editors/linters; tree-sitter CLI provides real implementations.
-// eslint-disable-next-line no-var
-var grammar = (g) => g;
-// eslint-disable-next-line no-var
-var repeat = (x) => [x];
-// eslint-disable-next-line no-var
-var choice = (...xs) => xs[0];
 
 // Skeleton Tree-sitter grammar for Lojban
 // See docs/proposed/tree-sitter-integration.md for scope and phases.

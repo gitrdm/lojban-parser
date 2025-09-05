@@ -131,9 +131,42 @@ regress-sentences: parser_lr parser_glr sentences-manifest
 	@echo "Running sentence regressions against LR and GLR..."
 	@python3 tools/run_sentences_regress.py --jsonl tests/regress/inputs/test_sentences.jsonl \
 		--parser ./parser_lr --label LR \
-		--parser ./parser_glr --label GLR || true
+		--parser ./parser_glr --label GLR \
+		--jobs $${JOBS:-$$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)} \
+		--out-jsonl tests/regress/outputs/sentences_results.jsonl || true
+	@echo "Wrote tests/regress/outputs/sentences_results.jsonl"
 
 .PHONY: regen glr analyze-glr
+TS_DIR := external/tree-sitter-lojban
+
+# Tree-sitter: generate and test (optional; requires tree-sitter-cli via npm)
+.PHONY: ts-generate ts-test ts-clean
+ts-generate:
+	@cd $(TS_DIR) && \
+	if command -v tree-sitter >/dev/null 2>&1; then \
+		echo "Generating Tree-sitter parser (global CLI)..."; \
+		tree-sitter generate; \
+	elif command -v npx >/dev/null 2>&1; then \
+		echo "Generating Tree-sitter parser (via npx)..."; \
+		npx tree-sitter generate; \
+	else \
+		echo "tree-sitter CLI not found; install Node.js and tree-sitter-cli"; exit 1; \
+	fi
+
+ts-test:
+	@cd $(TS_DIR) && \
+	if command -v tree-sitter >/dev/null 2>&1; then \
+		echo "Running Tree-sitter tests (global CLI)..."; \
+		tree-sitter test || true; \
+	elif command -v npx >/dev/null 2>&1; then \
+		echo "Running Tree-sitter tests (via npx)..."; \
+		npx tree-sitter test || true; \
+	else \
+		echo "tree-sitter CLI not found; install Node.js and tree-sitter-cli"; \
+	fi
+
+ts-clean:
+	@rm -f $(TS_DIR)/src/parser.c $(TS_DIR)/src/node-types.json $(TS_DIR)/src/tree_sitter/parser.h
 regen:
 	@mkdir -p grammar $(BUILD_SRC) $(BUILD_INC)
 	@echo "Regenerating grammar from grammar/grammar.$(BASELINE) -> grammar/grammar.y ... (GLR=$(GLR))"

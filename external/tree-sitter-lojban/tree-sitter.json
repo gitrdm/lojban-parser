@@ -1,0 +1,19 @@
+{
+  "grammars": [
+    {
+      "name": "lojban",
+      "scope": "source.lojban",
+      "file-types": ["lojban", "jbovlaste", "jb"],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm",
+      "folds": "queries/folds.scm",
+      "corpus": "corpus"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "maintainers": ["gitrdm"],
+    "license": "SEE-REPO-LICENSE",
+    "reference": "docs/proposed/tree-sitter-integration.md"
+  }
+}
