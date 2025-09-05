@@ -1,0 +1,11 @@
+=================
+Connectives + BO
+=================
+
+mi je bo do klama
+---
+(source_file
+  (statement
+    (sumti (word))
+    (connective (jek) (bo))
+    (selbri (word))))

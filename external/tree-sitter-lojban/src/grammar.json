@@ -92,6 +92,40 @@
       "members": [
         {
           "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "joi"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "jek"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bo"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
           "value": 2,
           "content": {
             "type": "SYMBOL",
@@ -266,6 +300,14 @@
     {
       "type": "SYMBOL",
       "name": "jek"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "bo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ke"
     }
   ],
   "inline": [],

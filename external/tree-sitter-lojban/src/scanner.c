@@ -37,6 +37,8 @@ enum TokenType {
   VUH_U,
   JOI,
   JEK,
+  BO,
+  KE,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -211,6 +213,28 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // JEK ('je')
+    }
+    return false;
+  }
+
+  // bo
+  if (valid_symbols[BO] && lexer->lookahead == 'b') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'o') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // BO
+    }
+    return false;
+  }
+
+  // ke
+  if (valid_symbols[KE] && lexer->lookahead == 'k') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'e') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // KE
     }
     return false;
   }

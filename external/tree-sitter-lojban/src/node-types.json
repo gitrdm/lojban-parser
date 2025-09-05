@@ -4,9 +4,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "bo",
+          "named": true
+        },
         {
           "type": "jek",
           "named": true
@@ -226,6 +230,10 @@
         }
       ]
     }
+  },
+  {
+    "type": "bo",
+    "named": true
   },
   {
     "type": "jek",
