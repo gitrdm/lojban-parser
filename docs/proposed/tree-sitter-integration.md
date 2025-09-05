@@ -30,7 +30,7 @@ Non-goals (phase 1)
   - `package.json` (optional if using npx; global CLI also supported).
 - Integration glue in this repo:
   - Make targets: `ts-generate`, `ts-test`, `ts-clean`, `ts-validate`.
-  - `tools/ts-validate` (prints TS parse trees; shape diff vs C parser next).
+  - `tools/ts-validate` (prints TS parse trees; basic shape diff vs C parser — stub).
   - CI (later): compile grammar, run a corpus parse, and surface regressions.
   - Docs: user guide + mapping from C AST to TS nodes.
 
@@ -111,7 +111,7 @@ Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
 
-Status: in progress - scanner emits words with basic cmene/brivla classification; reserved cmavo subset (quotes, parentheses, free-mods, connectives, bo/ke, vuhO/vuhU) implemented; initial 900-series compounds added (`jek_bo`, `joi_bo`) with spacing/pause tolerance; corpus updated and passing.
+Status: in progress - morphology and reserved cmavo implemented; 900-series compounds integrated for connective families and i-joiners; spacing/pause tolerant; corpus updated and passing.
 
 Phase 3: Coverage expansion
 - Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
@@ -119,7 +119,7 @@ Phase 3: Coverage expansion
 
 Phase 4: Validation and CI
 - Build a corpus from `openwm.txt`, tests/regress inputs.
-- Add `tools/ts-validate` to diff structural shapes (node kinds, spans) vs the C parser.
+ - Add `tools/ts-validate` to diff structural shapes (node kinds, spans) vs the C parser.
 - CI: compile grammar, run corpus, fail on significant drift.
 
 Phase 5: Editor integrations (optional)
@@ -210,9 +210,19 @@ Promoting to its own repo (best practice when stable)
 ## Next steps
 
 - Integrate 900-series compounding (connectives + BO/KE; JOI/JEK families) and expand reserved cmavo families in `src/scanner.c`.
-  - Done (initial): `jek_bo` (je+bo), `joi_bo` (joi+bo), including spaces and '.' pause between parts; added corpus cases.
+  - Done: `jek_bo`, `joi_bo`, plus JEK family (`ja_bo`, `jo_bo`, `ju_bo`) and JOI family (`ce_bo`, `ceo_bo`); plain connectives `ja/je/jo/ju/ce/ce'o/joi`.
+  - Done: i-prefixed joiners `i`, `i_bo`, `i_ja/je/jo/ju`, `i_ce/ce'o`, `i_joi`.
+  - Behavior: case-insensitive; tolerates whitespace and pause '.' between parts.
 - Expand `tools/ts-validate` to run C parser and diff normalized shapes.
+  - Done (stub): runs C parser when available and prints an approximate shape diff (node line counts). Next: normalize TS vs C for structural diff.
 - Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
 - Expand corpus with more test cases from `openwm.txt` and regression inputs.
 - Add a few additional quote/parenthetical tests (e.g., `lu ... li'u`, `to ... toi`).
  - Add subscript contexts and BOI strictness tests.
+
+## Changelog (2025-09-05)
+
+- Broadened JOI/JEK families (+bo) and added i+connective compounds.
+- Spacing/pause tolerance and case-insensitive matching for compounds.
+- Extended corpus with variants and i-prefixed tests.
+- Enhanced `tools/ts-validate` to run the C parser and print a basic TS vs C shape diff.
