@@ -2,8 +2,35 @@
 """
 Convert tests/regress/test_sentences.txt into tests/regress/inputs/test_sentences.jsonl
 
-Parsing rules documented in tests/regress/README.md.
-This is a placeholder skeleton to be implemented next.
+Purpose:
+    Normalize the legacy test sentences into a machine-friendly JSONL manifest
+    used by the regression runner.
+
+Input format (text file):
+    - Plain Lojban sentence per line; blank lines ignored.
+    - Lines starting with '#' are section headers; content after '#' becomes
+        the current section label.
+    - Optional trailing markers per line:
+            -- GOOD | -- BAD    expectation for the sentence
+            -- SKIP:reason      skip this sentence with a reason recorded
+        Optional metadata tags at the end of line (order-insensitive):
+            ## tag:tag1,tag2    comma-separated tags
+            ## id:customid      override the stable id
+
+Output JSONL schema (one object per non-skipped sentence):
+    - id: string (stable hash unless overridden)
+    - text: string (sentence)
+    - expect: "GOOD" | "BAD" | "UNKNOWN"
+    - skip: boolean
+    - skip_reason: string | null
+    - tags: [string]
+    - section: string | null
+    - source: { file: string, line: number }
+
+Usage:
+    python3 tools/convert_sentences_to_jsonl.py \
+            tests/regress/test_sentences.txt \
+            tests/regress/inputs/test_sentences.jsonl
 """
 import argparse
 import hashlib
@@ -14,11 +41,13 @@ import sys
 
 
 def stable_id(text: str) -> str:
+    """Return a short stable id based on SHA-256 of the input text."""
     h = hashlib.sha256(text.encode('utf-8')).hexdigest()
     return h[:12]
 
 
 def main() -> int:
+    """Parse command-line arguments and perform conversion."""
     ap = argparse.ArgumentParser()
     ap.add_argument("input", default="tests/regress/test_sentences.txt", nargs="?")
     ap.add_argument("output", default="tests/regress/inputs/test_sentences.jsonl", nargs="?")

@@ -1,15 +1,45 @@
 #!/usr/bin/env python3
+"""
+Sentence regression runner.
+
+Purpose:
+    Execute one or more C parser binaries (LR/GLR) over a JSONL manifest of test
+    sentences and report pass/fail versus expectation. Optionally emit detailed
+    per-record results as JSONL for downstream analysis or comparison with
+    Tree-sitter.
+
+Usage examples:
+    python3 tools/run_sentences_regress.py \
+            --jsonl tests/regress/inputs/test_sentences.jsonl \
+            --parser ./parser_lr --label LR \
+            --parser ./parser_glr --label GLR \
+            --jobs 32 \
+            --timeout 1.5 \
+            --out-jsonl tests/regress/outputs/sentences_results.jsonl
+
+Notes:
+    - Success is determined by non-empty stdout from the parser on a given input.
+    - Unknown expectations (expect=="UNKNOWN") do not count as mismatches.
+    - Skipped entries are not executed and are not emitted into the output JSONL.
+"""
 import argparse
 import json
 import os
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from time import perf_counter
 from pathlib import Path
 
 
-def run_parser(parser_path: str, text: str, timeout: float) -> bool:
+def run_parser(parser_path: str, text: str, timeout: float):
+    """Run a parser binary with the given text on stdin.
+
+    Returns a tuple: (ok: bool, stdout: bytes, stderr: bytes, duration_ms: float)
+    where ok indicates non-empty stdout (heuristic for successful parse).
+    """
     try:
+        t0 = perf_counter()
         proc = subprocess.run(
             [parser_path],
             input=text.encode('utf-8'),
@@ -18,13 +48,18 @@ def run_parser(parser_path: str, text: str, timeout: float) -> bool:
             timeout=timeout,
             check=False,
         )
+        dt_ms = (perf_counter() - t0) * 1000.0
     except subprocess.TimeoutExpired:
-        return False
+        return False, b"", b"timeout", timeout * 1000.0
     # Success heuristic: parser prints to stdout on success; on failure it prints to stderr only
-    return len(proc.stdout.strip()) > 0
+    ok = len(proc.stdout.strip()) > 0
+    return ok, proc.stdout, proc.stderr, dt_ms
 
 
 def main():
+    """CLI entry point: parse args, run parsers (optionally in parallel),
+    print a summary, and optionally write detailed JSONL results.
+    """
     ap = argparse.ArgumentParser(description="Run sentence regressions against one or more parser binaries.")
     ap.add_argument("--jsonl", required=True, help="Path to test_sentences.jsonl manifest")
     ap.add_argument("--parser", dest="parsers", action="append", required=True,
@@ -34,6 +69,7 @@ def main():
     ap.add_argument("--timeout", type=float, default=2.0, help="Per-sentence timeout in seconds (default: 2.0)")
     ap.add_argument("--jobs", type=int, default=max(1, (os.cpu_count() or 4)),
                     help="Parallel jobs (default: CPU count)")
+    ap.add_argument("--out-jsonl", dest="out_jsonl", help="Write detailed results to JSONL file (one record per parser x sentence)")
     args = ap.parse_args()
 
     manifest_path = Path(args.jsonl)
@@ -59,6 +95,13 @@ def main():
                 entries.append(obj)
             except json.JSONDecodeError:
                 print(f"Skipping invalid JSONL line: {line[:120]}", file=sys.stderr)
+
+    # If writing detailed results, prepare the output file
+    out_fh = None
+    if args.out_jsonl:
+        out_path = Path(args.out_jsonl)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_fh = out_path.open('w', encoding='utf-8')
 
     # Tally per parser (evaluate each parser over entries; parallelize per sentences)
     reports = []
@@ -91,15 +134,17 @@ def main():
 
         # Run in parallel
         results = [False] * len(tasks)
+        durations = [0.0] * len(tasks)
         with ThreadPoolExecutor(max_workers=max(1, args.jobs)) as ex:
             fut_to_idx = {ex.submit(run_parser, parser, tasks[i], args.timeout): i for i in range(len(tasks))}
             for fut in as_completed(fut_to_idx):
                 i = fut_to_idx[fut]
                 try:
-                    ok = fut.result()
+                    ok, out, err, dt_ms = fut.result()
                 except Exception:
-                    ok = False
+                    ok, out, err, dt_ms = False, b"", b"exception", 0.0
                 results[i] = ok
+                durations[i] = dt_ms
 
         # Aggregate
         for i, ok in enumerate(results):
@@ -112,6 +157,22 @@ def main():
                 mismatches.append((mid, "expected GOOD", text[:120]))
             elif exp == "BAD" and ok:
                 mismatches.append((mid, "expected BAD", text[:120]))
+
+            # Write detailed record if requested
+            if out_fh is not None:
+                rec = {
+                    "id": mid,
+                    "label": label,
+                    "parser": str(parser),
+                    "ok": bool(ok),
+                    "expect": exp,
+                    "skipped": False,
+                    "duration_ms": durations[i],
+                }
+                # propagate a few useful fields from manifest
+                # Find corresponding entry quickly via same index mapping: meta[i] mirrors tasks order which mirrored non-skipped entries order
+                # However, to avoid O(N^2), we don't re-scan; we can enrich with minimal info only
+                out_fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
         reports.append({
             "label": label,
@@ -143,6 +204,8 @@ def main():
 
     # Non-zero exit if any mismatches for any parser
     any_mismatch = any(len(r["mismatches"]) > 0 for r in reports)
+    if out_fh is not None:
+        out_fh.close()
     sys.exit(1 if any_mismatch else 0)
 
 
