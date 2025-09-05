@@ -105,13 +105,115 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   // Mark start
   lexer->mark_end(lexer);
 
-  // Check for specific tokens
+  // Check for specific reserved cmavo (lowercase assumed)
+  // lu
   if (valid_symbols[LU] && lexer->lookahead == 'l') {
     lexer->advance(lexer, false);
     if (lexer->lookahead == 'u') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // LU
+    }
+    return false;
+  }
+
+  // li'u (lihU)
+  if (valid_symbols[LIHU] && lexer->lookahead == 'l') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LIHU
+        }
+      }
+    }
+    return false;
+  }
+
+  // to
+  if (valid_symbols[TO] && lexer->lookahead == 't') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'o') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // TO
+    }
+    return false;
+  }
+
+  // toi
+  if (valid_symbols[TOI] && lexer->lookahead == 't') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // TOI
+      }
+    }
+    return false;
+  }
+
+  // sei
+  if (valid_symbols[SEI] && lexer->lookahead == 's') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // SEI
+      }
+    }
+    return false;
+  }
+
+  // se'u (seu)
+  if (valid_symbols[SEU] && lexer->lookahead == 's') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // SEU
+        }
+      }
+    }
+    return false;
+  }
+
+  // joi
+  if (valid_symbols[JOI] && lexer->lookahead == 'j') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // JOI
+      }
+    }
+    return false;
+  }
+
+  // jek (placeholder connective)
+  if (valid_symbols[JEK] && lexer->lookahead == 'j') {
+    lexer->advance(lexer, false);
+    if (lexer->lookahead == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == 'k') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // JEK
+      }
     }
     return false;
   }

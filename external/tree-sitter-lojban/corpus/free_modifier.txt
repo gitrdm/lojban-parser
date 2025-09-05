@@ -1,0 +1,8 @@
+==============
+Free modifier
+==============
+
+sei coi se'u
+---
+(source_file
+  (free_modifier (sei) (word) (seu)))
