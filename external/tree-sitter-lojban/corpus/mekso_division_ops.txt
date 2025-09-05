@@ -1,0 +1,9 @@
+=== Mekso: division ops fe’i, fa’u ===
+
+li 6 fe’i 3
+---
+(source_file (mex (li) (number) (mex_operator) (number)))
+
+li 8 fa’u 2
+---
+(source_file (mex (li) (number) (mex_operator) (number)))

@@ -95,6 +95,8 @@ enum TokenType {
   LOE,
   LEHI,
   LOHI,
+  LEA,
+  LEO,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -979,6 +981,40 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
+  // le'a (LEA)
+  if (valid_symbols[LEA] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'a') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LE'a (le'a)
+        }
+      }
+    }
+    return false;
+  }
+
+  // le'o (LEO)
+  if (valid_symbols[LEO] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LE'o (le'o)
+        }
+      }
+    }
+    return false;
+  }
+
   // boi
   if (valid_symbols[BOI] && tolower(lexer->lookahead) == 'b') {
     lexer->advance(lexer, false);
@@ -1062,18 +1098,19 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       }
       return false;
     } else if (la == 'f') {
-        // fe'a or fa'u
+        // fe'a / fe'i / fa'u
         lexer->advance(lexer, false);
         int32_t n1 = tolower(lexer->lookahead);
         if (n1 == 'e') {
-          // fe'a
+          // fe'a or fe'i
           lexer->advance(lexer, false);
           if (lexer->lookahead == '\'') {
             lexer->advance(lexer, false);
-            if (tolower(lexer->lookahead) == 'a') {
+            int32_t n2 = tolower(lexer->lookahead);
+            if (n2 == 'a' || n2 == 'i') {
               lexer->advance(lexer, false);
               lexer->mark_end(lexer);
-              return true; // fe'a
+              return true; // fe'a or fe'i
             }
           }
         } else if (n1 == 'a') {

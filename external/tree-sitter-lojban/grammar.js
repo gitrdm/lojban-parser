@@ -81,6 +81,8 @@ module.exports = grammar({
   $.loe,      // LO'e (lo'e)
   $.lehi,     // LE'i (le'i)
   $.lohi,     // LO'i (lo'i)
+  $.lea,      // LE'a (le'a)
+  $.leo,      // LE'o (le'o)
   ],
   conflicts: $ => [
     [$.quote, $.statement],
@@ -168,6 +170,8 @@ module.exports = grammar({
       seq($.loe, $.sumti_tail), // lo'e + selbri
   seq($.lehi, $.sumti_tail), // le'i + selbri
   seq($.lohi, $.sumti_tail), // lo'i + selbri
+  seq($.lea, $.sumti_tail), // le'a + selbri (exhaustive family coverage)
+  seq($.leo, $.sumti_tail), // le'o + selbri (exhaustive family coverage)
       seq($.lahe, $.sumti_base), // la'e + (basic sumti)
   $.mi,                    // mi
   $.do,                    // do
