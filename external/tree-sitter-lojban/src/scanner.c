@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <wctype.h>
+#include <ctype.h>
 #include <stdint.h>
 
 // Tree-sitter external scanner interface
@@ -76,6 +77,15 @@ static int isV(char c) {
   return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'y';
 }
 
+static inline int is_ws_or_pause(int32_t ch) {
+  return iswspace(ch) || ch == '.'; // Treat '.' as a pause (space)
+}
+
+static inline int is_word_char(int32_t ch) {
+  // Lojban words include letters and apostrophe
+  return iswalpha(ch) || ch == '\'';
+}
+
 static int iscmene(const char *p) {
   size_t len = strlen(p);
   if (len == 0 || !isC(p[len-1])) return 0;
@@ -98,7 +108,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   Scanner *scanner = (Scanner *)payload;
 
   // Skip whitespace
-  while (iswspace(lexer->lookahead) && !lexer->eof(lexer)) {
+  while (is_ws_or_pause(lexer->lookahead) && !lexer->eof(lexer)) {
     lexer->advance(lexer, false);
   }
 
@@ -109,9 +119,9 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
 
   // Check for specific reserved cmavo (lowercase assumed)
   // lu
-  if (valid_symbols[LU] && lexer->lookahead == 'l') {
+  if (valid_symbols[LU] && tolower(lexer->lookahead) == 'l') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'u') {
+    if (tolower(lexer->lookahead) == 'u') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // LU
@@ -120,13 +130,13 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // li'u (lihU)
-  if (valid_symbols[LIHU] && lexer->lookahead == 'l') {
+  if (valid_symbols[LIHU] && tolower(lexer->lookahead) == 'l') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'i') {
+    if (tolower(lexer->lookahead) == 'i') {
       lexer->advance(lexer, false);
       if (lexer->lookahead == '\'') {
         lexer->advance(lexer, false);
-        if (lexer->lookahead == 'u') {
+        if (tolower(lexer->lookahead) == 'u') {
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
           return true; // LIHU
@@ -137,9 +147,9 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // to
-  if (valid_symbols[TO] && lexer->lookahead == 't') {
+  if (valid_symbols[TO] && tolower(lexer->lookahead) == 't') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'o') {
+    if (tolower(lexer->lookahead) == 'o') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // TO
@@ -148,11 +158,11 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // toi
-  if (valid_symbols[TOI] && lexer->lookahead == 't') {
+  if (valid_symbols[TOI] && tolower(lexer->lookahead) == 't') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'o') {
+    if (tolower(lexer->lookahead) == 'o') {
       lexer->advance(lexer, false);
-      if (lexer->lookahead == 'i') {
+      if (tolower(lexer->lookahead) == 'i') {
         lexer->advance(lexer, false);
         lexer->mark_end(lexer);
         return true; // TOI
@@ -162,11 +172,11 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // sei
-  if (valid_symbols[SEI] && lexer->lookahead == 's') {
+  if (valid_symbols[SEI] && tolower(lexer->lookahead) == 's') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'e') {
+    if (tolower(lexer->lookahead) == 'e') {
       lexer->advance(lexer, false);
-      if (lexer->lookahead == 'i') {
+      if (tolower(lexer->lookahead) == 'i') {
         lexer->advance(lexer, false);
         lexer->mark_end(lexer);
         return true; // SEI
@@ -176,13 +186,13 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // se'u (seu)
-  if (valid_symbols[SEU] && lexer->lookahead == 's') {
+  if (valid_symbols[SEU] && tolower(lexer->lookahead) == 's') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'e') {
+    if (tolower(lexer->lookahead) == 'e') {
       lexer->advance(lexer, false);
       if (lexer->lookahead == '\'') {
         lexer->advance(lexer, false);
-        if (lexer->lookahead == 'u') {
+        if (tolower(lexer->lookahead) == 'u') {
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
           return true; // SEU
@@ -193,11 +203,11 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // joi
-  if (valid_symbols[JOI] && lexer->lookahead == 'j') {
+  if (valid_symbols[JOI] && tolower(lexer->lookahead) == 'j') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'o') {
+    if (tolower(lexer->lookahead) == 'o') {
       lexer->advance(lexer, false);
-      if (lexer->lookahead == 'i') {
+      if (tolower(lexer->lookahead) == 'i') {
         lexer->advance(lexer, false);
         lexer->mark_end(lexer);
         return true; // JOI
@@ -207,9 +217,9 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // jek: recognize 'je' (using token name jek for now)
-  if (valid_symbols[JEK] && lexer->lookahead == 'j') {
+  if (valid_symbols[JEK] && tolower(lexer->lookahead) == 'j') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'e') {
+    if (tolower(lexer->lookahead) == 'e') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // JEK ('je')
@@ -218,9 +228,9 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // bo
-  if (valid_symbols[BO] && lexer->lookahead == 'b') {
+  if (valid_symbols[BO] && tolower(lexer->lookahead) == 'b') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'o') {
+    if (tolower(lexer->lookahead) == 'o') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // BO
@@ -229,9 +239,9 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // ke
-  if (valid_symbols[KE] && lexer->lookahead == 'k') {
+  if (valid_symbols[KE] && tolower(lexer->lookahead) == 'k') {
     lexer->advance(lexer, false);
-    if (lexer->lookahead == 'e') {
+    if (tolower(lexer->lookahead) == 'e') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // KE
@@ -241,7 +251,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
 
   // Fallback to WORD
   if (valid_symbols[WORD] || valid_symbols[CMENE] || valid_symbols[BRIVLA]) {
-    if (iswalpha(lexer->lookahead) && !lexer->eof(lexer)) {
+    if (is_word_char(lexer->lookahead) && !lexer->eof(lexer)) {
       // Buffer the word
       Scanner *scanner = (Scanner *)payload;
       scanner->word_len = 0;
@@ -250,9 +260,12 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           scanner->word_cap *= 2;
           scanner->word_buffer = realloc(scanner->word_buffer, scanner->word_cap);
         }
-        scanner->word_buffer[scanner->word_len++] = lexer->lookahead;
+        // Lower-case into buffer for classification; keep apostrophes
+        int32_t ch = lexer->lookahead;
+        if (ch >= 'A' && ch <= 'Z') ch = (int32_t)tolower(ch);
+        scanner->word_buffer[scanner->word_len++] = (char)ch;
         lexer->advance(lexer, false);
-      } while (!lexer->eof(lexer) && iswalpha(lexer->lookahead));
+      } while (!lexer->eof(lexer) && is_word_char(lexer->lookahead));
       scanner->word_buffer[scanner->word_len] = 0;
       lexer->mark_end(lexer);
 

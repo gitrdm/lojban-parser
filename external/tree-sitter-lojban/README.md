@@ -1,4 +1,16 @@
-# tree-sitter-lojban (scaffold)
+# Tree-sitter Lojban (staged in monorepo)
+
+Status: experimental. External scanner recognizes a small set of reserved cmavo (lu/li'u, to/toi, sei/se'u, joi, je), `bo`, `ke`, and generic words with basic cmene/brivla classification. Grammar has shells for sumti/selbri and basic constructs.
+
+Usage (from repo root):
+
+- make ts-generate
+- make ts-test
+- tools/ts-validate [paths]
+
+Notes:
+- The scanner treats '.' as whitespace, is case-insensitive for reserved tokens, and includes apostrophe as a word character.
+- Next milestones: compound 900-series tokens for connective families; expand corpus and add CI.# tree-sitter-lojban (scaffold)
 
 Experimental Tree-sitter grammar for Lojban, staged inside the lojban-parser repo.
 
