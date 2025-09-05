@@ -18,7 +18,9 @@ typedef struct TSLexer {
 } TSLexer;
 
 typedef struct {
-  // No state needed for basic tokens
+  char *word_buffer;
+  size_t word_len;
+  size_t word_cap;
 } Scanner;
 
 enum TokenType {
@@ -37,11 +39,16 @@ enum TokenType {
 
 void *tree_sitter_lojban_external_scanner_create(void) {
   Scanner *scanner = calloc(1, sizeof(Scanner));
+  scanner->word_cap = 32;
+  scanner->word_buffer = malloc(scanner->word_cap);
+  scanner->word_len = 0;
   return scanner;
 }
 
 void tree_sitter_lojban_external_scanner_destroy(void *payload) {
-  free(payload);
+  Scanner *scanner = (Scanner *)payload;
+  free(scanner->word_buffer);
+  free(scanner);
 }
 
 void tree_sitter_lojban_external_scanner_reset(void *payload) {
@@ -58,10 +65,10 @@ void tree_sitter_lojban_external_scanner_deserialize(void *payload, const char *
 }
 
 bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
-  (void)payload;
+  Scanner *scanner = (Scanner *)payload;
 
   // Skip whitespace
-  while (iswspace(lexer->lookahead)) {
+  while ((iswspace(lexer->lookahead) || lexer->lookahead == '\n') && !lexer->eof(lexer)) {
     lexer->advance(lexer, false);
   }
 
@@ -206,11 +213,13 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
 
   // Fallback to WORD
   if (valid_symbols[WORD]) {
-    while (!lexer->eof(lexer) && !iswspace(lexer->lookahead) && lexer->lookahead != '\'') {
-      lexer->advance(lexer, false);
+    if (iswalnum(lexer->lookahead) && !lexer->eof(lexer)) {
+      do {
+        lexer->advance(lexer, false);
+      } while (!lexer->eof(lexer) && iswalnum(lexer->lookahead));
+      lexer->mark_end(lexer);
+      return true;
     }
-    lexer->mark_end(lexer);
-    return true;
   }
 
   return false;

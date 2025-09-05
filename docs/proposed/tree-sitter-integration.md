@@ -1,6 +1,6 @@
 # Tree-sitter integration design (proposal)
 
-Status: Scaffolded (Phase 0 complete; Phase 1 started)
+Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 started)
 Owner: TBD
 Reviewers: TBD
 Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C parser to eliminate most hand fixes and enable incremental, editor-friendly parsing.
@@ -22,15 +22,15 @@ Non-goals (phase 1)
 ## Deliverables
 
 - `external/tree-sitter-lojban/` subdir with:
-  - `grammar.js` (Tree-sitter grammar skeleton; precedence to be added).
-  - `scanner.c` (external scanner stub; will bridge current tokenization).
+  - `grammar.js` (Tree-sitter grammar with sumti/selbri/connectives and precedence).
+  - `src/scanner.c` (external scanner with basic token emission; bridging to full lexer in progress).
   - `tree-sitter.json` (ABI 15 manifest and metadata).
   - `queries/` placeholders (highlights/folds/injections).
-  - `corpus/` sample for harness sanity.
+  - `corpus/` sample tests.
   - `package.json` (optional if using npx; global CLI also supported).
 - Integration glue in this repo:
-  - Make targets: `ts-generate`, `ts-test`, `ts-clean`.
-  - `tools/ts-validate` (WIP) to compare shapes vs the C parser.
+  - Make targets: `ts-generate`, `ts-test`, `ts-clean`, `ts-validate`.
+  - `tools/ts-validate` (prints TS parse trees; shape diff vs C parser next).
   - CI (later): compile grammar, run a corpus parse, and surface regressions.
   - Docs: user guide + mapping from C AST to TS nodes.
 
@@ -101,11 +101,13 @@ Phase 1: Skeleton grammar
 - Define precedence for basic connectives and JOI/JEK families.
 - Mark extras (UI/CAI/Y) and optional closers.
 
-Status: scaffold in place with a minimal rule to enable generate/test; expand with real nonterminals next.
+Status: complete - grammar expanded with sumti/selbri/connectives, precedence, and external scanner integration.
 
 Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
+
+Status: started - basic scanner emits reserved cmavo and words; integrating full lexer logic next.
 
 Phase 3: Coverage expansion
 - Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
@@ -203,7 +205,7 @@ Promoting to its own repo (best practice when stable)
 
 ## Next steps
 
-- Expand `grammar.js` with initial nonterminals (text→paragraph→statement; shells; delimiters) and precedence.
-- Implement `scanner.c` bridging the core lexer/preparser compounds (900‑series).
-- Add `tools/ts-validate` to normalize and compare shapes vs the C parser.
-- Add a CI job to run `ts-generate`/`ts-test` and validate over a small corpus.
+- Integrate full lexer logic into `src/scanner.c` for 900-series token emission.
+- Expand `tools/ts-validate` to run C parser and diff normalized shapes.
+- Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
+- Expand corpus with more test cases from `openwm.txt` and regression inputs.
