@@ -2,19 +2,18 @@
 import sys
 import re
 import json
+from collections import Counter
 
 def normalize_ts_tree(tree_str):
-    """Extract node types from TS tree S-expression."""
-    # Simple regex to find node types like (statement, (sumti, etc.
+    """Extract node types from TS tree S-expression and count occurrences."""
     nodes = re.findall(r'\((\w+)', tree_str)
-    return sorted(set(nodes))  # Unique node types
+    return Counter(nodes)
 
 def normalize_c_output(c_str):
-    """Extract node types from C parser output."""
-    # C output like (mi {klama }), so similar
+    """Extract node types from C parser output and count occurrences."""
     nodes = re.findall(r'\((\w+)|{(\w+)}', c_str)
     flat = [n for tup in nodes for n in tup if n]
-    return sorted(set(flat))
+    return Counter(flat)
 
 def main():
     if len(sys.argv) != 3:
@@ -27,17 +26,26 @@ def main():
     ts_nodes = normalize_ts_tree(ts_tree)
     c_nodes = normalize_c_output(c_output)
     
-    print(f"TS unique nodes: {len(ts_nodes)} - {', '.join(ts_nodes)}")
-    print(f"C unique nodes: {len(c_nodes)} - {', '.join(c_nodes)}")
+    print(f"TS node kinds: {len(ts_nodes)}")
+    print(f"C node kinds: {len(c_nodes)}")
     
     # Simple diff
-    only_ts = set(ts_nodes) - set(c_nodes)
-    only_c = set(c_nodes) - set(ts_nodes)
-    common = set(ts_nodes) & set(c_nodes)
-    
-    print(f"Common: {len(common)} - {', '.join(sorted(common))}")
-    print(f"Only TS: {len(only_ts)} - {', '.join(sorted(only_ts))}")
-    print(f"Only C: {len(only_c)} - {', '.join(sorted(only_c))}")
+    only_ts = set(ts_nodes.keys()) - set(c_nodes.keys())
+    only_c = set(c_nodes.keys()) - set(ts_nodes.keys())
+    common = set(ts_nodes.keys()) & set(c_nodes.keys())
+
+    def fmt_counts(prefix, kinds):
+        lines = []
+        for k in sorted(kinds):
+            t = ts_nodes.get(k, 0)
+            c = c_nodes.get(k, 0)
+            if t != c:
+                lines.append(f"  {k}: TS={t} C={c}")
+        return "\n".join(lines) if lines else "  (none)"
+
+    print(f"Common kinds with count deltas:\n{fmt_counts('common', common)}")
+    print(f"Only TS kinds: {', '.join(sorted(only_ts)) if only_ts else '(none)'}")
+    print(f"Only C kinds: {', '.join(sorted(only_c)) if only_c else '(none)'}")
 
 if __name__ == "__main__":
     main()

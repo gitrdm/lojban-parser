@@ -1,0 +1,17 @@
+=== Set-kind sumti starters ===
+
+le'i tavla
+
+---
+(source_file
+  (statement
+    (sumti (sumti_base lehi) (sumti_tail (selbri (tanru_unit (tanru_atom (word))))))
+    (selbri (tanru_unit (tanru_atom (brivla))))))
+
+lo'i prenu cu klama
+
+---
+(source_file
+  (statement
+    (sumti (sumti_base lohi) (sumti_tail (selbri (tanru_unit (tanru_atom (word))))))
+    (selbri (tanru_unit (tanru_atom (brivla))))))

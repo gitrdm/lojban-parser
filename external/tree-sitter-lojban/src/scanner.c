@@ -93,6 +93,8 @@ enum TokenType {
   LAHE,
   LEE,
   LOE,
+  LEHI,
+  LOHI,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -926,6 +928,40 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
+  // le'i (LEHI)
+  if (valid_symbols[LEHI] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LE'i (le'i)
+        }
+      }
+    }
+    return false;
+  }
+
+  // lo'i (LOHI)
+  if (valid_symbols[LOHI] && tolower(lexer->lookahead) == 'l') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // LO'i (lo'i)
+        }
+      }
+    }
+    return false;
+  }
+
   // lo'e (LOE)
   if (valid_symbols[LOE] && tolower(lexer->lookahead) == 'l') {
     lexer->advance(lexer, false);
@@ -1026,21 +1062,49 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       }
       return false;
     } else if (la == 'f') {
-      // fa'u
-      lexer->advance(lexer, false);
-      if (tolower(lexer->lookahead) == 'a') {
+        // fe'a or fa'u
         lexer->advance(lexer, false);
-        if (lexer->lookahead == '\'') {
+        int32_t n1 = tolower(lexer->lookahead);
+        if (n1 == 'e') {
+          // fe'a
           lexer->advance(lexer, false);
-          if (tolower(lexer->lookahead) == 'u') {
+          if (lexer->lookahead == '\'') {
             lexer->advance(lexer, false);
-            lexer->mark_end(lexer);
-            return true; // fa'u
+            if (tolower(lexer->lookahead) == 'a') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // fe'a
+            }
+          }
+        } else if (n1 == 'a') {
+          // fa'u
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'u') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // fa'u
+            }
           }
         }
+        return false;
+      } else if (la == 't') {
+        // te'a
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'e') {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'a') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // te'a
+            }
+          }
+        }
+        return false;
       }
-      return false;
-    }
   }
 
   // Fallback to WORD/CMENE/BRIVLA with cmene internal pause handling
