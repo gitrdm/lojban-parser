@@ -33,6 +33,8 @@ enum TokenType {
   TO,
   TOI,
   SEI,
+  ZIO,
+  CEU,
   SEU,
   VUH_O,
   VUH_U,
@@ -688,6 +690,40 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
           return true; // MAA (ma'a)
+        }
+      }
+    }
+    return false;
+  }
+
+  // zi'o (ZIO)
+  if (valid_symbols[ZIO] && tolower(lexer->lookahead) == 'z') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // ZIO
+        }
+      }
+    }
+    return false;
+  }
+
+  // ce'u (CEU)
+  if (valid_symbols[CEU] && tolower(lexer->lookahead) == 'c') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // CEU
         }
       }
     }

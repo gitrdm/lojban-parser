@@ -510,6 +510,14 @@
         },
         {
           "type": "SYMBOL",
+          "name": "zio"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ceu"
+        },
+        {
+          "type": "SYMBOL",
           "name": "word"
         }
       ]
@@ -519,32 +527,52 @@
       "name": "selbri"
     },
     "tanru_unit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "tanru_atom"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "subscript"
+          }
+        }
+      ]
+    },
+    "tanru_atom": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "ke"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "selbri"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "kehe"
-                },
-                {
-                  "type": "BLANK"
-                }
-              ]
-            }
-          ]
+          "type": "PREC_RIGHT",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "ke"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "selbri"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "kehe"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          }
         },
         {
           "type": "SYMBOL",
@@ -599,6 +627,31 @@
           "name": "by_unit"
         }
       }
+    },
+    "subscript": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "xi"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "boi"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
     },
     "quote": {
       "type": "SEQ",
@@ -775,6 +828,9 @@
     ],
     [
       "tanru_unit"
+    ],
+    [
+      "tanru_atom"
     ],
     [
       "by"
@@ -1025,6 +1081,14 @@
     {
       "type": "SYMBOL",
       "name": "by_unit"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "zio"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ceu"
     }
   ],
   "inline": [],

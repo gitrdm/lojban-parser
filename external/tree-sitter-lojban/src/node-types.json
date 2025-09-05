@@ -401,6 +401,29 @@
     }
   },
   {
+    "type": "subscript",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "boi",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "xi",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "subsentence",
     "named": true,
     "fields": {},
@@ -448,6 +471,10 @@
       "types": [
         {
           "type": "by",
+          "named": true
+        },
+        {
+          "type": "ceu",
           "named": true
         },
         {
@@ -509,6 +536,10 @@
         {
           "type": "word",
           "named": true
+        },
+        {
+          "type": "zio",
+          "named": true
         }
       ]
     }
@@ -529,7 +560,7 @@
     }
   },
   {
-    "type": "tanru_unit",
+    "type": "tanru_atom",
     "named": true,
     "fields": {},
     "children": {
@@ -564,6 +595,25 @@
     }
   },
   {
+    "type": "tanru_unit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "subscript",
+          "named": true
+        },
+        {
+          "type": "tanru_atom",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "term",
     "named": true,
     "fields": {},
@@ -580,6 +630,10 @@
   },
   {
     "type": "bo",
+    "named": true
+  },
+  {
+    "type": "boi",
     "named": true
   },
   {
@@ -604,6 +658,10 @@
   },
   {
     "type": "ceo_bo",
+    "named": true
+  },
+  {
+    "type": "ceu",
     "named": true
   },
   {
@@ -763,6 +821,10 @@
     "named": true
   },
   {
+    "type": "number",
+    "named": true
+  },
+  {
     "type": "sei",
     "named": true
   },
@@ -800,6 +862,14 @@
   },
   {
     "type": "word",
+    "named": true
+  },
+  {
+    "type": "xi",
+    "named": true
+  },
+  {
+    "type": "zio",
     "named": true
   }
 ]

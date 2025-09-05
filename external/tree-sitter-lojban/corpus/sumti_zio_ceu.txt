@@ -1,0 +1,13 @@
+=============================
+Sumti: zi'o and ce'u tokens
+=============================
+
+zi'o klama
+---
+(source_file
+  (statement (sumti (zio)) (selbri (tanru_unit (brivla)))))
+
+ce'u klama
+---
+(source_file
+  (statement (sumti (ceu)) (selbri (tanru_unit (brivla)))))

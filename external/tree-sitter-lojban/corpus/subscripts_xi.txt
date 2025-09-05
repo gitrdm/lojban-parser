@@ -1,0 +1,17 @@
+========================
+Subscripts with XI/BOI
+========================
+
+# Subscript attached to tanru unit; BOI optional
+
+lo klama xi 2 klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (subscript (xi) (number))))) (selbri (tanru_unit (brivla))))))
+
+# With BOI present
+
+lo klama xi 3 boi klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (subscript (xi) (number) (boi))))) (selbri (tanru_unit (brivla))))))

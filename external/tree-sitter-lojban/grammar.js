@@ -74,11 +74,14 @@ module.exports = grammar({
   $.mio,      // MIO (mi'o)
   $.maa,      // MAA (ma'a)
   $.by_unit,  // BY unit (single lerfu word)
+  $.zio,      // ZIO (zi'o)
+  $.ceu,      // CEU (ce'u)
   ],
   conflicts: $ => [
     [$.quote, $.statement],
   [$.parenthetical, $.statement],
   [$.tanru_unit],
+  [$.tanru_atom],
   [$.by]
   ],
 
@@ -165,15 +168,18 @@ module.exports = grammar({
   $.mio,                   // mi'o
   $.maa,                   // ma'a
   $.by,                    // lerfu-string (sequence of BY units)
+  $.zio,                   // zi'o
+  $.ceu,                   // ce'u
       $.word                   // fallback until we add more
     ),
 
   // Minimal tail for le/lo for this step
     sumti_tail: $ => $.selbri,
 
-  // Tanru: minimal support with KE/KEhE grouping and BO binding
-    tanru_unit: $ => choice(
-      seq($.ke, $.selbri, optional($.kehe)),
+  // Tanru: minimal support with KE/KEhE grouping and BO binding; allow subscripts (XI ... (BOI)?) attached to units
+    tanru_unit: $ => seq($.tanru_atom, repeat($.subscript)),
+    tanru_atom: $ => choice(
+      prec.right(1, seq($.ke, $.selbri, optional($.kehe))),
       $.brivla,
       $.by,
       $.word
@@ -182,6 +188,9 @@ module.exports = grammar({
 
   // Lerfu: by is one or more BY units (prefer grouping to the right to avoid ambiguity)
   by: $ => prec.right(1, repeat1($.by_unit)),
+
+  // Subscript: XI NUMBER (BOI)? — we do not enforce BOI outside subscript
+  subscript: $ => seq($.xi, $.number, optional($.boi)),
 
   // Quotes and parentheticals
     quote: $ => seq($.lu, repeat1($.word), $.lihU),
