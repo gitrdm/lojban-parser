@@ -204,16 +204,13 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // jek (placeholder connective)
+  // jek: recognize 'je' (using token name jek for now)
   if (valid_symbols[JEK] && lexer->lookahead == 'j') {
     lexer->advance(lexer, false);
     if (lexer->lookahead == 'e') {
       lexer->advance(lexer, false);
-      if (lexer->lookahead == 'k') {
-        lexer->advance(lexer, false);
-        lexer->mark_end(lexer);
-        return true; // JEK
-      }
+      lexer->mark_end(lexer);
+      return true; // JEK ('je')
     }
     return false;
   }

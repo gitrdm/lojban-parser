@@ -2,10 +2,10 @@
 Connectives
 ===========
 
-mi joi do klama
+mi je do klama
 ---
 (source_file
   (statement
     (sumti (word))
-    (connective (joi))
+  (connective (jek))
     (selbri (word))))
