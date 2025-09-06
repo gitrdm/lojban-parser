@@ -1,0 +1,10 @@
+=================================
+Subscripts: missing number recover
+=================================
+
+# Missing number after xi should not crash; parser should recover with a missing node
+
+lo klama xi cu klama
+---
+(source_file
+  (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (subscript (xi (MISSING number))))))) (selbri (tanru_unit (brivla)))))

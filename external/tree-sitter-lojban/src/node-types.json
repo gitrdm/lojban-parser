@@ -202,6 +202,37 @@
     }
   },
   {
+    "type": "number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "digits",
+          "named": true
+        },
+        {
+          "type": "kio",
+          "named": true
+        },
+        {
+          "type": "mau",
+          "named": true
+        },
+        {
+          "type": "niu",
+          "named": true
+        },
+        {
+          "type": "pi",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthetical",
     "named": true,
     "fields": {},
@@ -545,7 +576,19 @@
           "named": true
         },
         {
+          "type": "lea",
+          "named": true
+        },
+        {
           "type": "lee",
+          "named": true
+        },
+        {
+          "type": "lehi",
+          "named": true
+        },
+        {
+          "type": "leo",
           "named": true
         },
         {
@@ -553,7 +596,19 @@
           "named": true
         },
         {
+          "type": "loa",
+          "named": true
+        },
+        {
           "type": "loe",
+          "named": true
+        },
+        {
+          "type": "lohi",
+          "named": true
+        },
+        {
+          "type": "loo",
           "named": true
         },
         {
@@ -732,6 +787,10 @@
     "named": true
   },
   {
+    "type": "digits",
+    "named": true
+  },
+  {
     "type": "do",
     "named": true
   },
@@ -828,6 +887,10 @@
     "named": true
   },
   {
+    "type": "kio",
+    "named": true
+  },
+  {
     "type": "ko",
     "named": true
   },
@@ -852,7 +915,19 @@
     "named": true
   },
   {
+    "type": "lea",
+    "named": true
+  },
+  {
     "type": "lee",
+    "named": true
+  },
+  {
+    "type": "lehi",
+    "named": true
+  },
+  {
+    "type": "leo",
     "named": true
   },
   {
@@ -868,7 +943,19 @@
     "named": true
   },
   {
+    "type": "loa",
+    "named": true
+  },
+  {
     "type": "loe",
+    "named": true
+  },
+  {
+    "type": "lohi",
+    "named": true
+  },
+  {
+    "type": "loo",
     "named": true
   },
   {
@@ -877,6 +964,10 @@
   },
   {
     "type": "maa",
+    "named": true
+  },
+  {
+    "type": "mau",
     "named": true
   },
   {
@@ -892,11 +983,15 @@
     "named": true
   },
   {
+    "type": "niu",
+    "named": true
+  },
+  {
     "type": "noi",
     "named": true
   },
   {
-    "type": "number",
+    "type": "pi",
     "named": true
   },
   {

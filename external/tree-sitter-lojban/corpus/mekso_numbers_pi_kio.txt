@@ -2,11 +2,11 @@
 
 li 3 pi 1415
 ---
-(source_file (mex (li) (number) (mex_operator) (number)))
+(source_file (mex (li) (number)))
 
 li 12 ki’o 345 ki’o 678
 ---
-(source_file (mex (li) (number) (mex_operator) (number) (mex_operator) (number)))
+(source_file (mex (li) (number)))
 
 li pi 5
 ---

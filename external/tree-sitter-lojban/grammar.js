@@ -53,7 +53,11 @@ module.exports = grammar({
   $.li,       // LI
   $.boi,      // BOI
   $.xi,       // XI
-  $.number,   // NUMBER
+  $.digits,   // DIGITS (raw decimal digits)
+  $.pi,       // PI
+  $.kio,      // KIO (ki'o)
+  $.mau,      // MAU (ma'u)
+  $.niu,      // NIU (ni'u)
   $.mex_operator, // MEX_OPERATOR
   // Sumti starters (incremental)
   $.la,       // LA
@@ -208,7 +212,7 @@ module.exports = grammar({
   // Lerfu: by is one or more BY units (prefer grouping to the right to avoid ambiguity)
   by: $ => prec.right(1, repeat1($.by_unit)),
 
-  // Subscript: XI NUMBER (BOI)? — we do not enforce BOI outside subscript
+  // Subscript: XI number (BOI)? — we do not enforce BOI outside subscript
   subscript: $ => seq($.xi, $.number, optional($.boi)),
 
   // Quotes and parentheticals
@@ -233,7 +237,17 @@ module.exports = grammar({
     // Minimal term placeholder: treat as sumti for now
     term: $ => $.sumti,
 
-  // Mekso: li NUMBER ((MEX_OPERATOR NUMBER)*) (BOI)?
+  // Mekso: li number ((MEX_OPERATOR number)*) (BOI)?
   mex: $ => seq($.li, $.number, repeat(seq($.mex_operator, $.number)), optional($.boi)),
+
+  // Grammar-level number formation to minimize scanner logic
+  // number := (mau|niu)+? ((digits (kio digits)* (pi digits)? ) | (pi digits))
+  number: $ => seq(
+    optional(repeat1(choice($.mau, $.niu))),
+    choice(
+      seq($.digits, repeat(seq($.kio, $.digits)), optional(seq($.pi, $.digits))),
+      seq($.pi, $.digits)
+    )
+  ),
   }
 });

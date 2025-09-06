@@ -69,7 +69,11 @@ enum TokenType {
   LI,
   BOI,
   XI,
-  NUMBER,
+  DIGITS,
+  PI,
+  KIO,
+  MAU,
+  NIU,
   MEX_OPERATOR,
   // Sumti starters
   LA,
@@ -1076,130 +1080,75 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // NUMBER: digits with optional ki'o digit groups and optional decimal part with pi digits.
-  // Also allow fractional-only numbers starting with pi.
-  if (valid_symbols[NUMBER]) {
-    bool saw_any = false;
-    bool saw_pi = false;
-    // Optional leading signs: one or more of ma'u / ni'u, allowing pauses
-    for (;;) {
-      // Skip whitespace/pause
-      while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
-      int32_t l1 = tolower(lexer->lookahead);
-      if (l1 == 'm' || l1 == 'n') {
-        int is_sign = 0;
-        lexer->advance(lexer, false);
-        if ((l1 == 'm' && tolower(lexer->lookahead) == 'a') || (l1 == 'n' && tolower(lexer->lookahead) == 'i')) {
-          lexer->advance(lexer, false);
-          if (lexer->lookahead == '\'') {
-            lexer->advance(lexer, false);
-            if (tolower(lexer->lookahead) == 'u') {
-              lexer->advance(lexer, false);
-              is_sign = 1; // consumed ma'u or ni'u
-              // consume trailing pauses
-              while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
-            }
-          }
-        }
-        if (!is_sign) {
-          // rewind not supported; we over-consumed one or two letters. Given this occurs at number start only, bail out as not a number.
-          return false;
-        }
-        continue;
-      }
-      break;
-    }
-    // Case A: starts with digits
-    if (isdigit(lexer->lookahead)) {
-      saw_any = true;
-      do {
-        lexer->advance(lexer, false);
-      } while (isdigit(lexer->lookahead));
+  // DIGITS
+  if (valid_symbols[DIGITS] && isdigit(lexer->lookahead)) {
+    do {
+      lexer->advance(lexer, false);
+    } while (isdigit(lexer->lookahead));
+    lexer->mark_end(lexer);
+    return true; // DIGITS
+  }
+
+  // PI ("pi")
+  if (valid_symbols[PI] && tolower(lexer->lookahead) == 'p') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
       lexer->mark_end(lexer);
-  } else if (tolower(lexer->lookahead) == 'p') {
-      // Case B: starts with pi fractional form: pi DIGITS
-      int32_t c1 = tolower(lexer->lookahead);
-      if (c1 == 'p') {
-        // Peek 'i'
+      return true; // PI
+    }
+    return false;
+  }
+
+  // KIO ("ki'o")
+  if (valid_symbols[KIO] && tolower(lexer->lookahead) == 'k') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
         lexer->advance(lexer, false);
-        if (tolower(lexer->lookahead) == 'i') {
+        if (tolower(lexer->lookahead) == 'o') {
           lexer->advance(lexer, false);
-          // Optional whitespace/pause before digits
-          while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
-          if (isdigit(lexer->lookahead)) {
-            saw_any = true;
-            saw_pi = true;
-            do {
-              lexer->advance(lexer, false);
-            } while (isdigit(lexer->lookahead));
-            lexer->mark_end(lexer);
-          } else {
-            // No digits after pi: not a number; fall through
-            return false;
-          }
-        } else {
-          // Not 'pi' -> not a number
-          return false;
+          lexer->mark_end(lexer);
+          return true; // KIO
         }
       }
     }
-    if (saw_any) {
-      // Extend with zero or more (ki'o DIGITS) groups and optional (pi DIGITS) if not already seen.
-      for (;;) {
-        bool extended = false;
-        // Try ki'o group
-        // Skip whitespace/pause
-        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
-        if (tolower(lexer->lookahead) == 'k') {
-          // Probe for ki'o + digits
-          // Save probing position by just over-consuming; we'll rely on mark_end rollback if it fails
+    return false;
+  }
+
+  // MAU ("ma'u")
+  if (valid_symbols[MAU] && tolower(lexer->lookahead) == 'm') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
           lexer->advance(lexer, false);
-          if (tolower(lexer->lookahead) == 'i') {
-            lexer->advance(lexer, false);
-            if (lexer->lookahead == '\'') {
-              lexer->advance(lexer, false);
-              if (tolower(lexer->lookahead) == 'o') {
-                lexer->advance(lexer, false);
-                while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
-                if (isdigit(lexer->lookahead)) {
-                  extended = true;
-                  do {
-                    lexer->advance(lexer, false);
-                  } while (isdigit(lexer->lookahead));
-                  lexer->mark_end(lexer);
-                  continue; // try to extend further
-                }
-              }
-            }
-          }
-          // Probe failed: return the number as seen so far
-          return true;
+          lexer->mark_end(lexer);
+          return true; // MAU
         }
-        // Try decimal part if not yet present
-        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
-        if (!saw_pi && tolower(lexer->lookahead) == 'p') {
-          int ok = 0;
-          lexer->advance(lexer, false);
-          if (tolower(lexer->lookahead) == 'i') {
-            lexer->advance(lexer, false);
-            while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
-            if (isdigit(lexer->lookahead)) {
-              ok = 1;
-              saw_pi = true;
-              extended = true;
-              do {
-                lexer->advance(lexer, false);
-              } while (isdigit(lexer->lookahead));
-              lexer->mark_end(lexer);
-              continue;
-            }
-          }
-          if (!ok) return true; // return as-is
-        }
-        if (!extended) break;
       }
-      return true;
     }
+    return false;
+  }
+
+  // NIU ("ni'u")
+  if (valid_symbols[NIU] && tolower(lexer->lookahead) == 'n') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // NIU
+        }
+      }
+    }
+    return false;
   }
 
   // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish), fe'a (root-ish), fe'i (divide), te'a (power), ge'a, and simple comparators du (equals). Also accept ma'u/ni'u here when used infix.
@@ -1318,23 +1267,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           return true; // du
         }
         return false;
-      } else if (la == 'm' || la == 'n') {
-        // ma'u / ni'u as operator (when used infix)
-        int32_t first = la;
-        lexer->advance(lexer, false);
-        if ((first == 'm' && tolower(lexer->lookahead) == 'a') || (first == 'n' && tolower(lexer->lookahead) == 'i')) {
-          lexer->advance(lexer, false);
-          if (lexer->lookahead == '\'') {
-            lexer->advance(lexer, false);
-            if (tolower(lexer->lookahead) == 'u') {
-              lexer->advance(lexer, false);
-              lexer->mark_end(lexer);
-              return true; // ma'u / ni'u as operator
-            }
-          }
-        }
-        return false;
-      }
+  }
   }
 
   // Fallback to WORD/CMENE/BRIVLA with cmene internal pause handling

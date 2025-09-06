@@ -503,6 +503,84 @@
           "members": [
             {
               "type": "SYMBOL",
+              "name": "lehi"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "lohi"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "lea"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "leo"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "loa"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "loo"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "sumti_tail"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
               "name": "lahe"
             },
             {
@@ -868,6 +946,99 @@
           ]
         }
       ]
+    },
+    "number": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "mau"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "niu"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "digits"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "SYMBOL",
+                        "name": "kio"
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "digits"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SEQ",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "pi"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "digits"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "pi"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "digits"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "extras": [
@@ -1071,7 +1242,23 @@
     },
     {
       "type": "SYMBOL",
-      "name": "number"
+      "name": "digits"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "pi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "kio"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "mau"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "niu"
     },
     {
       "type": "SYMBOL",
@@ -1160,6 +1347,30 @@
     {
       "type": "SYMBOL",
       "name": "loe"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "lehi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "lohi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "lea"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "leo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "loa"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "loo"
     }
   ],
   "inline": [],

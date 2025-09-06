@@ -1,6 +1,6 @@
 # Tree-sitter integration design (proposal)
 
-Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 in progress)
+Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 in progress — expanded coverage and tests)
 Owner: TBD
 Reviewers: TBD
 Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C parser to eliminate most hand fixes and enable incremental, editor-friendly parsing.
@@ -26,15 +26,15 @@ Non-goals (phase 1)
 ## Deliverables
 
 - `external/tree-sitter-lojban/` subdir with:
-  - `grammar.js` (Tree-sitter grammar with sumti/selbri/connectives and precedence; simplified shells for early validation; connective+bo precedence modeled).
-  - `src/scanner.c` (external scanner with whitespace handling (including '.' as pause), case-insensitive reserved cmavo, apostrophe-inclusive word buffering, and basic cmene/brivla classification; bridging to full lexer in progress).
+  - `grammar.js` (Tree-sitter grammar with sumti/selbri/connectives and precedence; KE/KEhE grouping; XI subscripts; connective+bo precedence modeled).
+  - `src/scanner.c` (external scanner with whitespace handling (including '.' as pause), case-insensitive reserved cmavo, apostrophe-inclusive word buffering, and cmene/brivla classification aligned with legacy heuristics; 900-series connective compounds and sumti starters integrated; bridging to full lexer in progress).
   - `tree-sitter.json` (ABI 15 manifest and metadata).
   - `queries/` placeholders (highlights/folds/injections).
   - `corpus/` sample tests.
   - `package.json` (optional if using npx; global CLI also supported).
 - Integration glue in this repo:
   - Make targets: `ts-generate`, `ts-test`, `ts-clean`, `ts-validate`.
-  - `tools/ts-validate` (prints TS parse trees; basic shape diff vs C parser — stub).
+  - `tools/ts-validate` (prints TS parse trees; structural shape diff vs C parser). Helper `tools/ts-diff.py` compares node kinds and occurrence counts.
   - CI (later): compile grammar, run a corpus parse, and surface regressions.
   - Docs: user guide + mapping from C AST to TS nodes.
 
@@ -43,8 +43,14 @@ Non-goals (phase 1)
 - Lexer/Scanner
   - External scanner implemented and active. It currently:
     - Skips whitespace internally (treats '.' as space) and uses `mark_end` to report correct token spans.
-    - Buffers words (letters + apostrophe) and lowercases for classification; mirrors `iscmene`/`isbrivla` from `src/lex.c`.
-    - Recognizes a seed set of reserved cmavo case-insensitively: `lu`, `li'u`, `to`, `toi`, `sei`, `se'u`, `joi`, `je` (token name `jek`), plus `bo`, `ke`, and relative clause delimiters `vuhO`/`vuhU`.
+    - Buffers words (letters + apostrophe) and lowercases for classification; mirrors `iscmene`/`isbrivla` from `src/lex.c` with refinements (CVCCV/CCVCV segments; `y/h` ignored; `r/n` acts as a vowel hyphen).
+    - Recognizes reserved cmavo families case-insensitively, including:
+      - Quotes/parentheses/free-mod: `lu`/`li'u`, `to`/`toi`, `sei`/`se'u`.
+      - Connectives and compounds: `joi`/`ce`/`ce'o` and `je/ja/jo/ju` families, their `_bo` variants, and i-prefixed joiners `i`, `i_bo`, `i_*`.
+      - Grouping/binding: `bo`, `ke`, `ke'e`, `cu`.
+      - Relative clauses: `noi` (poi/noi/voi), `ku'o`, `goi`, `ge'u`, and `vuhO`/`vuhU` paren-like shells.
+      - Sumti starters/pronouns: `la`, `le`, `lo`, `la'e`, `le'e`, `lo'e`, `le'i`, `lo'i`, `le'a`, `le'o`, `mi`, `do`, `ti/ta/tu`, `da`, `ko`, `mi'o`, `ma'a`, special sumti `zi'o`, `ce'u`, and BY lerfu units/strings.
+      - Mekso: `li`, numbers, `boi`, `xi` (subscripts), and a seed operator set `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`.
     - Emits generic `word` when classification is inconclusive.
   - Next: bridge more of the existing lexer/preparser to surface 900-series compound tokens (`lexer_*`) and additional cmavo families.
   - Longer-term: explore moving some compounding into TS rules once precedence is encoded and ambiguity is manageable.
@@ -115,7 +121,7 @@ Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
 
-Status: in progress - morphology and reserved cmavo implemented; 900-series compounds integrated for connective families and i-joiners; spacing/pause tolerant; corpus updated and passing. Selbri supports BO-chained tanru with minimal units and KE/KEhE grouping; CU separator present; relative clauses (NOI/KUhO and GOI/GEhU) attached to sumti.
+Status: in progress - morphology and reserved cmavo implemented; 900-series compounds integrated for connective families and i-joiners; spacing/pause tolerant; corpus updated and passing. Selbri supports BO-chained tanru with KE/KEhE grouping; CU separator present; relative clauses (NOI/KUhO and GOI/GEhU) attach to sumti; subscripts via `XI` with `BOI` only enforced contextually; lerfu BY strings supported; sumti starters include la/le/lo plus la'e/le'e/lo'e, le'i/lo'i, le'a/le'o, pronouns, and special sumti `zi'o`/`ce'u`.
 
 Phase 3: Coverage expansion
 - Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
@@ -233,15 +239,15 @@ Promoting to its own repo (best practice when stable)
   - Done: i-prefixed joiners `i`, `i_bo`, `i_ja/je/jo/ju`, `i_ce/ce'o`, `i_joi`.
   - Behavior: case-insensitive; tolerates whitespace and pause '.' between parts.
 - Expand `tools/ts-validate` to run C parser and diff normalized shapes.
-  - Done (stub): runs C parser when available and prints an approximate shape diff (node line counts). Next: normalize TS vs C for structural diff.
+  - Done: runs C parser (when available) and prints a structural shape diff. `tools/ts-diff.py` compares node kind sets and counts.
 - Add a corpus runner to process `tests/regress/inputs/test_sentences.jsonl`, compare against `tests/regress/outputs/sentences_results.jsonl`, and track pass rates; use this to verify progress of the full grammar. Any failures should guide principled grammar/scanner improvements—not ad‑hoc patches.
 - Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
 - Expand corpus with more test cases from `openwm.txt` and regression inputs.
 - Quotes/parentheses: add more LU/LIhU and TO/TOI tests (nesting/recovery).
-- Mekso: expand NUMBER/MEX_OPERATOR coverage and add subscript `XI` contexts; enforce BOI strictness only in subscript where required; add tests.
+- Mekso: expand NUMBER/MEX_OPERATOR coverage and add subscript `XI` contexts; enforce BOI strictness only in subscript where required; add tests. [Partially done: `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`; `XI` subscripts with optional `BOI` implemented.]
 - Lerfu: extend BY to handle multi-lerfu strings and integration in more sumti tails.
 - Morphology: incrementally port additional legacy lex rules (rafsi endings, hyphenation) with guard tests; keep y/h tolerance scoped.
-- Sumti: broaden starters/anaphora and quantifiers beyond current set (la'e/le'e/lo'e, zi'o, ce'u, etc.) with focused tests.
+- Sumti: broaden starters/anaphora and quantifiers beyond current set (la'e/le'e/lo'e, zi'o, ce'u, etc.) with focused tests. [Progress: added `le'i`, `lo'i`, `le'a`, `le'o` with corpus cases.]
 - Validation: enhance tools/ts-validate to normalize and diff TS vs C trees structurally, and wire into CI.
 
 ## Changelog (2025-09-05)
@@ -257,3 +263,10 @@ Promoting to its own repo (best practice when stable)
  - CU separator: implemented between leading sumti and selbri.
  - Morphology: ported and refined cmene/brivla heuristics. Brivla require final vowel and either a consonant cluster or a CVCCV/CCVCV-like segment (ignoring y/h). Cmene require final consonant; internal pauses allowed only as .C. Guard tests added.
  - Lerfu: basic BY lerfu-word added as a sumti path with tiny corpus tests.
+
+Additional updates (later on 2025-09-05):
+- Sumti starters: generic kinds `le'e`/`lo'e` and set kinds `le'i`/`lo'i`, plus `le'a` and `le'o`. Added minimal corpus coverage.
+- Lerfu: multi-lerfu BY strings and separators; allowed inside tanru atoms.
+- Subscripts: `xi` attaches to tanru units; recovery test for missing number after `xi`.
+- Mekso: extended operator coverage with `fe'a`, `fe'i`, `te'a`; chaining validated; optional final `boi` accepted.
+- Validation: `tools/ts-diff.py` now compares node kind counts for more meaningful diffs.
