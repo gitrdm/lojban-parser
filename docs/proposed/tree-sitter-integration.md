@@ -55,6 +55,31 @@ Non-goals (phase 1)
   - Next: bridge more of the existing lexer/preparser to surface 900-series compound tokens (`lexer_*`) and additional cmavo families.
   - Longer-term: explore moving some compounding into TS rules once precedence is encoded and ambiguity is manageable.
 
+### Externals-to-legacy token mapping (ordering contract)
+
+The externals array in `external/tree-sitter-lojban/grammar.js` must match the `enum TokenType` order in `external/tree-sitter-lojban/src/scanner.c` exactly. This keeps Tree-sitter token IDs stable and avoids shift/reduce table drift.
+
+Mapping highlights (TS external → Legacy family):
+
+- word/cmene/brivla → generic WORD / CMENE / BRIVLA from legacy lexer morphology.
+- lu, lihU; to, toi; sei, seu → LU/LIhU; TO/TOI; SEI/SEhU.
+- vuhO, vuhU → VUhO/VUhU shells.
+- joi/ce/ce’o and je/ja/jo/ju (+ _bo) → JOI/CEO/CE and JEK families with BO compounds (legacy: JOI_502, JEK_501, *_BO compounds from 900-series preparser).
+- i, i_bo, i_* → I and i+connective compounds (legacy: lexer_i*, 900-series).
+- li, boi, xi; digits, pi, kio; mau, niu → LI/BOI/XI; PA/PI/KI’O; MAU/NIU tokens used to form numbers (legacy: PA_672 and friends).
+- mex_operator → arithmetic and comparator/inequality cmavo (legacy: MEX_310/operator_370 incl. su’i, vu’u, pi’i, fa’u, fe’a, fe’i, te’a, ge’a, du; extended here with me’i, za’u).
+- la/le/lo and families la’e/le’e/lo’e, le’i/lo’i, le’a/le’o, lo’a/lo’o → LA/LE/LO and derivative selma’o.
+- noi/kuho; goi/gehu → NOI/KUhO; GOI/GEhU.
+- cu → CU separator.
+- by_unit → BY (lerfu unit); `by` rule in grammar composes strings.
+- Forethought: ge/ga/go/gu; gi → GE/GA/GO/GU; GI.
+- giha → GIhA (gi’a/gi’e/gi’o/gi’u); se/na/nai decorate GIhA in grammar (legacy: JOIK/GIhEK with modifiers).
+- bihi → BIhI (interval cmavo: bi’i, bi’o supported now); gaho → GAhO (interval markers: ga’o, ke’i supported now).
+
+Notes:
+- We intentionally keep structure (GIhEK modifiers, BIhI bracket forms, forethought GEK … GI …) in grammar, not scanner; the scanner only recognizes atomic cmavo.
+- When adding externals, append to the end to avoid renumbering existing tokens; if reordering is necessary, update both grammar.js and scanner.c in lockstep.
+
 - Grammar
   - Remove left recursion; encode precedence/associativity for connectives and MEX operators via `prec.left` / `prec.right`.
   - Mekso number formation is defined in grammar: `number := (ma'u|ni'u)+? (digits (ki'o digits)* (pi digits)? | (pi digits))`. This keeps structure visible and reduces scanner “hand waving”.

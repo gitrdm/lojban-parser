@@ -1,0 +1,9 @@
+=== Mekso: basic inequalities me’i and za’u ===
+
+li 2 me’i 3
+---
+(source_file (mex (li) (number) (mex_operator) (number)))
+
+li 4 za’u 3
+---
+(source_file (mex (li) (number) (mex_operator) (number)))

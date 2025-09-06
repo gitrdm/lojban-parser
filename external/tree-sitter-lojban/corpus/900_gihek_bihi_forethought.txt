@@ -14,12 +14,37 @@ lo klama na gi'o tavla nai
 ---
 (source_file (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (gihek) (tanru_unit (brivla))))))))
 
-# BIhI bare and bracketed with GAhO
+# More permutations
+lo klama na se gi'e tavla
+---
+(source_file (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (gihek) (tanru_unit (brivla))))))))
+
+lo klama se gi'u tavla nai
+---
+(source_file (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (gihek) (tanru_unit (brivla))))))))
+
+# BIhI bare and bracketed with GAhO; include SE/NAI variants
 mi bajra bi'i klama
 ---
 (source_file (statement (sumti (mi)) (connective (bihi_mod)) (selbri (brivla))))
 
-mi bajra ga'ho bi'i ga'ho klama
+mi bajra ga'o bi'i ga'o klama
+---
+(source_file (statement (sumti (mi)) (connective (gaho) (bihi_mod) (gaho)) (selbri (brivla))))
+
+mi bajra se bi'i klama
+---
+(source_file (statement (sumti (mi)) (connective (bihi_mod)) (selbri (brivla))))
+
+mi bajra bi'i nai klama
+---
+(source_file (statement (sumti (mi)) (connective (bihi_mod)) (selbri (brivla))))
+
+mi bajra se bi'i nai klama
+---
+(source_file (statement (sumti (mi)) (connective (bihi_mod)) (selbri (brivla))))
+
+mi bajra ke'i bi'i ga'o klama
 ---
 (source_file (statement (sumti (mi)) (connective (gaho) (bihi_mod) (gaho)) (selbri (brivla))))
 
@@ -27,3 +52,15 @@ mi bajra ga'ho bi'i ga'ho klama
 ge mi klama gi do tavla
 ---
 (source_file (forethought (ge) (statement (sumti (mi)) (selbri (brivla))) (gi) (statement (sumti (do)) (selbri (brivla)))))
+
+ga mi klama gi do tavla
+---
+(source_file (forethought (ga) (statement (sumti (mi)) (selbri (brivla))) (gi) (statement (sumti (do)) (selbri (brivla)))))
+
+go mi klama gi do tavla
+---
+(source_file (forethought (go) (statement (sumti (mi)) (selbri (brivla))) (gi) (statement (sumti (do)) (selbri (brivla)))))
+
+gu mi klama gi do tavla
+---
+(source_file (forethought (gu) (statement (sumti (mi)) (selbri (brivla))) (gi) (statement (sumti (do)) (selbri (brivla)))))

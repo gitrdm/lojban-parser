@@ -853,38 +853,56 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // BIhI (interval connectives)
+  // BIhI (interval connectives): bi'i, bi'o (limited set for now)
   if (valid_symbols[BIHI] && tolower(lexer->lookahead) == 'b') {
     lexer->advance(lexer, false);
     if (tolower(lexer->lookahead) == 'i') {
       lexer->advance(lexer, false);
       if (lexer->lookahead == '\'') {
         lexer->advance(lexer, false);
-        if (tolower(lexer->lookahead) == 'i') {
+        int32_t v = tolower(lexer->lookahead);
+        if (v == 'i' || v == 'o') {
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
-          return true; // bi'i
+          return true; // bi'i or bi'o
         }
       }
     }
     return false;
   }
 
-  // GAhO (interval bracket marker)
-  if (valid_symbols[GAHO] && tolower(lexer->lookahead) == 'g') {
-    lexer->advance(lexer, false);
-    if (tolower(lexer->lookahead) == 'a') {
+  // GAhO (interval bracket markers): ga'o, ke'i
+  if (valid_symbols[GAHO]) {
+    if (tolower(lexer->lookahead) == 'g') {
       lexer->advance(lexer, false);
-      if (tolower(lexer->lookahead) == 'h') {
+      if (tolower(lexer->lookahead) == 'a') {
         lexer->advance(lexer, false);
-        if (tolower(lexer->lookahead) == 'o') {
+        if (lexer->lookahead == '\'') {
           lexer->advance(lexer, false);
-          lexer->mark_end(lexer);
-          return true; // gaho
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // ga'o
+          }
         }
       }
+      return false;
+    } else if (tolower(lexer->lookahead) == 'k') {
+      // ke'i
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // ke'i
+          }
+        }
+      }
+      return false;
     }
-    return false;
   }
 
   // SE
@@ -1295,7 +1313,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish), fe'a (root-ish), fe'i (divide), te'a (power), ge'a, and simple comparators du (equals). Also accept ma'u/ni'u here when used infix.
+  // mex_operator: arithmetic set su'i, vu'u, pi'i, fa'u, fe'a, fe'i, te'a, ge'a; comparators du, and basic inequalities me'i (<) and za'u (>). Also accept ma'u/ni'u here when used infix.
   if (valid_symbols[MEX_OPERATOR]) {
     int32_t la = tolower(lexer->lookahead);
     if (la == 's') {
@@ -1409,6 +1427,36 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
           return true; // du
+        }
+        return false;
+      } else if (la == 'm') {
+        // me'i (<)
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'e') {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'i') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // me'i
+            }
+          }
+        }
+        return false;
+      } else if (la == 'z') {
+        // za'u (>)
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'a') {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'u') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // za'u
+            }
+          }
         }
         return false;
   }
