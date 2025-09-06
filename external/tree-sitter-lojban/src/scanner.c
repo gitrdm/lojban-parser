@@ -1076,13 +1076,102 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     return false;
   }
 
-  // number (digits)
-  if (valid_symbols[NUMBER] && isdigit(lexer->lookahead)) {
-    do {
-      lexer->advance(lexer, false);
-    } while (isdigit(lexer->lookahead));
-    lexer->mark_end(lexer);
-    return true; // NUMBER
+  // NUMBER: digits with optional ki'o digit groups and optional decimal part with pi digits.
+  // Also allow fractional-only numbers starting with pi.
+  if (valid_symbols[NUMBER]) {
+    bool saw_any = false;
+    bool saw_pi = false;
+    // Case A: starts with digits
+    if (isdigit(lexer->lookahead)) {
+      saw_any = true;
+      do {
+        lexer->advance(lexer, false);
+      } while (isdigit(lexer->lookahead));
+      lexer->mark_end(lexer);
+    } else if (tolower(lexer->lookahead) == 'p') {
+      // Case B: starts with pi fractional form: pi DIGITS
+      int32_t c1 = tolower(lexer->lookahead);
+      if (c1 == 'p') {
+        // Peek 'i'
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          // Optional whitespace/pause before digits
+          while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+          if (isdigit(lexer->lookahead)) {
+            saw_any = true;
+            saw_pi = true;
+            do {
+              lexer->advance(lexer, false);
+            } while (isdigit(lexer->lookahead));
+            lexer->mark_end(lexer);
+          } else {
+            // No digits after pi: not a number; fall through
+            return false;
+          }
+        } else {
+          // Not 'pi' -> not a number
+          return false;
+        }
+      }
+    }
+    if (saw_any) {
+      // Extend with zero or more (ki'o DIGITS) groups and optional (pi DIGITS) if not already seen.
+      for (;;) {
+        bool extended = false;
+        // Try ki'o group
+        // Skip whitespace/pause
+        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'k') {
+          // Probe for ki'o + digits
+          // Save probing position by just over-consuming; we'll rely on mark_end rollback if it fails
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            if (lexer->lookahead == '\'') {
+              lexer->advance(lexer, false);
+              if (tolower(lexer->lookahead) == 'o') {
+                lexer->advance(lexer, false);
+                while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+                if (isdigit(lexer->lookahead)) {
+                  extended = true;
+                  do {
+                    lexer->advance(lexer, false);
+                  } while (isdigit(lexer->lookahead));
+                  lexer->mark_end(lexer);
+                  continue; // try to extend further
+                }
+              }
+            }
+          }
+          // Probe failed: return the number as seen so far
+          return true;
+        }
+        // Try decimal part if not yet present
+        while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+        if (!saw_pi && tolower(lexer->lookahead) == 'p') {
+          int ok = 0;
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+            if (isdigit(lexer->lookahead)) {
+              ok = 1;
+              saw_pi = true;
+              extended = true;
+              do {
+                lexer->advance(lexer, false);
+              } while (isdigit(lexer->lookahead));
+              lexer->mark_end(lexer);
+              continue;
+            }
+          }
+          if (!ok) return true; // return as-is
+        }
+        if (!extended) break;
+      }
+      return true;
+    }
   }
 
   // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish), fe'a (root-ish), fe'i (divide), te'a (power), ge'a/ki'o/pi (basic placeholders)
@@ -1133,7 +1222,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         }
       }
       return false;
-    } else if (la == 'f') {
+  } else if (la == 'f') {
         // fe'a / fe'i / fa'u
         lexer->advance(lexer, false);
         int32_t n1 = tolower(lexer->lookahead);
@@ -1162,7 +1251,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           }
         }
         return false;
-      } else if (la == 't') {
+  } else if (la == 't') {
         // te'a
         lexer->advance(lexer, false);
         if (tolower(lexer->lookahead) == 'e') {
@@ -1191,31 +1280,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
             }
           }
         }
-        return false;
-      } else if (la == 'k') {
-        // ki'o
-        lexer->advance(lexer, false);
-        if (tolower(lexer->lookahead) == 'i') {
-          lexer->advance(lexer, false);
-          if (lexer->lookahead == '\'') {
-            lexer->advance(lexer, false);
-            if (tolower(lexer->lookahead) == 'o') {
-              lexer->advance(lexer, false);
-              lexer->mark_end(lexer);
-              return true; // ki'o
-            }
-          }
-        }
-        return false;
-      } else if (la == 'p') {
-        // pi (as operator for decimal separator in simple model)
-        lexer->advance(lexer, false);
-        if (tolower(lexer->lookahead) == 'i') {
-          lexer->advance(lexer, false);
-          lexer->mark_end(lexer);
-          return true; // pi
-        }
-        return false;
+  return false;
       }
   }
 
