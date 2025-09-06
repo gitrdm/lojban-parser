@@ -1,0 +1,43 @@
+name: tree-sitter
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  ts-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install tree-sitter CLI
+        run: |
+          npm install -g tree-sitter-cli
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Build C parser (if needed)
+        run: |
+          make
+
+      - name: Generate and test Tree-sitter
+        run: |
+          make ts-generate
+          make ts-test
+
+      - name: Validate TS against sample files
+        run: |
+          make ts-ci
+
+      - name: Run corpus sampler (JSONL)
+        run: |
+          python3 tools/ts-corpus-runner.py tests/regress/inputs/test_sentences.jsonl --limit 1000

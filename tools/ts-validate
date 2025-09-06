@@ -6,6 +6,28 @@ set -euo pipefail
 TS_DIR="$(dirname "$0")/../external/tree-sitter-lojban"
 TS_DIR="$(cd "$TS_DIR" && pwd)"
 
+# Capture absolute paths of inputs before changing directory
+FILES=()
+if [ "$#" -gt 0 ]; then
+  for f in "$@"; do
+    # Expand globs here and resolve to absolute paths
+    for p in $f; do
+      if command -v python3 >/dev/null 2>&1; then
+        abs="$(python3 - "$p" <<'PY'
+import os,sys
+p=sys.argv[1]
+print(os.path.abspath(p))
+PY
+)"
+      else
+        # Fallback: prefix with current PWD
+        abs="$(pwd)/$p"
+      fi
+      FILES+=("$abs")
+    done
+  done
+fi
+
 if command -v tree-sitter >/dev/null 2>&1; then
   TS=tree-sitter
 elif command -v npx >/dev/null 2>&1; then
@@ -20,7 +42,7 @@ cd "$TS_DIR"
 # Ensure generated sources exist
 $TS generate >/dev/null
 
-if [ "$#" -eq 0 ]; then
+if [ "${#FILES[@]}" -eq 0 ]; then
   echo "No inputs provided; parsing corpus samples (if any)..."
   set +e
   $TS test
@@ -28,7 +50,7 @@ if [ "$#" -eq 0 ]; then
 fi
 
 status=0
-for f in "$@"; do
+for f in "${FILES[@]}"; do
   if [ ! -f "$f" ]; then
     echo "Skip (not a file): $f" >&2
     continue
@@ -44,12 +66,13 @@ for f in "$@"; do
   fi
 
   # If the C parser exists, run it and show a normalized shape diff
-  PARSER_C="$(cd "$TS_DIR/../.." && pwd)/parser"
+  REPO_ROOT="$(cd "$TS_DIR/../.." && pwd)"
+  PARSER_C="$REPO_ROOT/parser"
   if [ -x "$PARSER_C" ] && command -v python3 >/dev/null 2>&1; then
     c_out="$("$PARSER_C" < "$f" 2>/dev/null || true)"
     if [ -n "$c_out" ]; then
       echo "--- shape diff ---"
-      python3 "$(dirname "$0")/ts-diff.py" "$ts_tree" "$c_out"
+      python3 "$REPO_ROOT/tools/ts-diff.py" "$ts_tree" "$c_out"
     fi
   fi
 done

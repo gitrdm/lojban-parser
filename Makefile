@@ -173,7 +173,14 @@ ts-clean:
 
 ts-validate: ts-generate
 	@chmod +x tools/ts-validate
-	@tools/ts-validate examples/* || true
+	@echo "Validating TS parse on sample files..."
+	@tools/ts-validate openwm.txt openwm1.txt external/tree-sitter-lojban/corpus/* || true
+
+.PHONY: ts-ci
+ts-ci: ts-generate ts-test parser
+	@chmod +x tools/ts-validate
+	@echo "[ts-ci] Running Tree-sitter validation against sample texts and corpus..."
+	@tools/ts-validate openwm.txt openwm1.txt external/tree-sitter-lojban/corpus/* || true
 regen:
 	@mkdir -p grammar $(BUILD_SRC) $(BUILD_INC)
 	@echo "Regenerating grammar from grammar/grammar.$(BASELINE) -> grammar/grammar.y ... (GLR=$(GLR))"
