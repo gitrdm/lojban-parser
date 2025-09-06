@@ -101,13 +101,14 @@ module.exports = grammar({
   $.se,       // SE
   $.na,       // NA
   $.nai,      // NAI
+  // Vocatives
+  $.coi,      // COI (vocative heads: coi, co'o, fi'i, je'e, ki'e, mi'e, mu'o, ta'a, be'e, vi'o, re'i, ju'i, pe'u)
+  $.doi,      // DOI (addressing vocative)
+  $.dohu,     // DOhU (do'u terminator)
   ],
   conflicts: $ => [
-    [$.quote, $.statement],
-  [$.parenthetical, $.statement],
-  [$.tanru_unit],
-  [$.tanru_atom],
-  [$.by]
+    [$.tanru_unit],
+    [$.vocative]
   ],
 
   extras: $ => [
@@ -125,6 +126,7 @@ module.exports = grammar({
       $.statement,
       $.i_statement,
   $.forethought,
+  $.vocative,
       $.quote,
       $.parenthetical,
       $.free_modifier,
@@ -215,7 +217,7 @@ module.exports = grammar({
     sumti_tail: $ => $.selbri,
 
   // Tanru: minimal support with KE/KEhE grouping and BO binding; allow subscripts (XI ... (BOI)?) attached to units
-    tanru_unit: $ => seq($.tanru_atom, repeat($.subscript)),
+  tanru_unit: $ => prec.left(1, seq($.tanru_atom, repeat($.subscript))),
     tanru_atom: $ => choice(
       prec.right(1, seq($.ke, $.selbri, optional($.kehe))),
       $.brivla,
@@ -231,17 +233,24 @@ module.exports = grammar({
   )),
 
   // Lerfu: by is one or more BY units (prefer grouping to the right to avoid ambiguity)
-  by: $ => prec.right(1, repeat1($.by_unit)),
+  by: $ => prec.right(3, repeat1($.by_unit)),
 
   // Subscript: XI number (BOI)? — we do not enforce BOI outside subscript
   subscript: $ => seq($.xi, $.number, optional($.boi)),
 
   // Quotes and parentheticals
-    quote: $ => seq($.lu, repeat1($.word), $.lihU),
-    parenthetical: $ => seq($.to, repeat1($._unit), $.toi),
+  quote: $ => prec.right(1, seq($.lu, repeat1($.word), $.lihU)),
+  parenthetical: $ => prec.right(1, seq($.to, repeat1($._unit), $.toi)),
 
   // Free modifier
     free_modifier: $ => seq($.sei, repeat1($.word), $.seu),
+
+  // Vocatives (COI/DOI ... (DOhU)?). Keep structure in grammar; scanner emits atomic heads/terminator.
+  // coi [term]? (do'u)? | doi term (do'u)?
+  vocative: $ => choice(
+    seq($.coi, optional($.term), optional($.dohu)),
+    seq($.doi, $.term, optional($.dohu))
+  ),
 
   // Relative clause shells (kept for earlier tests)
   relative_clause: $ => seq($.vuhO, repeat1($._unit), $.vuhU),

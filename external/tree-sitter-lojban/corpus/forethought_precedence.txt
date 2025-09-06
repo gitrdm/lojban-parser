@@ -1,0 +1,11 @@
+=== Forethought precedence/chaining sanity ===
+
+# Mix GEK with nested statements to ensure we parse GE/GA/GO/GU uniformly
+ge mi klama gi ge do tavla gi ti citka
+---
+(source_file (forethought (ge) (statement (sumti (mi)) (selbri (brivla))) (gi) (statement (forethought (ge) (statement (sumti (do)) (selbri (brivla))) (gi) (statement (sumti (ti)) (selbri (brivla)))))))
+
+# Alternate starters
+ga mi klama gi go do tavla gi tu citka
+---
+(source_file (forethought (ga) (statement (sumti (mi)) (selbri (brivla))) (gi) (statement (forethought (go) (statement (sumti (do)) (selbri (brivla))) (gi) (statement (sumti (tu)) (selbri (brivla)))))))

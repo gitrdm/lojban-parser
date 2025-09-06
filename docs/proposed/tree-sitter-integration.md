@@ -1,6 +1,6 @@
 # Tree-sitter integration design (proposal)
 
-Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 in progress — expanded coverage and tests; mekso numbers now formed in grammar)
+Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 complete — expanded coverage and tests; Phase 3 complete — vocatives, Mekso + subscripts, VUhO glue; Mekso numbers now formed in grammar)
 Owner: TBD
 Reviewers: TBD
 Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C parser to eliminate most hand fixes and enable incremental, editor-friendly parsing.
@@ -50,7 +50,7 @@ Non-goals (phase 1)
       - Grouping/binding: `bo`, `ke`, `ke'e`, `cu`.
       - Relative clauses: `noi` (poi/noi/voi), `ku'o`, `goi`, `ge'u`, and `vuhO`/`vuhU` paren-like shells.
       - Sumti starters/pronouns: `la`, `le`, `lo`, `la'e`, `le'e`, `lo'e`, `le'i`, `lo'i`, `le'a`, `le'o`, `mi`, `do`, `ti/ta/tu`, `da`, `ko`, `mi'o`, `ma'a`, special sumti `zi'o`, `ce'u`, and BY lerfu units/strings.
-  - Mekso: `li`, `boi`, `xi` (subscripts); atomic tokens `digits` (raw digits), `pi`, `ki'o`, and sign tokens `ma'u`/`ni'u`; operator set `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`, plus comparator `du`. Signs are not operators.
+  - Mekso: `li`, `boi`, `xi` (subscripts); atomic tokens `digits` (raw digits), `pi`, `ki'o`, and sign tokens `ma'u`/`ni'u`; operator set `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`, comparator `du`, and basic inequalities `me'i`/`za'u`. Signs are not operators.
     - Emits generic `word` when classification is inconclusive.
   - Next: bridge more of the existing lexer/preparser to surface 900-series compound tokens (`lexer_*`) and additional cmavo families.
   - Longer-term: explore moving some compounding into TS rules once precedence is encoded and ambiguity is manageable.
@@ -79,6 +79,14 @@ Mapping highlights (TS external → Legacy family):
 Notes:
 - We intentionally keep structure (GIhEK modifiers, BIhI bracket forms, forethought GEK … GI …) in grammar, not scanner; the scanner only recognizes atomic cmavo.
 - When adding externals, append to the end to avoid renumbering existing tokens; if reordering is necessary, update both grammar.js and scanner.c in lockstep.
+
+Deferred/explicitly out of Phase 2 scope (900-series audit):
+- NAhE-BO and NA KU compounding (lexer_I_945 / lexer_J_950) — grammar will own placement; scanner will expose the atomic cmavo only (NAhE, BO; NA, KU). Covered later when we wire conversion/negation rules.
+- Misc. ek/joik compounding beyond current JOI/JEK families already surfaced — retained as grammar-level precedence, not scanner compounds.
+
+Scanner behavior notes:
+- Whitespace/pause: spaces, tabs, newline, and the dot and slash chars are treated as pauses (ignored).
+- Backslash-newline: now handled as a line continuation and ignored.
 
 - Grammar
   - Remove left recursion; encode precedence/associativity for connectives and MEX operators via `prec.left` / `prec.right`.
@@ -147,7 +155,7 @@ Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
 
-Status: in progress
+Status: complete
 - Done:
   - Morphology and reserved cmavo implemented; connective families and i-joiners integrated as compounds; spacing/pause tolerant.
   - Mekso numbers formed in grammar; scanner emits `digits`/`pi`/`ki'o` and `ma'u`/`ni'u` signs as atomic tokens; signs removed from operator set.
@@ -156,17 +164,22 @@ Status: in progress
   - Subscripts via `XI` with `BOI` enforced only in subscript context.
   - Lerfu BY strings supported.
   - Sumti starters include la/le/lo; la'e/le'e/lo'e; le'i/lo'i; le'a/le'o; lo'a/lo'o; pronouns; special sumti `zi'o`/`ce'u`.
-- Pending to complete Phase 2:
-  - Surface remaining 900-series compounds beyond connectives (audit vs `lexrules.h`).
-  - Add nest-depth tracking for quotes/parentheses to improve recovery across files.
-  - Wire scanner core knobs: dot-as-pause, backslash-newline, slash-ignore, to match legacy exactly (documented and tested).
-  - Expand operator families (comparators/inequalities) gated by tests; keep them as `mex_operator` terminals.
-  - Stabilize token inventory and externals order; document mapping to legacy tokens.
+  - 900-series audit items integrated at the grammar level with atomic tokens from the scanner:
+    - GIhA (gi'a/gi'e/gi'o/gi'u) with GIhEK modifiers `se`/`na`/`nai` expressed in grammar; tiny corpus coverage.
+    - BIhI (interval connectives: `bi'i`, `bi'o`) with optional `SE`/`NAI`; bracket markers `GAhO` (`ga'o`, `ke'i`) for interval endpoints; tiny corpus coverage.
+    - Forethought GEK (`ge`/`ga`/`go`/`gu`) with `gi` separator; nested precedence sanity tests.
+  - Scanner core behavior parity documented and implemented: dot and slash treated as pauses; backslash-newline handled as line continuation; focused corpus tests added.
+  - Operator families expanded with basic inequalities `me'i` and `za'u` (in addition to `du` and arithmetic operators); tiny mex corpus coverage.
+  - Nest-depth tracking for `LU/LIhU`, `TO/TOI`, and `VUhO/VUhU` is implemented and serialized for robust recovery.
+- Deferred to later phases (tracked and documented):
+  - Remaining 900-series compound behaviors beyond connectives (e.g., NAhE-BO and NA KU compounding) — keep scanner atomic and model structure in grammar when those rules are added.
+  - Additional mex comparators/inequalities beyond `du`, `me'i`, `za'u` — add as needed with tiny tests.
+  - CI wiring for ts-validate/shape diff and broader corpus automation.
 
-Phase 3: Coverage expansion
-- Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
-- Flesh out precedence and associativity tables; remove any residual left recursion.
-- Tanru composition: BO chaining (done) and KE/KEhE grouping (done).
+Phase 3: Coverage expansion — Status: complete
+- Implemented: relative clauses (VUhO glue), vocatives (COI/DOI/DOhU), Mekso (in grammar), and subscripts (`XI`) with contextual `BOI` strictness.
+- Hardened behavior: trimmed unnecessary conflicts to the minimal set (keep `tanru_unit` conflict only; `vocative` conflict retained conservatively), raised precedence for `by` strings, added right-associative bias to `quote`/`parenthetical`, and made `tanru_unit` left-preferential for subscripts.
+- Tests: added mixed cases combining vocatives with forethought and relative clauses (`corpus/vocatives_mixed.txt`).
 
 Phase 4: Validation and CI
 - Build a corpus from `openwm.txt`, tests/regress inputs.
@@ -316,6 +329,22 @@ Mekso number formation moved into grammar (later on 2025-09-05):
 - Grammar forms `number` from signs + digits + grouping + decimal; supports fractional-only `pi` form.
 - Removed `ma'u`/`ni'u` as infix operators; left comparator `du` and core arithmetic operators in `mex_operator`.
 - Updated corpus expectations accordingly; generation and tests remain green.
+
+## Changelog (2025-09-06)
+
+- Phase 2 completion:
+  - 900-series: added GIhA tokens with grammar-level GIhEK modifiers (`se`/`na`/`nai`); BIhI (`bi'i`, `bi'o`) with optional `SE`/`NAI`; GAhO interval markers (`ga'o`, `ke'i`); and forethought GEK (`ge/ga/go/gu`) + `gi` separator. Added focused corpora: `900_gihek_bihi_forethought.txt` and `forethought_precedence.txt`.
+  - Mekso: extended `mex_operator` with inequalities `me'i` and `za'u`. Added `mekso_inequalities.txt` corpus.
+  - Scanner: implemented backslash-newline continuation; added test `continuation_backslash_newline.txt`. Confirmed dot and slash are pauses. Depth tracking for LU/LIhU, TO/TOI, VUhO/VUhU already in place and serialized.
+  - Documentation: externals-to-legacy mapping expanded; ordering contract and deferred items (NAhE-BO, NA KU) noted.
+
+- Phase 3 progress (vocatives):
+  - Implemented vocatives: external tokens for COI family heads, DOI, and DOhU; grammar-level rule `vocative := (coi term? do'u?) | (doi term do'u?)` and allowed as a top-level unit. Added `corpus/vocatives.txt` with greeting, addressing, preface, and head variants.
+
+Later on 2025-09-06 (Phase 3 hardening):
+- Conflict trimming: removed broad conflicts; left only `tanru_unit` (required by generator) and retained a focused `vocative` conflict. Parser generation now reports only `tanru_unit` as an unnecessary conflict.
+- Precedence tweaks: increased precedence of `by` to prefer BY strings over ambiguous tanru atoms; wrapped `quote` and `parenthetical` with `prec.right` to stabilize bodies; added `prec.left(1)` to `tanru_unit` so subscripts (`XI`) bind to the preceding atom.
+- Tests: added `external/tree-sitter-lojban/corpus/vocatives_mixed.txt` for vocative + forethought and vocative + RC combinations. All corpus tests pass.
 
 Phase 2 completion checklist snapshot:
 - [x] Connective families (+bo) and i-prefixed joiners

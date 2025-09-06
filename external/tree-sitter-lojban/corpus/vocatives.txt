@@ -1,0 +1,30 @@
+=== Vocatives: coi/doi family with optional DOhU ===
+
+# Simple greeting
+coi do do'u
+---
+(source_file (vocative (coi) (term (sumti (do))) (dohu)))
+
+# Addressing with doi requires a term
+doi la .djan. do'u
+---
+(source_file (vocative (doi) (term (sumti (la) (cmene))) (dohu)))
+
+# Vocative as preface to a statement
+coi do do'u mi tavla
+---
+(source_file (vocative (coi) (term (sumti (do))) (dohu)) (statement (sumti (mi)) (selbri (brivla))))
+
+# Without explicit DOhU (allowed)
+coi mi
+---
+(source_file (vocative (coi) (term (sumti (mi)))))
+
+# Other heads in the COI family
+ki'e do do'u
+---
+(source_file (vocative (coi) (term (sumti (do))) (dohu)))
+
+mi'e .alis.
+---
+(source_file (vocative (coi) (term (sumti (cmene)))))

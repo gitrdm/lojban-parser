@@ -1,0 +1,17 @@
+=== Vocatives combined with forethought and RCs ===
+
+# Vocative preface + forethought
+coi do do'u ge mi klama gi do tavla
+---
+(source_file
+  (vocative (coi) (term (sumti (do))) (dohu))
+  (forethought (ge) (statement (sumti (mi)) (selbri (tanru_unit (word)))) (gi) (statement (sumti (do)) (selbri (tanru_unit (word))))))
+
+# Addressing + RC inside the argument
+doi lo nanmu poi tavla ku'o do'u mi klama
+---
+(source_file
+  (vocative (doi)
+    (term (sumti (lo) (sumti_tail (selbri (tanru_unit (word)))) (relative_clause_rc (noi) (subsentence (statement (selbri (tanru_unit (word))))) (kuho))))
+    (dohu))
+  (statement (sumti (mi)) (selbri (tanru_unit (word)))))

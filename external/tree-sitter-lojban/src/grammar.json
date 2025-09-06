@@ -26,6 +26,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "vocative"
+        },
+        {
+          "type": "SYMBOL",
           "name": "quote"
         },
         {
@@ -681,20 +685,24 @@
       "name": "selbri"
     },
     "tanru_unit": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "tanru_atom"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "SYMBOL",
-            "name": "subscript"
+            "name": "tanru_atom"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "subscript"
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "tanru_atom": {
       "type": "CHOICE",
@@ -791,7 +799,7 @@
     },
     "by": {
       "type": "PREC_RIGHT",
-      "value": 1,
+      "value": 3,
       "content": {
         "type": "REPEAT1",
         "content": {
@@ -826,44 +834,52 @@
       ]
     },
     "quote": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "lu"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "SYMBOL",
-            "name": "word"
+            "name": "lu"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "word"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "lihU"
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "lihU"
-        }
-      ]
+        ]
+      }
     },
     "parenthetical": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "to"
-        },
-        {
-          "type": "REPEAT1",
-          "content": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
             "type": "SYMBOL",
-            "name": "_unit"
+            "name": "to"
+          },
+          {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_unit"
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "toi"
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "toi"
-        }
-      ]
+        ]
+      }
     },
     "free_modifier": {
       "type": "SEQ",
@@ -882,6 +898,69 @@
         {
           "type": "SYMBOL",
           "name": "seu"
+        }
+      ]
+    },
+    "vocative": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "coi"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "term"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "dohu"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "doi"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "term"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "dohu"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -1230,21 +1309,10 @@
   ],
   "conflicts": [
     [
-      "quote",
-      "statement"
-    ],
-    [
-      "parenthetical",
-      "statement"
-    ],
-    [
       "tanru_unit"
     ],
     [
-      "tanru_atom"
-    ],
-    [
-      "by"
+      "vocative"
     ]
   ],
   "precedences": [],
@@ -1596,6 +1664,18 @@
     {
       "type": "SYMBOL",
       "name": "nai"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "coi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "doi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "dohu"
     }
   ],
   "inline": [],

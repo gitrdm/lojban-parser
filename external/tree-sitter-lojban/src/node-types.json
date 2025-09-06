@@ -387,6 +387,10 @@
         {
           "type": "toi",
           "named": true
+        },
+        {
+          "type": "vocative",
+          "named": true
         }
       ]
     }
@@ -452,6 +456,10 @@
         },
         {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "vocative",
           "named": true
         },
         {
@@ -562,6 +570,10 @@
         },
         {
           "type": "statement",
+          "named": true
+        },
+        {
+          "type": "vocative",
           "named": true
         }
       ]
@@ -863,6 +875,33 @@
     }
   },
   {
+    "type": "vocative",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "coi",
+          "named": true
+        },
+        {
+          "type": "dohu",
+          "named": true
+        },
+        {
+          "type": "doi",
+          "named": true
+        },
+        {
+          "type": "term",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bihi",
     "named": true
   },
@@ -907,6 +946,10 @@
     "named": true
   },
   {
+    "type": "coi",
+    "named": true
+  },
+  {
     "type": "cu",
     "named": true
   },
@@ -920,6 +963,14 @@
   },
   {
     "type": "do",
+    "named": true
+  },
+  {
+    "type": "dohu",
+    "named": true
+  },
+  {
+    "type": "doi",
     "named": true
   },
   {

@@ -1,0 +1,7 @@
+=== Backslash-newline continuation is ignored (sentences still need i) ===
+mi klama \
+  i do tavla
+---
+(source_file
+  (statement (sumti (mi)) (selbri (brivla)))
+  (i_statement (i) (statement (sumti (do)) (selbri (brivla)))))

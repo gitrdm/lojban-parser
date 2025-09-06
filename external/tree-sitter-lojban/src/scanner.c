@@ -117,6 +117,10 @@ enum TokenType {
   SE,
   NA,
   NAI,
+  // Vocatives
+  COI,
+  DOI,
+  DOHU,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -244,8 +248,24 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   Scanner *scanner = (Scanner *)payload;
 
   // Skip whitespace
-  while (is_ws_or_pause(lexer->lookahead) && !lexer->eof(lexer)) {
-    lexer->advance(lexer, false);
+  while (!lexer->eof(lexer)) {
+    if (is_ws_or_pause(lexer->lookahead)) {
+      lexer->advance(lexer, false);
+      continue;
+    }
+    // Treat backslash-newline as a line continuation (ignore both)
+    if (lexer->lookahead == '\\') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\r') {
+        lexer->advance(lexer, false);
+      }
+      if (lexer->lookahead == '\n') {
+        lexer->advance(lexer, false);
+      }
+      // If it wasn't a newline pair, we still treat the lone backslash as ignorable
+      continue;
+    }
+    break;
   }
 
   if (lexer->eof(lexer)) return false;
@@ -1277,6 +1297,224 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       }
     }
     return false;
+  }
+
+  // DOhU (do'u)
+  if (valid_symbols[DOHU] && tolower(lexer->lookahead) == 'd') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // DOhU (do'u)
+        }
+      }
+    }
+    return false;
+  }
+
+  // DOI (vocative addressing)
+  if (valid_symbols[DOI] && tolower(lexer->lookahead) == 'd') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // DOI
+      }
+    }
+    return false;
+  }
+
+  // COI family (vocative heads)
+  // Support common heads: coi, co'o, fi'i, je'e, ki'e, mi'e, mu'o, ta'a, be'e, vi'o, re'i, ju'i, pe'u
+  if (valid_symbols[COI]) {
+    int32_t la = tolower(lexer->lookahead);
+    if (la == 'c') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'o') {
+        lexer->advance(lexer, false);
+        int32_t n = tolower(lexer->lookahead);
+        if (n == 'i') { // coi
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true;
+        }
+        if (n == '\'') { // co'
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') { // co'o
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'f') {
+      // fi'i
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'j') {
+      // je'e
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'e') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'k') {
+      // ki'e
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'e') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'm') {
+      // mi'e / mu'o
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'e') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // mi'e
+          }
+        }
+      } else if (tolower(lexer->lookahead) == 'u') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true; // mu'o
+          }
+        }
+      }
+      return false;
+    } else if (la == 't') {
+      // ta'a
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'a') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'a') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'b') {
+      // be'e
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'e') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'v') {
+      // vi'o
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'o') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'r') {
+      // re'i
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'j') {
+      // ju'i
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'u') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'i') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    } else if (la == 'p') {
+      // pe'u
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'e') {
+        lexer->advance(lexer, false);
+        if (lexer->lookahead == '\'') {
+          lexer->advance(lexer, false);
+          if (tolower(lexer->lookahead) == 'u') {
+            lexer->advance(lexer, false);
+            lexer->mark_end(lexer);
+            return true;
+          }
+        }
+      }
+      return false;
+    }
   }
 
   // MAU ("ma'u")
