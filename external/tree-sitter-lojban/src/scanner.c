@@ -22,6 +22,9 @@ typedef struct {
   char *word_buffer;
   size_t word_len;
   size_t word_cap;
+  uint16_t lu_depth;
+  uint16_t to_depth;
+  uint16_t vuh_depth;
 } Scanner;
 
 enum TokenType {
@@ -120,16 +123,33 @@ void tree_sitter_lojban_external_scanner_destroy(void *payload) {
 }
 
 void tree_sitter_lojban_external_scanner_reset(void *payload) {
-  (void)payload;
+  Scanner *scanner = (Scanner *)payload;
+  scanner->lu_depth = 0;
+  scanner->to_depth = 0;
+  scanner->vuh_depth = 0;
 }
 
 unsigned tree_sitter_lojban_external_scanner_serialize(void *payload, char *buffer) {
-  (void)payload; (void)buffer;
-  return 0;
+  Scanner *s = (Scanner *)payload;
+  // Store depths as 6 bytes (little endian 3x uint16_t)
+  buffer[0] = (char)(s->lu_depth & 0xFF);
+  buffer[1] = (char)((s->lu_depth >> 8) & 0xFF);
+  buffer[2] = (char)(s->to_depth & 0xFF);
+  buffer[3] = (char)((s->to_depth >> 8) & 0xFF);
+  buffer[4] = (char)(s->vuh_depth & 0xFF);
+  buffer[5] = (char)((s->vuh_depth >> 8) & 0xFF);
+  return 6;
 }
 
 void tree_sitter_lojban_external_scanner_deserialize(void *payload, const char *buffer, unsigned length) {
-  (void)payload; (void)buffer; (void)length;
+  Scanner *s = (Scanner *)payload;
+  if (length >= 6) {
+    s->lu_depth = (uint16_t)((unsigned char)buffer[0] | ((unsigned char)buffer[1] << 8));
+    s->to_depth = (uint16_t)((unsigned char)buffer[2] | ((unsigned char)buffer[3] << 8));
+    s->vuh_depth = (uint16_t)((unsigned char)buffer[4] | ((unsigned char)buffer[5] << 8));
+  } else {
+    s->lu_depth = s->to_depth = s->vuh_depth = 0;
+  }
 }
 
 static int isC(char c) {
@@ -141,7 +161,8 @@ static int isV(char c) {
 }
 
 static inline int is_ws_or_pause(int32_t ch) {
-  return iswspace(ch) || ch == '.'; // Treat '.' as a pause (space)
+  // Treat '.' as a pause; also treat '/' as ignorable separator akin to whitespace.
+  return iswspace(ch) || ch == '.' || ch == '/';
 }
 
 static inline int is_word_char(int32_t ch) {
@@ -228,13 +249,14 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     if (tolower(lexer->lookahead) == 'u') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
+      scanner->lu_depth++;
       return true; // LU
     }
     return false;
   }
 
   // li'u (lihU)
-  if (valid_symbols[LIHU] && tolower(lexer->lookahead) == 'l') {
+  if (valid_symbols[LIHU] && scanner->lu_depth > 0 && tolower(lexer->lookahead) == 'l') {
     lexer->advance(lexer, false);
     if (tolower(lexer->lookahead) == 'i') {
       lexer->advance(lexer, false);
@@ -243,6 +265,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         if (tolower(lexer->lookahead) == 'u') {
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
+          if (scanner->lu_depth > 0) scanner->lu_depth--;
           return true; // LIHU
         }
       }
@@ -284,6 +307,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     if (tolower(lexer->lookahead) == 'o') {
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
+      scanner->to_depth++;
       return true; // TO
     }
     return false;
@@ -307,13 +331,14 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // toi
-  if (valid_symbols[TOI] && tolower(lexer->lookahead) == 't') {
+  if (valid_symbols[TOI] && scanner->to_depth > 0 && tolower(lexer->lookahead) == 't') {
     lexer->advance(lexer, false);
     if (tolower(lexer->lookahead) == 'o') {
       lexer->advance(lexer, false);
       if (tolower(lexer->lookahead) == 'i') {
         lexer->advance(lexer, false);
         lexer->mark_end(lexer);
+        if (scanner->to_depth > 0) scanner->to_depth--;
         return true; // TOI
       }
     }
@@ -819,6 +844,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         if (tolower(lexer->lookahead) == 'o') {
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
+          scanner->vuh_depth++;
           return true; // VUH_O
         }
       }
@@ -827,7 +853,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   }
 
   // vuhU
-  if (valid_symbols[VUH_U] && tolower(lexer->lookahead) == 'v') {
+  if (valid_symbols[VUH_U] && scanner->vuh_depth > 0 && tolower(lexer->lookahead) == 'v') {
     lexer->advance(lexer, false);
     if (tolower(lexer->lookahead) == 'u') {
       lexer->advance(lexer, false);
@@ -836,6 +862,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         if (tolower(lexer->lookahead) == 'u') {
           lexer->advance(lexer, false);
           lexer->mark_end(lexer);
+          if (scanner->vuh_depth > 0) scanner->vuh_depth--;
           return true; // VUH_U
         }
       }

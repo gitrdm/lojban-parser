@@ -1,6 +1,6 @@
 # Tree-sitter integration design (proposal)
 
-Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 in progress — expanded coverage and tests)
+Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 in progress — expanded coverage and tests; mekso numbers now formed in grammar)
 Owner: TBD
 Reviewers: TBD
 Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C parser to eliminate most hand fixes and enable incremental, editor-friendly parsing.
@@ -50,13 +50,14 @@ Non-goals (phase 1)
       - Grouping/binding: `bo`, `ke`, `ke'e`, `cu`.
       - Relative clauses: `noi` (poi/noi/voi), `ku'o`, `goi`, `ge'u`, and `vuhO`/`vuhU` paren-like shells.
       - Sumti starters/pronouns: `la`, `le`, `lo`, `la'e`, `le'e`, `lo'e`, `le'i`, `lo'i`, `le'a`, `le'o`, `mi`, `do`, `ti/ta/tu`, `da`, `ko`, `mi'o`, `ma'a`, special sumti `zi'o`, `ce'u`, and BY lerfu units/strings.
-      - Mekso: `li`, numbers, `boi`, `xi` (subscripts), and a seed operator set `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`.
+  - Mekso: `li`, `boi`, `xi` (subscripts); atomic tokens `digits` (raw digits), `pi`, `ki'o`, and sign tokens `ma'u`/`ni'u`; operator set `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`, plus comparator `du`. Signs are not operators.
     - Emits generic `word` when classification is inconclusive.
   - Next: bridge more of the existing lexer/preparser to surface 900-series compound tokens (`lexer_*`) and additional cmavo families.
   - Longer-term: explore moving some compounding into TS rules once precedence is encoded and ambiguity is manageable.
 
 - Grammar
   - Remove left recursion; encode precedence/associativity for connectives and MEX operators via `prec.left` / `prec.right`.
+  - Mekso number formation is defined in grammar: `number := (ma'u|ni'u)+? (digits (ki'o digits)* (pi digits)? | (pi digits))`. This keeps structure visible and reduces scanner “hand waving”.
   - Model elidable closers as optional terminals: e.g., `seq: L ... (LIhU)?`.
   - Treat simple indicators (UI/CAI/Y/NAI where appropriate) as `extras`, so they’re globally skippable without clutter.
   - Keep structured free-mods as rules: `SEI ... SEhU`, `XI` subscripts, quotes `LU … LIhU`, parentheticals `TO … TOI`, etc.
@@ -121,7 +122,21 @@ Phase 2: External scanner
 - Bridge to existing lexer/preparser to emit 900-series tokens; ensure tokens align with current grammar expectations.
 - Validate on sample texts; ensure nesting and closers behave with recovery.
 
-Status: in progress - morphology and reserved cmavo implemented; 900-series compounds integrated for connective families and i-joiners; spacing/pause tolerant; corpus updated and passing. Selbri supports BO-chained tanru with KE/KEhE grouping; CU separator present; relative clauses (NOI/KUhO and GOI/GEhU) attach to sumti; subscripts via `XI` with `BOI` only enforced contextually; lerfu BY strings supported; sumti starters include la/le/lo plus la'e/le'e/lo'e, le'i/lo'i, le'a/le'o, pronouns, and special sumti `zi'o`/`ce'u`.
+Status: in progress
+- Done:
+  - Morphology and reserved cmavo implemented; connective families and i-joiners integrated as compounds; spacing/pause tolerant.
+  - Mekso numbers formed in grammar; scanner emits `digits`/`pi`/`ki'o` and `ma'u`/`ni'u` signs as atomic tokens; signs removed from operator set.
+  - Selbri supports BO-chained tanru with KE/KEhE grouping; CU separator present.
+  - Relative clauses (NOI/KUhO and GOI/GEhU) attach to sumti.
+  - Subscripts via `XI` with `BOI` enforced only in subscript context.
+  - Lerfu BY strings supported.
+  - Sumti starters include la/le/lo; la'e/le'e/lo'e; le'i/lo'i; le'a/le'o; lo'a/lo'o; pronouns; special sumti `zi'o`/`ce'u`.
+- Pending to complete Phase 2:
+  - Surface remaining 900-series compounds beyond connectives (audit vs `lexrules.h`).
+  - Add nest-depth tracking for quotes/parentheses to improve recovery across files.
+  - Wire scanner core knobs: dot-as-pause, backslash-newline, slash-ignore, to match legacy exactly (documented and tested).
+  - Expand operator families (comparators/inequalities) gated by tests; keep them as `mex_operator` terminals.
+  - Stabilize token inventory and externals order; document mapping to legacy tokens.
 
 Phase 3: Coverage expansion
 - Add relative clauses (VUhO glue), vocatives, Mekso, subscripts (`XI`), BOI strictness in subscript contexts.
@@ -244,7 +259,7 @@ Promoting to its own repo (best practice when stable)
 - Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
 - Expand corpus with more test cases from `openwm.txt` and regression inputs.
 - Quotes/parentheses: add more LU/LIhU and TO/TOI tests (nesting/recovery).
-- Mekso: expand NUMBER/MEX_OPERATOR coverage and add subscript `XI` contexts; enforce BOI strictness only in subscript where required; add tests. [Partially done: `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`; `XI` subscripts with optional `BOI` implemented.]
+- Mekso: expand number/test coverage (now grammar-formed) and `MEX_OPERATOR` families; enforce BOI strictness only in subscript where required; add tests. [Partially done: numbers with `pi`/`ki'o` and `ma'u`/`ni'u` signs; operators `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`, `du`; `XI` subscripts with optional `BOI` implemented.]
 - Lerfu: extend BY to handle multi-lerfu strings and integration in more sumti tails.
 - Morphology: incrementally port additional legacy lex rules (rafsi endings, hyphenation) with guard tests; keep y/h tolerance scoped.
 - Sumti: broaden starters/anaphora and quantifiers beyond current set (la'e/le'e/lo'e, zi'o, ce'u, etc.) with focused tests. [Progress: added `le'i`, `lo'i`, `le'a`, `le'o` with corpus cases.]
@@ -270,3 +285,21 @@ Additional updates (later on 2025-09-05):
 - Subscripts: `xi` attaches to tanru units; recovery test for missing number after `xi`.
 - Mekso: extended operator coverage with `fe'a`, `fe'i`, `te'a`; chaining validated; optional final `boi` accepted.
 - Validation: `tools/ts-diff.py` now compares node kind counts for more meaningful diffs.
+
+Mekso number formation moved into grammar (later on 2025-09-05):
+- Introduced externals `digits`, `pi`, `ki'o`, `ma'u`, `ni'u`; removed scanner-side `NUMBER`.
+- Grammar forms `number` from signs + digits + grouping + decimal; supports fractional-only `pi` form.
+- Removed `ma'u`/`ni'u` as infix operators; left comparator `du` and core arithmetic operators in `mex_operator`.
+- Updated corpus expectations accordingly; generation and tests remain green.
+
+Phase 2 completion checklist snapshot:
+- [x] Connective families (+bo) and i-prefixed joiners
+- [x] KE/KEhE grouping; BO chaining; CU separator
+- [x] RCs (NOI/KUhO; GOI/GEhU)
+- [x] Lerfu BY strings
+- [x] Sumti starters (la/le/lo; la'e/le'e/lo'e; le'i/lo'i; le'a/le'o; lo'a/lo'o); pronouns; zi'o/ce'u
+- [x] Subscripts with XI and contextual BOI
+- [x] Mekso number formation in grammar; operator seed set including `du`
+- [ ] Remaining 900-series compounds (audit)
+- [ ] Nest-depth tracking for quotes/parentheses
+- [ ] Scanner core behavior parity (dot-as-pause/backslash-newline/slash-ignore) documented and tested
