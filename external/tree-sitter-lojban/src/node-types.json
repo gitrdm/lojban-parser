@@ -1,5 +1,32 @@
 [
   {
+    "type": "be_chain",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "be",
+          "named": true
+        },
+        {
+          "type": "beho",
+          "named": true
+        },
+        {
+          "type": "bei",
+          "named": true
+        },
+        {
+          "type": "term_noku",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bihi_mod",
     "named": true,
     "fields": {},
@@ -521,6 +548,10 @@
           "named": true
         },
         {
+          "type": "co",
+          "named": true
+        },
+        {
           "type": "gihek",
           "named": true
         },
@@ -791,6 +822,25 @@
     }
   },
   {
+    "type": "sumti_noku",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "relative_clause_rc",
+          "named": true
+        },
+        {
+          "type": "sumti_base",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "sumti_tail",
     "named": true,
     "fields": {},
@@ -849,6 +899,10 @@
       "required": true,
       "types": [
         {
+          "type": "be_chain",
+          "named": true
+        },
+        {
           "type": "subscript",
           "named": true
         },
@@ -869,6 +923,21 @@
       "types": [
         {
           "type": "sumti",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "term_noku",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "sumti_noku",
           "named": true
         }
       ]
@@ -900,6 +969,18 @@
         }
       ]
     }
+  },
+  {
+    "type": "be",
+    "named": true
+  },
+  {
+    "type": "beho",
+    "named": true
+  },
+  {
+    "type": "bei",
+    "named": true
   },
   {
     "type": "bihi",
@@ -943,6 +1024,10 @@
   },
   {
     "type": "cmene",
+    "named": true
+  },
+  {
+    "type": "co",
     "named": true
   },
   {

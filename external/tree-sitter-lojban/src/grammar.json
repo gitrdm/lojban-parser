@@ -467,6 +467,27 @@
         }
       ]
     },
+    "sumti_noku": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "sumti_base"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "relative_clause_rc"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
     "sumti_base": {
       "type": "CHOICE",
       "members": [
@@ -695,6 +716,18 @@
             "name": "tanru_atom"
           },
           {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "be_chain"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          },
+          {
             "type": "REPEAT",
             "content": {
               "type": "SYMBOL",
@@ -759,6 +792,27 @@
           {
             "type": "SYMBOL",
             "name": "tanru_unit"
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "co"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "tanru_unit"
+                  }
+                ]
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
           },
           {
             "type": "REPEAT",
@@ -832,6 +886,51 @@
           ]
         }
       ]
+    },
+    "be_chain": {
+      "type": "PREC_RIGHT",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "be"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "term_noku"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "bei"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "term_noku"
+                }
+              ]
+            }
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "beho"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        ]
+      }
     },
     "quote": {
       "type": "PREC_RIGHT",
@@ -1035,6 +1134,10 @@
     "term": {
       "type": "SYMBOL",
       "name": "sumti"
+    },
+    "term_noku": {
+      "type": "SYMBOL",
+      "name": "sumti_noku"
     },
     "mex": {
       "type": "SEQ",
@@ -1333,6 +1436,9 @@
     ],
     [
       "vocative"
+    ],
+    [
+      "sumti_noku"
     ]
   ],
   "precedences": [],
@@ -1716,6 +1822,22 @@
     {
       "type": "SYMBOL",
       "name": "fu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "be"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "bei"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "beho"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "co"
     }
   ],
   "inline": [],

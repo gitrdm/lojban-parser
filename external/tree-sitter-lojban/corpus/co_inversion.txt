@@ -1,0 +1,14 @@
+CO inverts tanru units right-binding once
+
+==================
+mi cu broda co brode do
+
+---
+(source_file
+  (statement
+    (sumti (mi))
+    (cu)
+    (selbri
+      (tanru_unit (word))
+      (tanru_unit (word)))
+    (sumti (do))))

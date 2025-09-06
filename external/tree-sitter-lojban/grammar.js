@@ -111,10 +111,16 @@ module.exports = grammar({
   $.fi,       // FI
   $.fo,       // FO
   $.fu,       // FU
+  // BE-linking and CO inversion
+  $.be,       // BE
+  $.bei,      // BEI
+  $.beho,     // BEhO (be'o)
+  $.co,       // CO
   ],
   conflicts: $ => [
     [$.tanru_unit],
-    [$.vocative]
+  [$.vocative],
+  [$.sumti_noku]
   ],
 
   extras: $ => [
@@ -193,6 +199,12 @@ module.exports = grammar({
       optional($.ku)
     ),
 
+      // Sumti variant without trailing KU (for BE-chain arguments)
+      sumti_noku: $ => seq(
+        $.sumti_base,
+        optional($.relative_clause_rc)
+      ),
+
     sumti_base: $ => choice(
       seq($.la, $.cmene),      // la cmene
       seq($.le, $.sumti_tail), // le + selbri
@@ -225,7 +237,7 @@ module.exports = grammar({
     sumti_tail: $ => $.selbri,
 
   // Tanru: minimal support with KE/KEhE grouping and BO binding; allow subscripts (XI ... (BOI)?) attached to units
-  tanru_unit: $ => prec.left(1, seq($.tanru_atom, repeat($.subscript))),
+  tanru_unit: $ => prec.left(1, seq($.tanru_atom, optional($.be_chain), repeat($.subscript))),
     tanru_atom: $ => choice(
       prec.right(1, seq($.ke, $.selbri, optional($.kehe))),
       $.brivla,
@@ -234,9 +246,11 @@ module.exports = grammar({
     ),
   selbri: $ => prec.left(1, seq(
     $.tanru_unit,
+    // Allow a single right-binding inversion: X co Y
+    optional(seq($.co, $.tanru_unit)),
     repeat(choice(
       seq($.bo, $.tanru_unit),
-  seq($.gihek, $.tanru_unit)
+      seq($.gihek, $.tanru_unit)
     ))
   )),
 
@@ -245,6 +259,14 @@ module.exports = grammar({
 
   // Subscript: XI number (BOI)? — we do not enforce BOI outside subscript
   subscript: $ => seq($.xi, $.number, optional($.boi)),
+
+  // BE-linking chain: be TERM(no ku) (bei TERM(no ku))* (be'o)?
+  be_chain: $ => prec.right(1, seq(
+    $.be,
+    $.term_noku,
+    repeat(seq($.bei, $.term_noku)),
+    optional($.beho)
+  )),
 
   // Quotes and parentheticals
   quote: $ => prec.right(1, seq($.lu, repeat1($.word), $.lihU)),
@@ -272,8 +294,9 @@ module.exports = grammar({
   // Minimal subsentence placeholder for this phase
   subsentence: $ => choice($.statement),
 
-    // Minimal term placeholder: treat as sumti for now
-    term: $ => $.sumti,
+  // Minimal term placeholder: treat as sumti for now
+  term: $ => $.sumti,
+  term_noku: $ => $.sumti_noku,
 
   // Mekso: li number ((MEX_OPERATOR number)*) (BOI)?
   mex: $ => seq($.li, $.number, repeat(seq($.mex_operator, $.number)), optional($.boi)),

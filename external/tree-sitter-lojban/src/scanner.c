@@ -127,6 +127,11 @@ enum TokenType {
   FI,
   FO,
   FU,
+  // BE-linking and CO inversion
+  BE,
+  BEI,
+  BEHO,
+  CO,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -1583,6 +1588,46 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           return true; // MAU
         }
       }
+    }
+    return false;
+  }
+
+  // be / bei / be'o
+  if ((valid_symbols[BE] || valid_symbols[BEI] || valid_symbols[BEHO]) && tolower(lexer->lookahead) == 'b') {
+    lexer->advance(lexer, false);
+    int32_t c = tolower(lexer->lookahead);
+    if (c == 'e') {
+      lexer->advance(lexer, false);
+      // be'i? (not here); handle bei, be'o
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        if (valid_symbols[BEI]) return true; // bei
+        return false;
+      }
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          if (valid_symbols[BEHO]) return true; // be'o
+          return false;
+        }
+        return false;
+      }
+      lexer->mark_end(lexer);
+      if (valid_symbols[BE]) return true; // be
+    }
+    return false;
+  }
+
+  // co (tanru inversion)
+  if (valid_symbols[CO] && tolower(lexer->lookahead) == 'c') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // co
     }
     return false;
   }

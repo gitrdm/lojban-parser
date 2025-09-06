@@ -1,0 +1,10 @@
+BE with RC should still allow NOI/GOI shells on arguments
+
+==================
+lo tavla be lo ninmu poi klama ku'o cu citka
+
+---
+(source_file
+  (statement
+    (sumti (lo (selbri (tanru_unit (word)))))
+    (selbri (tanru_unit (word)))))

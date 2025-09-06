@@ -1,0 +1,15 @@
+BE chains attach arguments to selbri heads
+
+==================
+mi cu tavla be do bei ti be'o
+
+---
+(source_file
+  (statement
+    (sumti (mi))
+    (cu)
+    (selbri
+      (tanru_unit (word))
+      (tanru_unit (word)))
+    (sumti (do))
+    (sumti (ti))))
