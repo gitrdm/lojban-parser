@@ -1,6 +1,6 @@
 # Tree-sitter integration design (proposal)
 
-Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 complete — expanded coverage and tests; Phase 3 complete — vocatives, Mekso + subscripts, VUhO glue; Mekso numbers now formed in grammar)
+Status: Scaffolded (Phase 0 complete; Phase 1 complete; Phase 2 complete — expanded coverage and tests; Phase 3 complete — vocatives, Mekso + subscripts, VUhO glue; Phase 4 complete — validation + CI; Mekso numbers now formed in grammar)
 Owner: TBD
 Reviewers: TBD
 Scope: Introduce a Tree-sitter grammar and runtime alongside the existing C parser to eliminate most hand fixes and enable incremental, editor-friendly parsing.
@@ -181,10 +181,16 @@ Phase 3: Coverage expansion — Status: complete
 - Hardened behavior: trimmed unnecessary conflicts to the minimal set (keep `tanru_unit` conflict only; `vocative` conflict retained conservatively), raised precedence for `by` strings, added right-associative bias to `quote`/`parenthetical`, and made `tanru_unit` left-preferential for subscripts.
 - Tests: added mixed cases combining vocatives with forethought and relative clauses (`corpus/vocatives_mixed.txt`).
 
-Phase 4: Validation and CI
-- Build a corpus from `openwm.txt`, tests/regress inputs.
- - Add `tools/ts-validate` to diff structural shapes (node kinds, spans) vs the C parser.
-- CI: compile grammar, run corpus, fail on significant drift.
+Phase 4: Validation and CI — Status: complete
+- Validation targets:
+  - Make: `ts-ci` runs generation, tests, and validates parsing across `openwm.txt`, `openwm1.txt`, and `external/tree-sitter-lojban/corpus/*` using `tools/ts-validate`.
+  - `tools/ts-validate` resolves file paths robustly (pre-cd), invokes the C parser when present, and diffs structural shapes via `tools/ts-diff.py`.
+  - JSONL runner: `tools/ts-corpus-runner.py` parses `tests/regress/inputs/test_sentences.jsonl`, supports `--limit N`, runs the C parser when available, and performs a light shape diff.
+- CI workflow:
+  - `.github/workflows/tree-sitter.yml` installs `tree-sitter-cli`, builds the C parser, runs `make ts-generate`, `make ts-test`, `make ts-ci`, and executes the JSONL runner with `--limit 1000`.
+- Current behavior:
+  - Tree-sitter corpus tests pass; generator warns only about an unnecessary `tanru_unit` conflict.
+  - The JSONL runner executes end-to-end; broad sentences often yield minimal TS trees at this phase (expected), but the harness provides metrics and diffs to guide further coverage.
 
 Phase 5: Editor integrations (optional)
 - Provide `queries/` for highlights, folds, injections.
@@ -287,21 +293,61 @@ Promoting to its own repo (best practice when stable)
 
 ## Next steps
 
-- Integrate 900-series compounding (connectives + BO/KE; JOI/JEK families) and expand reserved cmavo families in `src/scanner.c`.
-  - Done: `jek_bo`, `joi_bo`, plus JEK family (`ja_bo`, `jo_bo`, `ju_bo`) and JOI family (`ce_bo`, `ceo_bo`); plain connectives `ja/je/jo/ju/ce/ce'o/joi`.
-  - Done: i-prefixed joiners `i`, `i_bo`, `i_ja/je/jo/ju`, `i_ce/ce'o`, `i_joi`.
-  - Behavior: case-insensitive; tolerates whitespace and pause '.' between parts.
-- Expand `tools/ts-validate` to run C parser and diff normalized shapes.
-  - Done: runs C parser (when available) and prints a structural shape diff. `tools/ts-diff.py` compares node kind sets and counts.
-- Add a corpus runner to process `tests/regress/inputs/test_sentences.jsonl`, compare against `tests/regress/outputs/sentences_results.jsonl`, and track pass rates; use this to verify progress of the full grammar. Any failures should guide principled grammar/scanner improvements—not ad‑hoc patches.
-- Add CI job for automated `ts-generate`/`ts-test` and corpus validation.
-- Expand corpus with more test cases from `openwm.txt` and regression inputs.
-- Quotes/parentheses: add more LU/LIhU and TO/TOI tests (nesting/recovery).
-- Mekso: expand number/test coverage (now grammar-formed) and `MEX_OPERATOR` families; enforce BOI strictness only in subscript where required; add tests. [Partially done: numbers with `pi`/`ki'o` and `ma'u`/`ni'u` signs; operators `su'i`, `vu'u`, `pi'i`, `fa'u`, `fe'a`, `fe'i`, `te'a`, `du`; `XI` subscripts with optional `BOI` implemented.]
-- Lerfu: extend BY to handle multi-lerfu strings and integration in more sumti tails.
-- Morphology: incrementally port additional legacy lex rules (rafsi endings, hyphenation) with guard tests; keep y/h tolerance scoped.
-- Sumti: broaden starters/anaphora and quantifiers beyond current set (la'e/le'e/lo'e, zi'o, ce'u, etc.) with focused tests. [Progress: added `le'i`, `lo'i`, `le'a`, `le'o` with corpus cases.]
-- Validation: enhance tools/ts-validate to normalize and diff TS vs C trees structurally, and wire into CI.
+### Phase 5: Parity closure plan (close gaps vs canonical parser)
+
+Goal: Iteratively raise Tree-sitter coverage on the large JSONL corpus and reduce structural diffs vs the C parser, without sacrificing clarity (structure in grammar, atomic tokens in scanner).
+
+1) Scanner coverage (data-driven selma'o)
+- Import selma'o tables from `include/generated/selmao.i` and generate C lookup tables; drive recognition for these families (append externals, keep order stable):
+  - SE family: `se/te/ve/xe` (currently only `se` in TS). Drives GIhEK modifiers and BE-series roles.
+  - FA tags: `fa/fe/fi/fo/fu` (bridi place reordering).
+  - CO: tanru inversion operator.
+  - BE-series: `be/bei/be'o` (argument linking to selbri heads).
+  - FIhO/FEhU: tag scoped phrases; `fi'o ... fe'u`.
+  - BAI modals: seed a small, high-impact subset (e.g., `ba'i`, `bai`, `mu'i`, `ri'a`) as atomic modals to tag sumti/selbri.
+  - KOhA pronouns: expand beyond current (add `ko'a`-series, `ke'a`, `zo'e`, `ma`, `ri`, `ra`, `ru`).
+  - NOI split: ensure scanner recognizes `poi/noi/voi` as NOI; already supported generically but make explicit.
+  - UI/CAI/Y indicators: treat as extras (skip globally) with tests to avoid swallowing structural cmavo.
+  - Tense/space: `PU/ZI/VA/TAhE/ZAhO` families initially as extras; later allow scoped placements if needed.
+  - Mekso: expand operator/comparator set (minimally `va'i`, `ki'a` not operator; add `ra'oi` handling deferred). Keep signs vs operators distinct.
+
+2) Grammar expansions (structure first)
+- Selbri plumbing:
+  - Add BE/BEI/BEhO chains to `tanru_unit` heads; allow nested tanru with linked arguments; add tiny corpora.
+  - Add CO inversion: `tanru_unit (co tanru_unit)` right-binding.
+  - Accept FA tags pre-pended to `statement` positions to reorder sumti (affects parsing, not semantics).
+  - Add FIhO tag phrases attached to selbri or bridi-tail with optional FEhU.
+  - Map BAI modals as tagged sumti/selbri modifiers in a small, well-scoped rule.
+- Sumti/quantifiers:
+  - Quantifier before gadri: `PA sumti_base` (e.g., `re lo ...`). Reuse `number` for PA where possible; add minimal acceptance tests.
+  - Add `zo'e` and `ke'a` as sumti tokens with RC interactions.
+- Relative clauses:
+  - Ensure `NOI … KUhO` and `GOI … GEhU` precedence holds with new tags/BE/CO present; extend RC tests accordingly.
+- Connectives/precedence:
+  - Revisit JOI/JEK precedence with BE/CO present; add targeted conflicts or `prec` to keep tables minimal.
+
+3) Tests and validation
+- TS corpus: add focused tiny tests for each new construct (BE-chain, CO, FA tags, FIhO/FEhU, BAI tagging, KOhA expansions, quantifiers).
+- JSONL runner:
+  - Introduce a Make target `ts-corpus` that wraps `tools/ts-corpus-runner.py --limit N` and prints a summary line; parameterize N via env.
+  - Establish weekly thresholds (soft gates) in CI for TS success on GOOD records (e.g., 0% → 5% → 15% …) and track diffs count; do not hard-fail until agreed thresholds.
+  - Emit a simple CSV/JSON artifact with TS/C/Both counts for trend tracking.
+
+4) CI and quality gates
+- Add a CI step to run `make ts-ci` and `make ts-corpus LIMIT=1000` (wrapper over the runner) and upload the summary artifact.
+- Keep generator warnings at or below current (single `tanru_unit` unnecessary conflict). If new conflicts are needed, document them near the rule and in this doc.
+
+5) Milestones (incremental)
+- M1 (bridi plumbing): BE-series + CO + FA tags; tiny corpora; ensure existing tests remain green.
+- M2 (tagging/modals): FIhO/FEhU + minimal BAI mapping with tests; re-validate RC precedence.
+- M3 (pronouns/quantifiers): KOhA expansion, `ke'a/zo'e`, and `PA` quantifiers before gadri.
+- M4 (mekso integration): allow `PA` numbers as quantifiers consistently; add 2–3 core comparators/operators.
+- M5 (cleanup): revisit precedence to reduce any new conflicts; expand mixed-case corpora.
+
+Acceptance criteria for Phase 5
+- Tree-sitter corpus stays green; generator warnings do not increase beyond the documented minimal set.
+- JSONL runner shows a measurable increase in TS parse success on GOOD entries (tracked in CI artifacts).
+- New constructs have tiny, focused corpus tests and brief doc notes mapping to the legacy grammar.
 
 ## Changelog (2025-09-05)
 
@@ -345,6 +391,11 @@ Later on 2025-09-06 (Phase 3 hardening):
 - Conflict trimming: removed broad conflicts; left only `tanru_unit` (required by generator) and retained a focused `vocative` conflict. Parser generation now reports only `tanru_unit` as an unnecessary conflict.
 - Precedence tweaks: increased precedence of `by` to prefer BY strings over ambiguous tanru atoms; wrapped `quote` and `parenthetical` with `prec.right` to stabilize bodies; added `prec.left(1)` to `tanru_unit` so subscripts (`XI`) bind to the preceding atom.
 - Tests: added `external/tree-sitter-lojban/corpus/vocatives_mixed.txt` for vocative + forethought and vocative + RC combinations. All corpus tests pass.
+
+Phase 4 completion (2025-09-06):
+- Makefile: added `ts-ci` target; improved `ts-validate` integration and invocation paths.
+- Tools: enhanced `tools/ts-validate` to resolve absolute inputs and use repo-root `ts-diff.py`; extended `tools/ts-corpus-runner.py` with `--limit` and C-parser shape-diff support.
+- CI: added `.github/workflows/tree-sitter.yml` to run generation, tests, validation, and a bounded JSONL sample on push/PR.
 
 Phase 2 completion checklist snapshot:
 - [x] Connective families (+bo) and i-prefixed joiners

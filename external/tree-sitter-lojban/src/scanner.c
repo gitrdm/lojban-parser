@@ -121,6 +121,12 @@ enum TokenType {
   COI,
   DOI,
   DOHU,
+  // FA place tags
+  FA,
+  FE,
+  FI,
+  FO,
+  FU,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -1326,6 +1332,53 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         lexer->mark_end(lexer);
         return true; // DOI
       }
+    }
+    return false;
+  }
+
+  // FA/FE/FI/FO/FU (place tags) — recognized but typically skipped as extras
+  if (valid_symbols[FA] && tolower(lexer->lookahead) == 'f') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // fa
+    }
+    return false;
+  }
+  if (valid_symbols[FE] && tolower(lexer->lookahead) == 'f') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // fe
+    }
+    return false;
+  }
+  if (valid_symbols[FI] && tolower(lexer->lookahead) == 'f') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // fi
+    }
+    return false;
+  }
+  if (valid_symbols[FO] && tolower(lexer->lookahead) == 'f') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // fo
+    }
+    return false;
+  }
+  if (valid_symbols[FU] && tolower(lexer->lookahead) == 'f') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // fu
     }
     return false;
   }

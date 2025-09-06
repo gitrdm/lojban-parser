@@ -38,7 +38,7 @@ asan:
 ubsan:
 	$(CC) $(CFLAGS) -fsanitize=undefined -fno-omit-frame-pointer -o parser $(SOURCES)
 
-.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark sentences-manifest regress-sentences help parser_lr parser_glr all-parsers ts-generate ts-test ts-clean ts-validate
+.PHONY: test clean asan ubsan analyze ci regress regress-update regen glr analyze-glr ebnf diagrams lark check-lark sentences-manifest regress-sentences help parser_lr parser_glr all-parsers ts-generate ts-test ts-clean ts-validate ts-corpus
 help:
 	@echo "Usage: make [target]" && echo && \
 	echo "Targets:" && \
@@ -58,6 +58,7 @@ help:
 	echo "  ts-generate           Generate Tree-sitter parser sources" && \
 	echo "  ts-test               Run Tree-sitter tests" && \
 	echo "  ts-validate           Parse sample files with Tree-sitter (placeholder)" && \
+	echo "  ts-corpus             Run JSONL corpus with Tree-sitter (LIMIT=N env to bound)" && \
 	echo "  asan                  Build with AddressSanitizer" && \
 	echo "  ubsan                 Build with UndefinedBehaviorSanitizer" && \
 	echo "  analyze               Run GCC static analyzer (if available)" && \
@@ -175,6 +176,22 @@ ts-validate: ts-generate
 	@chmod +x tools/ts-validate
 	@echo "Validating TS parse on sample files..."
 	@tools/ts-validate openwm.txt openwm1.txt external/tree-sitter-lojban/corpus/* || true
+
+.PHONY: ts-corpus
+ts-corpus: ts-test
+	@command -v python3 >/dev/null 2>&1 || { echo "python3 not found"; exit 1; }
+	@jsonl=tests/regress/inputs/test_sentences.jsonl; \
+	if [ ! -f "$$jsonl" ]; then \
+		echo "Corpus JSONL not found at $$jsonl; generate via 'make sentences-manifest'"; \
+		exit 1; \
+	fi; \
+	if [ -n "$$LIMIT" ]; then \
+		echo "Running TS corpus with limit $$LIMIT..."; \
+		python3 tools/ts-corpus-runner.py --limit "$$LIMIT" "$$jsonl"; \
+	else \
+		echo "Running TS corpus (no limit)..."; \
+		python3 tools/ts-corpus-runner.py "$$jsonl"; \
+	fi
 
 .PHONY: ts-ci
 ts-ci: ts-generate ts-test parser

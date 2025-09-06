@@ -1305,6 +1305,26 @@
     {
       "type": "PATTERN",
       "value": "\\s+"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fa"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fe"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fu"
     }
   ],
   "conflicts": [
@@ -1676,6 +1696,26 @@
     {
       "type": "SYMBOL",
       "name": "dohu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fa"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fe"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fu"
     }
   ],
   "inline": [],

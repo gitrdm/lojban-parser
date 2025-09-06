@@ -974,6 +974,31 @@
     "named": true
   },
   {
+    "type": "fa",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "fe",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "fi",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "fo",
+    "named": true,
+    "extra": true
+  },
+  {
+    "type": "fu",
+    "named": true,
+    "extra": true
+  },
+  {
     "type": "ga",
     "named": true
   },

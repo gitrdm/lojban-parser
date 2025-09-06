@@ -105,6 +105,12 @@ module.exports = grammar({
   $.coi,      // COI (vocative heads: coi, co'o, fi'i, je'e, ki'e, mi'e, mu'o, ta'a, be'e, vi'o, re'i, ju'i, pe'u)
   $.doi,      // DOI (addressing vocative)
   $.dohu,     // DOhU (do'u terminator)
+  // FA place tags (ignored initially via extras)
+  $.fa,       // FA
+  $.fe,       // FE
+  $.fi,       // FI
+  $.fo,       // FO
+  $.fu,       // FU
   ],
   conflicts: $ => [
     [$.tanru_unit],
@@ -113,6 +119,8 @@ module.exports = grammar({
 
   extras: $ => [
     /\s+/,
+  // Treat FA place tags as extras for now (skip them globally). We'll add structure later.
+  $.fa, $.fe, $.fi, $.fo, $.fu,
     // TODO: indicators as extras in later phases (UI/CAI/Y as safe candidates)
   ],
 

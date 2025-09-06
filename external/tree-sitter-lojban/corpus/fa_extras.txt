@@ -1,0 +1,13 @@
+FA tags are skipped as extras for now
+
+==================
+fa mi cu tavla fo do fu ti
+
+---
+(source_file
+  (statement
+    (sumti (mi))
+    (cu)
+    (selbri (tanru_unit (word)))
+    (sumti (do))
+    (sumti (ti))))
