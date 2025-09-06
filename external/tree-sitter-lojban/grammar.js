@@ -116,6 +116,19 @@ module.exports = grammar({
   $.bei,      // BEI
   $.beho,     // BEhO (be'o)
   $.co,       // CO
+  // FIhO/FEhU tag phrases
+  $.fiho,     // FIhO (fi'o)
+  $.fehu,     // FEhU (fe'u)
+  // KOhA pronouns (subset to lift pass rate)
+  $.ri,       // RI
+  $.ra,       // RA
+  $.ru,       // RU
+  $.ma,       // MA (question)
+  $.koa,      // KO'a
+  $.koe,      // KO'e
+  $.koi,      // KO'i
+  $.koo,      // KO'o
+  $.kou,      // KO'u
   ],
   conflicts: $ => [
     [$.tanru_unit],
@@ -125,8 +138,6 @@ module.exports = grammar({
 
   extras: $ => [
     /\s+/,
-  // Treat FA place tags as extras for now (skip them globally). We'll add structure later.
-  $.fa, $.fe, $.fi, $.fo, $.fu,
     // TODO: indicators as extras in later phases (UI/CAI/Y as safe candidates)
   ],
 
@@ -148,13 +159,13 @@ module.exports = grammar({
       $.mex
     ),
 
-    // A statement: sumti selbri (sumti)* with optional connectives
+    // A statement: (sumti|tagged_sumti) selbri ((sumti|tagged_sumti))* with optional connectives
     statement: $ => prec.right(seq(
-      $.sumti,
+      choice($.sumti, $.tagged_sumti),
       optional($.cu),
       optional($.connective),
       $.selbri,
-      repeat(seq(optional($.connective), $.sumti))
+      repeat(seq(optional($.connective), choice($.sumti, $.tagged_sumti)))
     )),
 
     // Connective: basic JOI/JEK with precedence
@@ -220,6 +231,9 @@ module.exports = grammar({
       seq($.lahe, $.sumti_base), // la'e + (basic sumti)
   $.mi,                    // mi
   $.do,                    // do
+  $.ri, $.ra, $.ru,        // anaphora
+  $.ma,                    // question pronoun as sumti
+  $.koa, $.koe, $.koi, $.koo, $.kou, // ko'a-series subset
   $.ti,                    // ti
   $.ta,                    // ta
   $.tu,                    // tu
@@ -232,6 +246,9 @@ module.exports = grammar({
   $.ceu,                   // ce'u
       $.word                   // fallback until we add more
     ),
+  // Tagged sumti: FA sumti
+  fa_tag: $ => choice($.fa, $.fe, $.fi, $.fo, $.fu),
+  tagged_sumti: $ => seq($.fa_tag, $.sumti),
 
   // Minimal tail for le/lo for this step
     sumti_tail: $ => $.selbri,
@@ -250,7 +267,9 @@ module.exports = grammar({
     optional(seq($.co, $.tanru_unit)),
     repeat(choice(
       seq($.bo, $.tanru_unit),
-      seq($.gihek, $.tanru_unit)
+  seq($.gihek, $.tanru_unit),
+  // Allow FIhO/FEhU tag phrases as modifiers
+  $.fiho_phrase
     ))
   )),
 
@@ -267,6 +286,9 @@ module.exports = grammar({
     repeat(seq($.bei, $.term_noku)),
     optional($.beho)
   )),
+
+  // FIhO/FEhU phrase: fi'o SELBRI fe'u
+  fiho_phrase: $ => seq($.fiho, $.selbri, $.fehu),
 
   // Quotes and parentheticals
   quote: $ => prec.right(1, seq($.lu, repeat1($.word), $.lihU)),

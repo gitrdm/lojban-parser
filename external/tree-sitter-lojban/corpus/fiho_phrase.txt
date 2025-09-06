@@ -1,0 +1,12 @@
+FIhO/FEhU phrase attaches to selbri
+
+==================
+mi cu tavla fi'o vecnu fe'u do
+
+---
+(source_file
+  (statement
+    (sumti (mi))
+    (cu)
+    (selbri (tanru_unit (word)) (tanru_unit (word)))
+    (sumti (do))))

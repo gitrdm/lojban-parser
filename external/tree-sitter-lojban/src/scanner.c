@@ -132,6 +132,19 @@ enum TokenType {
   BEI,
   BEHO,
   CO,
+  // FIhO/FEhU
+  FIHO,
+  FEHU,
+  // KOhA pronouns (subset)
+  RI,
+  RA,
+  RU,
+  MA,
+  KOA,
+  KOE,
+  KOI,
+  KOO,
+  KOU,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -1336,6 +1349,78 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         lexer->advance(lexer, false);
         lexer->mark_end(lexer);
         return true; // DOI
+      }
+    }
+    return false;
+  }
+
+  // FIhO (fi'o)
+  if (valid_symbols[FIHO] && tolower(lexer->lookahead) == 'f') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // fi'o
+        }
+      }
+    }
+    return false;
+  }
+
+  // FEhU (fe'u)
+  if (valid_symbols[FEHU] && tolower(lexer->lookahead) == 'f') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // fe'u
+        }
+      }
+    }
+    return false;
+  }
+
+  // KOhA pronouns (subset)
+  if (valid_symbols[RI] && tolower(lexer->lookahead) == 'r') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    return false;
+  }
+  if (valid_symbols[RA] && tolower(lexer->lookahead) == 'r') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    return false;
+  }
+  if (valid_symbols[RU] && tolower(lexer->lookahead) == 'r') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'u') { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    return false;
+  }
+  if (valid_symbols[MA] && tolower(lexer->lookahead) == 'm') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    return false;
+  }
+  if (valid_symbols[KOA] && tolower(lexer->lookahead) == 'k') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'o') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        int32_t v = tolower(lexer->lookahead);
+        if (v == 'a' && valid_symbols[KOA]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+        if (v == 'e' && valid_symbols[KOE]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+        if (v == 'i' && valid_symbols[KOI]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+        if (v == 'o' && valid_symbols[KOO]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+        if (v == 'u' && valid_symbols[KOU]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
       }
     }
     return false;

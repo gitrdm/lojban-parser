@@ -1,0 +1,13 @@
+FA tags reorder places as tagged sumti (structural acceptance)
+
+==================
+fa mi cu tavla fe do fi ti
+
+---
+(source_file
+  (statement
+    (sumti (mi))
+    (cu)
+    (selbri (tanru_unit (word)))
+    (sumti (do))
+    (sumti (ti))))

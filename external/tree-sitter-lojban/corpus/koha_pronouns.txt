@@ -1,0 +1,9 @@
+Common KOhA pronouns
+
+==================
+ri cu tavla ra .i ru cu klama
+
+---
+(source_file
+  (statement (sumti (ri)) (selbri (tanru_unit (word))) (sumti (ra)))
+  (i_statement (i_prefix (i)) (statement (sumti (ru)) (selbri (tanru_unit (word))))))

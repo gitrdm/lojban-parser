@@ -144,6 +144,60 @@
     }
   },
   {
+    "type": "fa_tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "fa",
+          "named": true
+        },
+        {
+          "type": "fe",
+          "named": true
+        },
+        {
+          "type": "fi",
+          "named": true
+        },
+        {
+          "type": "fo",
+          "named": true
+        },
+        {
+          "type": "fu",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fiho_phrase",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fehu",
+          "named": true
+        },
+        {
+          "type": "fiho",
+          "named": true
+        },
+        {
+          "type": "selbri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "forethought",
     "named": true,
     "fields": {},
@@ -552,6 +606,10 @@
           "named": true
         },
         {
+          "type": "fiho_phrase",
+          "named": true
+        },
+        {
           "type": "gihek",
           "named": true
         },
@@ -632,6 +690,10 @@
         },
         {
           "type": "sumti",
+          "named": true
+        },
+        {
+          "type": "tagged_sumti",
           "named": true
         }
       ]
@@ -731,6 +793,26 @@
           "named": true
         },
         {
+          "type": "koa",
+          "named": true
+        },
+        {
+          "type": "koe",
+          "named": true
+        },
+        {
+          "type": "koi",
+          "named": true
+        },
+        {
+          "type": "koo",
+          "named": true
+        },
+        {
+          "type": "kou",
+          "named": true
+        },
+        {
           "type": "la",
           "named": true
         },
@@ -779,6 +861,10 @@
           "named": true
         },
         {
+          "type": "ma",
+          "named": true
+        },
+        {
           "type": "maa",
           "named": true
         },
@@ -788,6 +874,18 @@
         },
         {
           "type": "mio",
+          "named": true
+        },
+        {
+          "type": "ra",
+          "named": true
+        },
+        {
+          "type": "ri",
+          "named": true
+        },
+        {
+          "type": "ru",
           "named": true
         },
         {
@@ -850,6 +948,25 @@
       "types": [
         {
           "type": "selbri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tagged_sumti",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "fa_tag",
+          "named": true
+        },
+        {
+          "type": "sumti",
           "named": true
         }
       ]
@@ -1060,28 +1177,31 @@
   },
   {
     "type": "fa",
-    "named": true,
-    "extra": true
+    "named": true
   },
   {
     "type": "fe",
-    "named": true,
-    "extra": true
+    "named": true
+  },
+  {
+    "type": "fehu",
+    "named": true
   },
   {
     "type": "fi",
-    "named": true,
-    "extra": true
+    "named": true
+  },
+  {
+    "type": "fiho",
+    "named": true
   },
   {
     "type": "fo",
-    "named": true,
-    "extra": true
+    "named": true
   },
   {
     "type": "fu",
-    "named": true,
-    "extra": true
+    "named": true
   },
   {
     "type": "ga",
@@ -1212,6 +1332,26 @@
     "named": true
   },
   {
+    "type": "koa",
+    "named": true
+  },
+  {
+    "type": "koe",
+    "named": true
+  },
+  {
+    "type": "koi",
+    "named": true
+  },
+  {
+    "type": "koo",
+    "named": true
+  },
+  {
+    "type": "kou",
+    "named": true
+  },
+  {
     "type": "ku",
     "named": true
   },
@@ -1280,6 +1420,10 @@
     "named": true
   },
   {
+    "type": "ma",
+    "named": true
+  },
+  {
     "type": "maa",
     "named": true
   },
@@ -1317,6 +1461,18 @@
   },
   {
     "type": "pi",
+    "named": true
+  },
+  {
+    "type": "ra",
+    "named": true
+  },
+  {
+    "type": "ri",
+    "named": true
+  },
+  {
+    "type": "ru",
     "named": true
   },
   {

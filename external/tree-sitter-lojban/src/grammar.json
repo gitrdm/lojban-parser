@@ -57,8 +57,17 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "sumti"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "sumti"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "tagged_sumti"
+              }
+            ]
           },
           {
             "type": "CHOICE",
@@ -106,8 +115,17 @@
                   ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "sumti"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "sumti"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "tagged_sumti"
+                    }
+                  ]
                 }
               ]
             }
@@ -657,6 +675,42 @@
         },
         {
           "type": "SYMBOL",
+          "name": "ri"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ra"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ru"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "ma"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "koa"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "koe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "koi"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "koo"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "kou"
+        },
+        {
+          "type": "SYMBOL",
           "name": "ti"
         },
         {
@@ -698,6 +752,44 @@
         {
           "type": "SYMBOL",
           "name": "word"
+        }
+      ]
+    },
+    "fa_tag": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "fa"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fe"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fi"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fo"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fu"
+        }
+      ]
+    },
+    "tagged_sumti": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "fa_tag"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "sumti"
         }
       ]
     },
@@ -844,6 +936,10 @@
                       "name": "tanru_unit"
                     }
                   ]
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "fiho_phrase"
                 }
               ]
             }
@@ -931,6 +1027,23 @@
           }
         ]
       }
+    },
+    "fiho_phrase": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "fiho"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "selbri"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fehu"
+        }
+      ]
     },
     "quote": {
       "type": "PREC_RIGHT",
@@ -1408,26 +1521,6 @@
     {
       "type": "PATTERN",
       "value": "\\s+"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "fa"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "fe"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "fi"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "fo"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "fu"
     }
   ],
   "conflicts": [
@@ -1838,6 +1931,50 @@
     {
       "type": "SYMBOL",
       "name": "co"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fiho"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "fehu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ri"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ra"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ru"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ma"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "koa"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "koe"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "koi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "koo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "kou"
     }
   ],
   "inline": [],
