@@ -89,6 +89,13 @@ module.exports = grammar({
   $.leo,      // LE'o (le'o)
   $.loa,      // LO'a (lo'a)
   $.loo,      // LO'o (lo'o)
+  // 900-series audit additions (forethought/connective families)
+  $.ge,       // GE (forethought GEK)
+  $.ga,       // GA
+  $.go,       // GO
+  $.gu,       // GU
+  $.gi,       // GI (separator for forethought)
+  $.giha,     // GIhA (gi'a/gi'e/gi'o/gi'u)
   ],
   conflicts: $ => [
     [$.quote, $.statement],
@@ -112,6 +119,7 @@ module.exports = grammar({
     _unit: $ => choice(
       $.statement,
       $.i_statement,
+  $.forethought,
       $.quote,
       $.parenthetical,
       $.free_modifier,
@@ -207,7 +215,13 @@ module.exports = grammar({
       $.by,
       $.word
     ),
-  selbri: $ => prec.left(1, seq($.tanru_unit, repeat(seq($.bo, $.tanru_unit)))),
+  selbri: $ => prec.left(1, seq(
+    $.tanru_unit,
+    repeat(choice(
+      seq($.bo, $.tanru_unit),
+      seq($.giha, $.tanru_unit)
+    ))
+  )),
 
   // Lerfu: by is one or more BY units (prefer grouping to the right to avoid ambiguity)
   by: $ => prec.right(1, repeat1($.by_unit)),
@@ -219,7 +233,7 @@ module.exports = grammar({
     quote: $ => seq($.lu, repeat1($.word), $.lihU),
     parenthetical: $ => seq($.to, repeat1($._unit), $.toi),
 
-    // Free modifier
+  // Free modifier
     free_modifier: $ => seq($.sei, repeat1($.word), $.seu),
 
   // Relative clause shells (kept for earlier tests)
@@ -239,6 +253,9 @@ module.exports = grammar({
 
   // Mekso: li number ((MEX_OPERATOR number)*) (BOI)?
   mex: $ => seq($.li, $.number, repeat(seq($.mex_operator, $.number)), optional($.boi)),
+
+  // Forethought logical connectives (minimal): GE/GA/GO/GU statement GI statement
+  forethought: $ => seq(choice($.ge, $.ga, $.go, $.gu), $.statement, $.gi, $.statement),
 
   // Grammar-level number formation to minimize scanner logic
   // number := (mau|niu)+? ((digits (kio digits)* (pi digits)? ) | (pi digits))

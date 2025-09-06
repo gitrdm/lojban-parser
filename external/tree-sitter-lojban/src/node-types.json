@@ -86,6 +86,41 @@
     }
   },
   {
+    "type": "forethought",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ga",
+          "named": true
+        },
+        {
+          "type": "ge",
+          "named": true
+        },
+        {
+          "type": "gi",
+          "named": true
+        },
+        {
+          "type": "go",
+          "named": true
+        },
+        {
+          "type": "gu",
+          "named": true
+        },
+        {
+          "type": "statement",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "free_modifier",
     "named": true,
     "fields": {},
@@ -241,6 +276,10 @@
       "required": true,
       "types": [
         {
+          "type": "forethought",
+          "named": true
+        },
+        {
           "type": "free_modifier",
           "named": true
         },
@@ -310,6 +349,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "forethought",
+          "named": true
+        },
         {
           "type": "free_modifier",
           "named": true
@@ -397,6 +440,10 @@
           "named": true
         },
         {
+          "type": "giha",
+          "named": true
+        },
+        {
           "type": "tanru_unit",
           "named": true
         }
@@ -412,6 +459,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "forethought",
+          "named": true
+        },
         {
           "type": "free_modifier",
           "named": true
@@ -795,11 +846,35 @@
     "named": true
   },
   {
+    "type": "ga",
+    "named": true
+  },
+  {
+    "type": "ge",
+    "named": true
+  },
+  {
     "type": "gehu",
     "named": true
   },
   {
+    "type": "gi",
+    "named": true
+  },
+  {
+    "type": "giha",
+    "named": true
+  },
+  {
+    "type": "go",
+    "named": true
+  },
+  {
     "type": "goi",
+    "named": true
+  },
+  {
+    "type": "gu",
     "named": true
   },
   {

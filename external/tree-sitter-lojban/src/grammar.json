@@ -22,6 +22,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "forethought"
+        },
+        {
+          "type": "SYMBOL",
           "name": "quote"
         },
         {
@@ -722,15 +726,33 @@
           {
             "type": "REPEAT",
             "content": {
-              "type": "SEQ",
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "bo"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "bo"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "tanru_unit"
+                    }
+                  ]
                 },
                 {
-                  "type": "SYMBOL",
-                  "name": "tanru_unit"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "giha"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "tanru_unit"
+                    }
+                  ]
                 }
               ]
             }
@@ -944,6 +966,44 @@
               "type": "BLANK"
             }
           ]
+        }
+      ]
+    },
+    "forethought": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "ge"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "ga"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "go"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "gu"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "statement"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gi"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "statement"
         }
       ]
     },
@@ -1371,6 +1431,30 @@
     {
       "type": "SYMBOL",
       "name": "loo"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ge"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "ga"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "go"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "gu"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "gi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "giha"
     }
   ],
   "inline": [],

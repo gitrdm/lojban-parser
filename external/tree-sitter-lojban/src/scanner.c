@@ -106,6 +106,12 @@ enum TokenType {
   LEO,
   LOA,
   LOO,
+  GE,
+  GA,
+  GO,
+  GU,
+  GI,
+  GIHA,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -802,6 +808,42 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
       lexer->advance(lexer, false);
       lexer->mark_end(lexer);
       return true; // KE
+    }
+    return false;
+  }
+
+  // GE/GA/GO/GU (forethought connectives)
+  if ((valid_symbols[GE] || valid_symbols[GA] || valid_symbols[GO] || valid_symbols[GU]) && tolower(lexer->lookahead) == 'g') {
+    lexer->advance(lexer, false);
+    int32_t c = tolower(lexer->lookahead);
+    if (c == 'e' && valid_symbols[GE]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    if (c == 'a' && valid_symbols[GA]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    if (c == 'o' && valid_symbols[GO]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    if (c == 'u' && valid_symbols[GU]) { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    return false;
+  }
+
+  // GI (separator)
+  if (valid_symbols[GI] && tolower(lexer->lookahead) == 'g') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') { lexer->advance(lexer, false); lexer->mark_end(lexer); return true; }
+    return false;
+  }
+
+  // GIhA family (gi'a, gi'e, gi'o, gi'u)
+  if (valid_symbols[GIHA] && tolower(lexer->lookahead) == 'g') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        int32_t c = tolower(lexer->lookahead);
+        if (c == 'a' || c == 'e' || c == 'o' || c == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // gi'a/gi'e/gi'o/gi'u
+        }
+      }
     }
     return false;
   }
