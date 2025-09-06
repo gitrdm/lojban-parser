@@ -96,6 +96,11 @@ module.exports = grammar({
   $.gu,       // GU
   $.gi,       // GI (separator for forethought)
   $.giha,     // GIhA (gi'a/gi'e/gi'o/gi'u)
+  $.bihi,     // BIhI (interval connectives)
+  $.gaho,     // GAhO (interval bracket marker)
+  $.se,       // SE
+  $.na,       // NA
+  $.nai,      // NAI
   ],
   conflicts: $ => [
     [$.quote, $.statement],
@@ -158,7 +163,9 @@ module.exports = grammar({
       // Plain connectives: JOI-family > JEK-family
       prec.left(2, $.joi),
       prec.left(2, $.ceo),
-      prec.left(2, $.ce),
+  prec.left(2, $.ce),
+  prec.left(2, $.bihi_mod),
+  prec.left(2, seq($.gaho, $.bihi_mod, $.gaho)),
       prec.left(1, $.jek),
       prec.left(1, $.ja),
       prec.left(1, $.jo),
@@ -219,7 +226,7 @@ module.exports = grammar({
     $.tanru_unit,
     repeat(choice(
       seq($.bo, $.tanru_unit),
-      seq($.giha, $.tanru_unit)
+  seq($.gihek, $.tanru_unit)
     ))
   )),
 
@@ -266,5 +273,10 @@ module.exports = grammar({
       seq($.pi, $.digits)
     )
   ),
+
+  // GIhEK/JOIK modifiers
+  gihek_prefix: $ => choice(seq($.na, $.se), $.na, $.se),
+  gihek: $ => seq(optional($.gihek_prefix), $.giha, optional($.nai)),
+  bihi_mod: $ => seq(optional($.se), $.bihi, optional($.nai)),
   }
 });

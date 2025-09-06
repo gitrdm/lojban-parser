@@ -112,6 +112,11 @@ enum TokenType {
   GU,
   GI,
   GIHA,
+  BIHI,
+  GAHO,
+  SE,
+  NA,
+  NAI,
 };
 
 void *tree_sitter_lojban_external_scanner_create(void) {
@@ -843,6 +848,76 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           lexer->mark_end(lexer);
           return true; // gi'a/gi'e/gi'o/gi'u
         }
+      }
+    }
+    return false;
+  }
+
+  // BIhI (interval connectives)
+  if (valid_symbols[BIHI] && tolower(lexer->lookahead) == 'b') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'i') {
+      lexer->advance(lexer, false);
+      if (lexer->lookahead == '\'') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'i') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // bi'i
+        }
+      }
+    }
+    return false;
+  }
+
+  // GAhO (interval bracket marker)
+  if (valid_symbols[GAHO] && tolower(lexer->lookahead) == 'g') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'h') {
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'o') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // gaho
+        }
+      }
+    }
+    return false;
+  }
+
+  // SE
+  if (valid_symbols[SE] && tolower(lexer->lookahead) == 's') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'e') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // se
+    }
+    return false;
+  }
+
+  // NA
+  if (valid_symbols[NA] && tolower(lexer->lookahead) == 'n') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      lexer->mark_end(lexer);
+      return true; // na
+    }
+    return false;
+  }
+
+  // NAI
+  if (valid_symbols[NAI] && tolower(lexer->lookahead) == 'n') {
+    lexer->advance(lexer, false);
+    if (tolower(lexer->lookahead) == 'a') {
+      lexer->advance(lexer, false);
+      if (tolower(lexer->lookahead) == 'i') {
+        lexer->advance(lexer, false);
+        lexer->mark_end(lexer);
+        return true; // nai
       }
     }
     return false;

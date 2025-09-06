@@ -315,6 +315,35 @@
         },
         {
           "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "bihi_mod"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "gaho"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "bihi_mod"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "gaho"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
           "value": 1,
           "content": {
             "type": "SYMBOL",
@@ -746,7 +775,7 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "giha"
+                      "name": "gihek"
                     },
                     {
                       "type": "SYMBOL",
@@ -1095,6 +1124,98 @@
                   "name": "digits"
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    "gihek_prefix": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "na"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "se"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "na"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "se"
+        }
+      ]
+    },
+    "gihek": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "gihek_prefix"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "giha"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "nai"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "bihi_mod": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "se"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bihi"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "nai"
+            },
+            {
+              "type": "BLANK"
             }
           ]
         }
@@ -1455,6 +1576,26 @@
     {
       "type": "SYMBOL",
       "name": "giha"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "bihi"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "gaho"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "se"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "na"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "nai"
     }
   ],
   "inline": [],

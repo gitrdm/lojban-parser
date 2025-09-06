@@ -1,5 +1,28 @@
 [
   {
+    "type": "bihi_mod",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bihi",
+          "named": true
+        },
+        {
+          "type": "nai",
+          "named": true
+        },
+        {
+          "type": "se",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "by",
     "named": true,
     "fields": {},
@@ -23,6 +46,10 @@
       "required": true,
       "types": [
         {
+          "type": "bihi_mod",
+          "named": true
+        },
+        {
           "type": "bo",
           "named": true
         },
@@ -40,6 +67,10 @@
         },
         {
           "type": "ceo_bo",
+          "named": true
+        },
+        {
+          "type": "gaho",
           "named": true
         },
         {
@@ -138,6 +169,48 @@
         },
         {
           "type": "word",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gihek",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "giha",
+          "named": true
+        },
+        {
+          "type": "gihek_prefix",
+          "named": true
+        },
+        {
+          "type": "nai",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "gihek_prefix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "na",
+          "named": true
+        },
+        {
+          "type": "se",
           "named": true
         }
       ]
@@ -440,7 +513,7 @@
           "named": true
         },
         {
-          "type": "giha",
+          "type": "gihek",
           "named": true
         },
         {
@@ -790,6 +863,10 @@
     }
   },
   {
+    "type": "bihi",
+    "named": true
+  },
+  {
     "type": "bo",
     "named": true
   },
@@ -847,6 +924,10 @@
   },
   {
     "type": "ga",
+    "named": true
+  },
+  {
+    "type": "gaho",
     "named": true
   },
   {
@@ -1058,6 +1139,14 @@
     "named": true
   },
   {
+    "type": "na",
+    "named": true
+  },
+  {
+    "type": "nai",
+    "named": true
+  },
+  {
     "type": "niu",
     "named": true
   },
@@ -1067,6 +1156,10 @@
   },
   {
     "type": "pi",
+    "named": true
+  },
+  {
+    "type": "se",
     "named": true
   },
   {

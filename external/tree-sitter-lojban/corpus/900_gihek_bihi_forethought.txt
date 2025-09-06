@@ -1,0 +1,29 @@
+=== GIhA chaining and modifiers; BIhI variants; forethought GE...GI... ===
+
+# GIhA chaining in selbri
+lo klama gi'e tavla
+---
+(source_file (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (gihek) (tanru_unit (brivla))))))))
+
+# GIhEK modifiers: se/na/nai around GIhA
+lo klama se gi'a tavla
+---
+(source_file (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (gihek) (tanru_unit (brivla))))))))
+
+lo klama na gi'o tavla nai
+---
+(source_file (statement (sumti (lo) (sumti_tail (selbri (tanru_unit (brivla) (gihek) (tanru_unit (brivla))))))))
+
+# BIhI bare and bracketed with GAhO
+mi bajra bi'i klama
+---
+(source_file (statement (sumti (mi)) (connective (bihi_mod)) (selbri (brivla))))
+
+mi bajra ga'ho bi'i ga'ho klama
+---
+(source_file (statement (sumti (mi)) (connective (gaho) (bihi_mod) (gaho)) (selbri (brivla))))
+
+# Forethought
+ge mi klama gi do tavla
+---
+(source_file (forethought (ge) (statement (sumti (mi)) (selbri (brivla))) (gi) (statement (sumti (do)) (selbri (brivla)))))
