@@ -1,0 +1,17 @@
+=== Mekso: signs ma’u/ni’u and comparator du ===
+
+li ma’u 5
+---
+(source_file (mex (li) (number)))
+
+li ni’u 7
+---
+(source_file (mex (li) (number)))
+
+li 3 du 3
+---
+(source_file (mex (li) (number) (mex_operator) (number)))
+
+li ma’u 2 pi 5
+---
+(source_file (mex (li) (number)))

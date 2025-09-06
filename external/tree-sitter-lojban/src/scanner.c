@@ -1081,6 +1081,34 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
   if (valid_symbols[NUMBER]) {
     bool saw_any = false;
     bool saw_pi = false;
+    // Optional leading signs: one or more of ma'u / ni'u, allowing pauses
+    for (;;) {
+      // Skip whitespace/pause
+      while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+      int32_t l1 = tolower(lexer->lookahead);
+      if (l1 == 'm' || l1 == 'n') {
+        int is_sign = 0;
+        lexer->advance(lexer, false);
+        if ((l1 == 'm' && tolower(lexer->lookahead) == 'a') || (l1 == 'n' && tolower(lexer->lookahead) == 'i')) {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'u') {
+              lexer->advance(lexer, false);
+              is_sign = 1; // consumed ma'u or ni'u
+              // consume trailing pauses
+              while (is_ws_or_pause(lexer->lookahead)) lexer->advance(lexer, false);
+            }
+          }
+        }
+        if (!is_sign) {
+          // rewind not supported; we over-consumed one or two letters. Given this occurs at number start only, bail out as not a number.
+          return false;
+        }
+        continue;
+      }
+      break;
+    }
     // Case A: starts with digits
     if (isdigit(lexer->lookahead)) {
       saw_any = true;
@@ -1088,7 +1116,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         lexer->advance(lexer, false);
       } while (isdigit(lexer->lookahead));
       lexer->mark_end(lexer);
-    } else if (tolower(lexer->lookahead) == 'p') {
+  } else if (tolower(lexer->lookahead) == 'p') {
       // Case B: starts with pi fractional form: pi DIGITS
       int32_t c1 = tolower(lexer->lookahead);
       if (c1 == 'p') {
@@ -1174,7 +1202,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
     }
   }
 
-  // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish), fe'a (root-ish), fe'i (divide), te'a (power), ge'a/ki'o/pi (basic placeholders)
+  // mex_operator: recognize a small set: su'i (add), vu'u (subtract), pi'i (multiply), fa'u (divide-ish), fe'a (root-ish), fe'i (divide), te'a (power), ge'a, and simple comparators du (equals). Also accept ma'u/ni'u here when used infix.
   if (valid_symbols[MEX_OPERATOR]) {
     int32_t la = tolower(lexer->lookahead);
     if (la == 's') {
@@ -1192,7 +1220,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
         }
       }
       return false;
-    } else if (la == 'v') {
+  } else if (la == 'v') {
       // vu'u
       lexer->advance(lexer, false);
       if (tolower(lexer->lookahead) == 'u') {
@@ -1266,7 +1294,7 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
           }
         }
         return false;
-      } else if (la == 'g') {
+  } else if (la == 'g') {
         // ge'a
         lexer->advance(lexer, false);
         if (tolower(lexer->lookahead) == 'e') {
@@ -1280,7 +1308,32 @@ bool tree_sitter_lojban_external_scanner_scan(void *payload, TSLexer *lexer, con
             }
           }
         }
-  return false;
+        return false;
+      } else if (la == 'd') {
+        // du
+        lexer->advance(lexer, false);
+        if (tolower(lexer->lookahead) == 'u') {
+          lexer->advance(lexer, false);
+          lexer->mark_end(lexer);
+          return true; // du
+        }
+        return false;
+      } else if (la == 'm' || la == 'n') {
+        // ma'u / ni'u as operator (when used infix)
+        int32_t first = la;
+        lexer->advance(lexer, false);
+        if ((first == 'm' && tolower(lexer->lookahead) == 'a') || (first == 'n' && tolower(lexer->lookahead) == 'i')) {
+          lexer->advance(lexer, false);
+          if (lexer->lookahead == '\'') {
+            lexer->advance(lexer, false);
+            if (tolower(lexer->lookahead) == 'u') {
+              lexer->advance(lexer, false);
+              lexer->mark_end(lexer);
+              return true; // ma'u / ni'u as operator
+            }
+          }
+        }
+        return false;
       }
   }
 
